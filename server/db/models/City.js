@@ -12,6 +12,14 @@ const City = conn.define('cities', {
         type: conn.Sequelize.STRING,
         allowNull: false,
         validate: { notEmpty: true }
+    },
+    aqiThreshold: {
+        type: conn.Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+          min: 0,
+          max: 100
+        }
     }
 })
 

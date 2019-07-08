@@ -13,22 +13,22 @@ const syncAndSeed = () => {
     conn.sync({ force: true })
         .then(() => Promise.all([
             User.create({ username: 'Brian', password: 'Briantam23@' }),
-            User.create({ username: 'Mike', password: 'Mike12#' }),
-            User.create({ username: 'Johnny', password: 'Johnny34&' })
+            //User.create({ username: 'Mike', password: 'Mike12#' }),
+            //User.create({ username: 'Johnny', password: 'Johnny34&' })
         ]))
         .then(users => {
             [Brian, Mike, Johnny] = users;
             return Promise.all([
-                City.create({ name: 'NewYork' }),
-                City.create({ name: 'Chicago' }),
-                City.create({ name: 'Boston' })
+                City.create({ name: 'NewYork', aqiThreshold: 0 }),
+                City.create({ name: 'Chicago', aqiThreshold: 0 }),
+                City.create({ name: 'Boston', aqiThreshold: 0 })
             ])
         })
         .then(cities => {
             [NewYork, Chicago, Boston] = cities;
             NewYork.setUser(Brian);
-            Chicago.setUser(Mike);
-            Boston.setUser(Johnny);
+            //Chicago.setUser(Mike);
+            //Boston.setUser(Johnny);
         })
 }
 

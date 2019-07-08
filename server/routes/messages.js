@@ -7,7 +7,8 @@ setInterval(() => {
     router.get('https://btam-aqi-twilio-alert-app.herokuapp.com');
 }, 300000); 
 
-process.on('uncaughtException', err => {
+//Send SMS of Twilio error message to developer
+/* process.on('uncaughtException', err => {
     console.log(err);
     client.messages
         .create({
@@ -18,7 +19,7 @@ process.on('uncaughtException', err => {
         (twilioErr, message) => {
             if(twilioErr) console.log('Twilio error: ' + twilioErr)
         }
-})
+}) */
 
 router.post('/', (req, res) => {
     res.header('Content-Type', 'application/json');

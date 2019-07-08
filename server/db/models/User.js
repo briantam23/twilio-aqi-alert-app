@@ -21,7 +21,15 @@ const User = conn.define('user', {
         validate: {
             notEmpty: true
         }
-    }
+    },
+    /* phoneNumber: {
+        type: conn.Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+            min: 1000000000,
+            max: 9999999999
+        }
+    } */
 })
 
 

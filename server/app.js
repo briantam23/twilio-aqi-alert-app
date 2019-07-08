@@ -1,12 +1,20 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const bodyParser = require('body-parser');
 const jwt = require('jwt-simple');
 const chalk = require('chalk');
 
 
-// Body parsing middleware
-app.use(require('body-parser').json());
+try {
+    Object.assign(process.env, require('../.env.js'));
+}
+catch(ex) {
+    console.log(ex);
+}
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Static file-serving middleware
 app.use('/public', express.static(path.join(__dirname, '../public')));
@@ -14,6 +22,9 @@ app.use('/public', express.static(path.join(__dirname, '../public')));
 // Sends our index.html (the "single page" of our SPA)
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
 
+// Routes that will be accessed via AJAX that are prepended 
+// with /api so that they are isolated from our GET /* wildcard.
+app.use('/api/messages', require('./routes/messages'));
 
 // Error catching endware
 app.use((err, req, res, next) => {

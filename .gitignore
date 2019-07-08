@@ -1,5 +1,6 @@
 # API_KEY
 .env
+.env.js
 
 # Log
 npm-debug.log*

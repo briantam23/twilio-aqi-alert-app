@@ -5,11 +5,13 @@
     "email": "briantam23@gmail.com",
     "url": "https://briantam23.github.io"
   },
-  "contributors": [{
-    "name": "Brian Tam",
-    "email": "briantam23@gmail.com",
-    "url": "https://briantam23.github.io"
-  }],
+  "contributors": [
+    {
+      "name": "Brian Tam",
+      "email": "briantam23@gmail.com",
+      "url": "https://briantam23.github.io"
+    }
+  ],
   "homepage": "https://btam-aqi-twilio-alert-app.herokuapp.com",
   "version": "1.0.0",
   "description": "",
@@ -30,8 +32,14 @@
   "keywords": [],
   "license": "ISC",
   "babel": {
-    "presets": ["env", "react", "stage-3"],
-    "plugins": ["transform-class-properties"]
+    "presets": [
+      "env",
+      "react",
+      "stage-3"
+    ],
+    "plugins": [
+      "transform-class-properties"
+    ]
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -39,6 +47,7 @@
     "chalk": "^2.4.2",
     "dotenv": "^7.0.0",
     "express": "^4.16.3",
+    "google-maps-react": "^2.0.2",
     "jwt-simple": "^0.5.5",
     "pg": "^7.9.0",
     "react": "^16.4.1",

@@ -25,6 +25,8 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../public/index.ht
 // Routes that will be accessed via AJAX that are prepended 
 // with /api so that they are isolated from our GET /* wildcard.
 app.use('/api/messages', require('./routes/messages'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/cities', require('./routes/cities'));
 
 // Error catching endware
 app.use((err, req, res, next) => {

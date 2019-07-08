@@ -1,0 +1,43 @@
+const conn = require('./conn');
+const User = require('./models/User');
+const City = require('./models/City');
+
+
+City.belongsTo(User);
+User.hasMany(City);
+
+
+const syncAndSeed = () => {
+    let Brian, Mike, Johnny, NewYork, Chicago, Boston;
+
+    conn.sync({ force: true })
+        .then(() => Promise.all([
+            User.create({ username: 'Brian', password: 'Briantam23@' }),
+            User.create({ username: 'Mike', password: 'Mike12#' }),
+            User.create({ username: 'Johnny', password: 'Johnny34&' })
+        ]))
+        .then(users => {
+            [Brian, Mike, Johnny] = users;
+            return Promise.all([
+                City.create({ name: 'NewYork' }),
+                City.create({ name: 'Chicago' }),
+                City.create({ name: 'Boston' })
+            ])
+        })
+        .then(cities => {
+            [NewYork, Chicago, Boston] = cities;
+            NewYork.setUser(Brian);
+            Chicago.setUser(Mike);
+            Boston.setUser(Johnny);
+        })
+}
+
+
+module.exports = {
+    syncAndSeed,
+    models: {
+        User,
+        City
+    },
+    conn
+}

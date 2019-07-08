@@ -1,0 +1,82 @@
+{
+  "name": "btam-aqi-twilio-alert-app",
+  "author": {
+    "name": "Brian Tam",
+    "email": "briantam23@gmail.com",
+    "url": "https://briantam23.github.io"
+  },
+  "contributors": [{
+    "name": "Brian Tam",
+    "email": "briantam23@gmail.com",
+    "url": "https://briantam23.github.io"
+  }],
+  "homepage": "https://github.com/briantam23/aqi-twilio-alert-app",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/briantam23/aqi-twilio-alert-app.git"
+  },
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node ./server/index.js",
+    "heroku-postbuild": "webpack -p",
+    "webpack": "./node_modules/webpack/bin/webpack.js",
+    "build": "npm run webpack -- --watch --mode=development",
+    "start:dev": "npm run build & DATABASE_URL=postgres://localhost/aqi-twilio-alert-app & JWT_SECRET='foo' nodemon server/index.js --ignore dist --ignore src",
+    "test": "mocha ./test/*.test.js --require babel-polyfill --require ignore-styles --compilers js:babel-register",
+    "test:dev": "npm test -- --watch"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "babel": {
+    "presets": ["env", "react", "stage-3"],
+    "plugins": ["transform-class-properties"]
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.18.3",
+    "chalk": "^2.4.2",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.3",
+    "jwt-simple": "^0.5.5",
+    "pg": "^7.9.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "sequelize": "^5.3.0",
+    "volleyball": "^1.5.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "chai": "^4.2.0",
+    "css-loader": "^2.1.0",
+    "dotenv-webpack": "^1.7.0",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "ignore-styles": "^5.0.1",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "mocha": "^5.2.0",
+    "sinon": "^7.2.3",
+    "sinon-chai": "^3.3.0",
+    "style-loader": "^0.23.1",
+    "supertest": "^3.4.2",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  },
+  "engines": {
+    "node": "11.2.0",
+    "npm": "6.5.0"
+  }
+}

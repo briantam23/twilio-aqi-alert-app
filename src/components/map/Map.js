@@ -168,7 +168,7 @@ class Map extends Component {
         <input
             id='autocomplete'
             className={style.autocomplete}
-            placeholder='Check a location!'
+            placeholder='Check a location'
             spellCheck='false'
             autoFocus
         />

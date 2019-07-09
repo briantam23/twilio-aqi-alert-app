@@ -49,12 +49,14 @@ class Map extends Component {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       zoom: 10
     })
+    
+    // Search box
+    const input = document.getElementById('autocomplete');
+    const searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
 
     // Autocomplete
-    const autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('autocomplete'),
-      { types: ['geocode'] }
-    )
+    const autocomplete = new google.maps.places.Autocomplete(input, { types: ['geocode'] });
     autocomplete.addListener('place_changed', onPlaceChanged);
 
     // On Place Change
@@ -164,6 +166,13 @@ class Map extends Component {
     return (
       <Fragment>
         <div ref="map" className={style.mapContainer} />
+        <input
+            id='autocomplete'
+            className={style.autocomplete}
+            placeholder='Check a location!'
+            spellCheck='false'
+            autoFocus
+        />
         <div id='legend-computer' className={style.legendComputer}>
           <img src='/public/img/aqi_legend_computer.png' alt='AQI Legend Computer'/>
         </div>

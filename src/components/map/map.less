@@ -1,3 +1,23 @@
-.mapContainer {
-    flex-grow: 1
+.mapContainer { flex-grow: 1; }
+
+.legendComputer { display: none; }
+
+@media screen and (min-width: 824px) and (min-height: 750px) {
+    .legendComputer {
+        display: block;
+        margin-left: 9px;
+        position: fixed;
+        bottom: 25px;
+    }
+}
+
+.legendMobile { display: none; }
+
+@media screen and (max-width: 823px) { 
+    .legendMobile {
+        display: block;
+        margin-left: 9px;
+        position: fixed;
+        bottom: 25px;
+    }
 }

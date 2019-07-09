@@ -18,8 +18,11 @@ class Map extends Component {
 
     return axios.get('/api/users')
       .then(res => res.data)
-      .then(users => this.setState({ user: users[0] }))
-      .then(() => {
+      .then(users => {
+        console.log(users)
+        this.setState({ user: users[0] })
+      })
+      /* .then(() => {
         //Testing alert by city or Lat/Long!
         //Can also initiate by new Date() function
         setInterval(() => {
@@ -34,7 +37,7 @@ class Map extends Component {
               }
             })
         }, 10000)
-      })
+      }) */
   }
 
   initMap = () => {
@@ -48,7 +51,6 @@ class Map extends Component {
     })
 
     // Autocomplete
-
     const autocomplete = new google.maps.places.Autocomplete(
       document.getElementById('autocomplete'),
       { types: ['geocode'] }
@@ -58,10 +60,10 @@ class Map extends Component {
     // On Place Change
     const places = new google.maps.places.PlacesService(map);
 
-    const onPlaceChanged = () => {
+    function onPlaceChanged() {
       const place = autocomplete.getPlace();
       const position = place.geometry.location;
-      if (place.geometry) {
+      if(place.geometry) {
         map.panTo(position);
         map.setZoom(10);
         search();
@@ -78,17 +80,16 @@ class Map extends Component {
 
     // Air Quality
     const waqiMapOverlay = new google.maps.ImageMapType({
-      getTileUrl: (coord, zoom) => 'https://tiles.waqi.info/tiles/usepa-aqi/' + zoom + '/' + coord.x + '/' + coord.y + '.png?token=<%=AIR_QUALITY_INDEX_KEY%>',
+      getTileUrl: (coord, zoom) => 'https://tiles.waqi.info/tiles/usepa-aqi/' + zoom + '/' + coord.x + '/' + coord.y + `.png?token=${process.env.AIR_QUALITY_INDEX_KEY}`,
       name: 'Air Quality',
     })
-
-    /* map.overlayMapTypes.insertAt(0, waqiMapOverlay);
+    map.overlayMapTypes.insertAt(0, waqiMapOverlay);
 
     // HTML5 geolocation.
     const infoWindow = new google.maps.InfoWindow;
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        position => {
+        (position) => {
           const pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -99,9 +100,8 @@ class Map extends Component {
           infoWindow.open(map);
           map.setCenter(pos);
         },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        })
+        () => handleLocationError(true, infoWindow, map.getCenter())
+      )
     }
     else handleLocationError(false, infoWindow, map.getCenter());
 
@@ -115,9 +115,9 @@ class Map extends Component {
 
     // Set Marker
     const search = () => {
-      const search = { bounds: map.getBounds() };
+      const _search = { bounds: map.getBounds() };
       clearMarker();
-      places.nearbySearch(search, (place, status) => {
+      places.nearbySearch(_search, (place, status) => {
         if(status === google.maps.places.PlacesServiceStatus.OK && place.geometry) {
           marker = new google.maps.Marker({ position });
           dropMarker();
@@ -125,16 +125,16 @@ class Map extends Component {
       })
     }
     const toggleBounce = () => {
-      if (marker.getAnimation() !== null) marker.setAnimation(null);
+      if(marker.getAnimation() !== null) marker.setAnimation(null);
       else marker.setAnimation(google.maps.Animation.BOUNCE);
     }
-    function clearMarker() {
-      if (marker) marker.setMap(null);
-      if (infoWindow) infoWindow.close();
+    const clearMarker = () => {
+      if(marker) marker.setMap(null);
+      if(infoWindow) infoWindow.close();
       marker = null;
     }
-    function dropMarker() {
-      return function () {
+    const dropMarker = () => {
+      return () => {
         marker.setMap(map);
         marker.setAnimation(google.maps.Animation.DROP);
         marker.addListener('click', toggleBounce);
@@ -142,9 +142,9 @@ class Map extends Component {
     }
 
     // Bias results towards geolocation
-    function geolocate() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
+    const geolocate = () => {
+      if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
           const geolocation = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -156,7 +156,7 @@ class Map extends Component {
           autocomplete.setBounds(circle.getBounds());
         })
       }
-    } */
+    }
   }
 
   render() {
@@ -164,12 +164,12 @@ class Map extends Component {
     return (
       <Fragment>
         <div ref="map" className={style.mapContainer} />
-        {/* <div id='legend-computer'>
+        <div id='legend-computer' className={style.legendComputer}>
           <img src='/public/img/aqi_legend_computer.png' alt='AQI Legend Computer'/>
         </div>
-        <div id='legend-mobile'>
+        <div id='legend-mobile' className={style.legendMobile}>
             <img src='/public/img/aqi_legend_mobile.png' alt='AQI Legend Mobile'/>
-        </div> */}
+        </div>
       </Fragment>
     )
   }

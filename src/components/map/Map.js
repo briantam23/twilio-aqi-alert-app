@@ -17,26 +17,39 @@ class Map extends Component {
 
     return axios.get('/api/users')
       .then(res => res.data)
-      /* .then(users => {
+      .then(users => {
         console.log(users)
         this.setState({ user: users[0] })
-      }) */
-      /* .then(() => {
+      })
+      .then(() => {
         //Testing alert by city or Lat/Long!
         //Can also initiate by new Date() function
+        //setInterval(() => {}, 10000)
+
+
         setInterval(() => {
-          return axios.get(`http://api.waqi.info/feed/${this.state.user.cities[0].name}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
-            .then(res => res.data.data.aqi)
-            .then(aqi => {
-              if(aqi >= this.state.user.cities[0].aqiThreshold) {
-                axios.post('/api/messages', {
-                  "to": "5166109915",
-                  "body": "Air Quality Index > 0"
+          const currentDate = new Date();
+          const currentHour = currentDate.getHours();
+          const currentMin = currentDate.getMinutes();
+          const currentSec = currentDate.getSeconds();
+          
+          console.log(currentHour);
+        
+          if(currentHour === 16 || currentHour === 17) {
+            console.log('if')
+            return axios.get(`http://api.waqi.info/feed/${this.state.user.cities[0].name}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
+                .then(res => res.data.data.aqi)
+                .then(aqi => {
+                  if(aqi >= this.state.user.cities[0].aqiThreshold) {
+                    axios.post('/api/messages', {
+                      "to": "5166109915",
+                      "body": "Air Quality Index > 0"
+                    })
+                  }
                 })
-              }
-            })
-        }, 10000)
-      }) */
+          }
+        }, 60000)
+      })
   }
 
   initMap = () => {

@@ -21,7 +21,7 @@ setInterval(() => {
         }
 }) */
 
-/* router.post('/', (req, res) => {
+router.post('/', (req, res) => {
     res.header('Content-Type', 'application/json');
     client.messages
       .create({
@@ -36,7 +36,7 @@ setInterval(() => {
         console.log(err);
         res.send(JSON.stringify({ success: false }));
       });
-}); */
+});
 
 
 module.exports = router;

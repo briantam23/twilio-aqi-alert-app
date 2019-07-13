@@ -37,7 +37,7 @@ class Map extends Component {
         
           if(currentHour === 16 || currentHour === 17) {
             console.log('if')
-            return axios.get(`http://api.waqi.info/feed/${this.state.user.cities[0].name}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
+            return axios.get(`https://api.waqi.info/feed/${this.state.user.cities[0].name}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
                 .then(res => res.data.data.aqi)
                 .then(aqi => {
                   if(aqi >= this.state.user.cities[0].aqiThreshold) {
@@ -48,7 +48,7 @@ class Map extends Component {
                   }
                 })
           }
-        }, 60000)
+        }, 10000)
       })
   }
 

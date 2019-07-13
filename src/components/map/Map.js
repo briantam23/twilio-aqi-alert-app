@@ -35,7 +35,7 @@ class Map extends Component {
           
           console.log(currentHour);
         
-          if(currentHour === 16 || currentHour === 17) {
+          if(currentHour === 18 || currentHour === 8) {
             console.log('if')
             return axios.get(`https://api.waqi.info/feed/${this.state.user.cities[0].name}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
                 .then(res => res.data.data.aqi)
@@ -48,7 +48,7 @@ class Map extends Component {
                   }
                 })
           }
-        }, 60000)
+        }, 3600000)
       })
   }
 

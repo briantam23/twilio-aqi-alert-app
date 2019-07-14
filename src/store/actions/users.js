@@ -25,3 +25,17 @@ export const createUser = user => (
             .then(_user => dispatch(_createUser(_user)))
     )
 )
+
+
+const _updateUser = user => ({
+    type: UPDATE_USER,
+    user
+})
+export const updateUser = (user, history) => (
+    dispatch => (
+        axios.put(`/api/users/${user.id}`, user)
+            .then(res => res.data)
+            .then(_user => dispatch(_updateUser(_user)))
+            //.then(() => history.push('/'))
+    )
+)

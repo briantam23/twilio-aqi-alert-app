@@ -24,5 +24,17 @@ router.get('/:userId', (req, res, next) => {
         .catch(next)
 })
 
+router.post('/', (req, res, next) => {
+    User.create(req.body)
+        .then(user => res.send(user))
+        .catch(next)
+})
+
+router.put('/:id', (req, res, next) => {
+    User.findByPk(req.params.id)
+        .then(user => user.update(req.body))
+        .then(_user => res.send(_user))
+        .catch(next)
+})
 
 module.exports = router;

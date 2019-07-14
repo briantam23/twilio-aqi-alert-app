@@ -1,4 +1,4 @@
-import { LOAD_INITIAL_USERS, CREATE_USER } from '../constants';
+import { LOAD_INITIAL_USERS, CREATE_USER, UPDATE_USER } from '../constants';
 
 
 const usersReducer = (state = [], action) => {
@@ -7,6 +7,8 @@ const usersReducer = (state = [], action) => {
             return action.users;
         case CREATE_USER:
             return [...state, action.user];
+        case UPDATE_USER:
+            return state.map(user => user.id !== action.user.id ? user : action.user);
         default:
             return state;
     }

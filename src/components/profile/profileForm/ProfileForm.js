@@ -1,9 +1,9 @@
 import React from 'react';
-import style from './createProfile.less';
-import profileForm from '../../../higherOrderComponents/profileForm/profileForm';
+import style from './profileForm.less';
+import profileFormHOC from '../../../higherOrderComponents/profileFormHOC/profileFormHOC';
 
 
-const CreateProfile = ({ username, password, phoneNumber, handleChange, handleSubmit }) => {
+const ProfileForm = ({ username, password, phoneNumber, handleChange, handleSubmit }) => {
     return (
         <div /* className={ style.profileFormContainer } */>
             <h1>Create Profile</h1>
@@ -44,4 +44,4 @@ const CreateProfile = ({ username, password, phoneNumber, handleChange, handleSu
 }
 
 
-export default profileForm(CreateProfile);
+export default profileFormHOC(ProfileForm);

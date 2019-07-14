@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import createUser from '../../store/actions/users';
+import { createUser } from '../../store/actions/users';
 
 
-const profileForm = FormComponent => {
+const profileFormHOC = FormComponent => {
 
     return class StatefulForm extends Component {
         
@@ -23,17 +23,20 @@ const profileForm = FormComponent => {
         }
     
         handleChange = e => {
-            e.preventDefault();
+            //e.preventDefault();
             this.setState({ [e.target.name]: e.target.value });
         }
     
         handleSubmit = e => {
             e.preventDefault();
-            //this.props.submit(this.state);
+            const { history, createUser } = this.props;
+            const { username, password, phoneNumber } = this.state
+            
+            createUser({ username, password, phoneNumber }, history)
+                .catch(() => this.setState({ error: 'Error! Username, password and/or phone number taken. Please try again.'}))
         }
 
         render () {
-            console.log(this.props.users, this.props.auth)
             const { handleChange, handleSubmit } = this;
             return <FormComponent {...this.state} handleChange={handleChange} handleSubmit={handleSubmit} />
         }
@@ -46,9 +49,9 @@ const mapStateToProps = ({ auth, users }, { id, history }) => ({ auth, users, id
 const mapDispatchToProps = { createUser };
 
 
-const composedHoc = compose(
+const composedHOC = compose(
     connect(mapStateToProps, mapDispatchToProps),
-    profileForm
+    profileFormHOC
 )
 
-export default composedHoc;
+export default composedHOC;

@@ -10,7 +10,7 @@ const chalk = require('chalk');
 //Heroku ordinarily terminates idle dynos, so this will run the app indefinitely
 setInterval(() => {
     http.get('http://btam-aqi-twilio-alert-app.herokuapp.com');
-}, 300000); 
+}, 1000 * 60 * 45); // every 45 minutes 
 
 // For ENV Variables
 if (process.env.NODE_ENV !== 'production') {

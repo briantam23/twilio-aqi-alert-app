@@ -1,15 +1,14 @@
 import React from 'react';
 import style from './createProfile.less';
-import profileForm from '../profileForm/profileForm';
+import profileForm from '../../../higherOrderComponents/profileForm/profileForm';
 
 
 const CreateProfile = ({ username, password, handleChange, handleSubmit }) => {
-    console.log(username, password, handleChange)
     return (
-        <div className={ style.profileFormContainer }>
+        <div /* className={ style.profileFormContainer } */>
             <h1>Create Profile</h1>
             <form onSubmit={ handleSubmit } className={ style.authForm }>
-                {/* <input 
+                <input 
                     onChange={ handleChange } 
                     value={ username } 
                     name='username' 
@@ -28,8 +27,8 @@ const CreateProfile = ({ username, password, handleChange, handleSubmit }) => {
                     type='password'
                     />
                 <button disabled={ !username && !password } className={ style.authSubmit }>
-                    Submit
-                </button> */}
+                    Create
+                </button>
             </form>
         </div>
     )

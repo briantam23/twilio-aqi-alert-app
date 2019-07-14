@@ -33,7 +33,7 @@ class Map extends Component {
 
           console.log(currentHour);
 
-          if(currentHour >= 11 && currentHour <= 16) {
+          if(currentHour >= 14 && currentHour <= 20) {
             console.log('text')
             return axios.get(`https://api.waqi.info/feed/${this.state.user.cities[0].name}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
               .then(res => res.data.data.aqi)

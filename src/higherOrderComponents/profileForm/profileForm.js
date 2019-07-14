@@ -6,7 +6,7 @@ const profileForm = FormComponent => {
     return class StatefulForm extends Component {
         
         state = {
-            username: 'btam',
+            username: '',
             password: '',
             error: ''
         }

@@ -55,7 +55,7 @@ setInterval(() => {
             console.log(err);
             res.sendStatus(501);
         });
-}, 1000 * 60 * 20); // Every 20 Minutes
+}, 1000 * 60 * 1); // Every Minute
 
 
 

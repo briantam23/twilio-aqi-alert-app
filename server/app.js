@@ -1,17 +1,63 @@
 const express = require('express');
 const app = express();
 const { User } = require('./db').models;
-const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
 const jwt = require('jwt-simple');
 const chalk = require('chalk');
 
 
-/* //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
+const rp = require('request-promise');
+
 setInterval(() => {
-    http.get('http://btam-aqi-twilio-alert-app.herokuapp.com');
-}, 1000 * 60 * 29); // every 29 minutes  */
+    const users = {
+        uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/users',
+        headers: { 'User-Agent': 'Request-Promise' },
+        json: true
+    };
+    rp(users)
+        .then(users => {
+            //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
+
+            const currentDate = new Date();
+            const currentHour = currentDate.getHours();
+
+            console.log(currentHour, users[0]);
+
+            if(currentHour >= 14 && currentHour <= 20) {
+            console.log('text')
+            const waqi = {
+                uri: `https://api.waqi.info/feed/${users[0].cities[0].name}/`,
+                qs: { token: `${process.env.AIR_QUALITY_INDEX_KEY}` },
+                headers: { 'User-Agent': 'Request-Promise' },
+                json: true // Automatically parses the JSON string in the response
+            };
+            rp(waqi)
+                .then(res => res.data.aqi)
+                .then(aqi => {
+                    if(aqi >= users[0].cities[0].aqiThreshold) {
+                        const message = {
+                            method: 'POST',
+                            uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/messages',
+                            body: {
+                                to: '5166109915',
+                                body: 'Air Quality Index > 0'
+                            },
+                            json: true // Automatically stringifies the body to JSON
+                        };
+                        rp(message)
+                            .then(() => console.log('message success'))
+                            .catch(err => console.log(error))
+                    }
+                })
+            }
+        }).catch(err => {
+            console.log(err);
+            res.sendStatus(501);
+        });
+}, 1000 * 60 * 20); // Every 20 Minutes
+
+
 
 // For ENV Variables
 if (process.env.NODE_ENV !== 'production') {

@@ -1,7 +1,6 @@
 import React, { Component, Fragment, createRef } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import https from 'https';
 import { loadInitialUsers } from '../../store/actions/users';
 import { loadScript, _initMap } from '../../util';
 import style from './map.less';
@@ -21,7 +20,7 @@ class Map extends Component {
 
     this.props.loadInitialUsers()
     
-    setInterval(() => {
+    /* setInterval(() => {
 
       return axios.get('/api/users')
         .then(res => res.data)
@@ -49,7 +48,7 @@ class Map extends Component {
           }
         })
         .then(() => https.get('https://btam-aqi-twilio-alert-app.herokuapp.com')) //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
-      }, 1000 * 60 * 20) // every 20 minutes
+      }, 1000 * 60 * 20) // every 20 minutes */
   }
 
   render() {

@@ -20,13 +20,13 @@ class Map extends Component {
 
     this.props.loadInitialUsers()
     
-    return axios.get('/api/users')
-      .then(res => res.data)
-      .then(users => this.setState({ user: users[0] }))
-      .then(() => {
-        //Testing alert by city or Lat/Long!
+    setInterval(() => {
+      return axios.get('/api/users')
+        .then(res => res.data)
+        .then(users => this.setState({ user: users[0] }))
+        .then(() => {
+          //Testing alert by city or Lat/Long!
 
-        setInterval(() => {
           const currentDate = new Date();
           const currentHour = currentDate.getHours();
 
@@ -45,8 +45,8 @@ class Map extends Component {
                 }
               })
           }
-        }, 1000 * 60 * 30) // every half an hour
-      })
+        })
+      }, 1000 * 60 * 30) // every half an hour)
   }
 
   render() {

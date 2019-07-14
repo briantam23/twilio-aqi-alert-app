@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
 import style from './profileForm.less';
 import profileFormHOC from '../../../higherOrderComponents/profileFormHOC/profileFormHOC';
-import Logout from '../logout/Logout';
+import Logout from './logout/Logout';
 
 
 const ProfileForm = ({ username, password, phoneNumber, handleChange, handleSubmit, auth, pathname }) => {
+
     if(auth.id && pathname.slice(9) === 'auth') return <Logout auth={ auth } />;
+    
     return(
         <div /* className={ style.profileFormContainer } */>
         {

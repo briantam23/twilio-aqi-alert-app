@@ -5,8 +5,8 @@ import ProfileForm from './profileForm/ProfileForm';
 
 
 const Profile = () => (
-    <div className={style.profileContainer}>
-        <Route path={ '/profile/auth' || '/profile/create' || '/profile/:id' } render={ ({ match, location, history }) => 
+    <div className={ style.profileContainer }>
+        <Route /* path={ '/profile/auth' || '/profile/create' || '/profile/:id' } */ render={ ({ match, location, history }) => 
             <ProfileForm id={ match.params.id } pathname={ location.pathname } history={ history } /> } />
     </div>
 )

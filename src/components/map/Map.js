@@ -52,18 +52,18 @@ class Map extends Component {
   render() {
     return(
       <Fragment>
-        <div ref="map" className={style.mapContainer} />
+        <div ref="map" className={ style.mapContainer } />
         <input
             id='autocomplete'
-            className={style.autocomplete}
+            className={ style.autocomplete }
             placeholder='Check a location'
             spellCheck='false'
             autoFocus
         />
-        <div id='legend-computer' className={style.legendComputer}>
+        <div id='legend-computer' className={ style.legendComputer }>
             <img src='/public/img/aqi_legend_computer.png' alt='AQI Legend Computer' />
         </div>
-        <div id='legend-mobile' className={style.legendMobile}>
+        <div id='legend-mobile' className={ style.legendMobile }>
             <img src='/public/img/aqi_legend_mobile.png' alt='AQI Legend Mobile' />
         </div>
       </Fragment>

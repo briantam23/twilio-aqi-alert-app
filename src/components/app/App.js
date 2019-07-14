@@ -9,7 +9,7 @@ import Profile from '../profile/Profile';
 const App = () => {
     return(
         <Router>
-            <div className={style.mainContainer}>
+            <div className={ style.mainContainer }>
                 <Nav/>
                 <Map/>
                 <Route path='/profile' render={ () => <Profile/> }/>

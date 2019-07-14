@@ -1,0 +1,36 @@
+@import '../profileForm/profileForm';
+
+
+.authWelcome {
+    display: inline-block;
+    padding: @padding;
+    font-size: 30px;
+    font-weight: bold;
+    position: relative;
+    top: 18px;
+
+    @media @desktop-down {
+        padding: 5px 10px 5px 5px;
+        top: 28px;
+        font-size: 25px;
+    }
+
+    .authLogout {
+        padding: 11px 22px;
+        background-color: #DC3545;
+        color: white;
+        font-size: @fontSize;
+        transition: all 1s ease;
+        position: relative;
+        top: 15px;
+        margin: 0px 15px 0px 5px;
+        cursor: pointer;
+        outline-style: none;
+
+        @media @desktop-down {
+            padding: 5px 10px;
+            top: 26px;
+        }
+    }
+    .authLogout:hover { background-color: rgb(124, 29, 38); }
+}

@@ -33,10 +33,12 @@ const profileFormHOC = FormComponent => {
             const { auth, login, logout, createUser, pathname, history } = this.props;
             const { username, password, phoneNumber } = this.state
             
-            createUser({ username, password, phoneNumber }, history)
-                .catch(() => this.setState({ error: 'Error! Username, password and/or phone number taken. Please try again.'}))
-
+            if(pathname.slice(9) === 'create') {
+                createUser({ username, password, phoneNumber }, history)
+                    .catch(() => this.setState({ error: 'Error! Username, password and/or phone number taken. Please try again.'}))
+            }
         
+            else if(pathname.slice(9) === 'auth') {
                 !auth.id ? (
                     login(this.state, history)
                         .catch(() => this.setState({ 
@@ -45,12 +47,19 @@ const profileFormHOC = FormComponent => {
                             error: 'Incorrect Username and/or Password. Please try again. (X)' 
                         })) 
                 ) : logout(history)
+            }
         }
 
         render () {
-            console.log(this.props.pathname)
             const { handleChange, handleSubmit } = this;
-            return <FormComponent {...this.state} handleChange={handleChange} handleSubmit={handleSubmit} />
+            return(
+                <FormComponent 
+                    { ...this.state } 
+                    { ...this.props } 
+                    handleChange={ handleChange } 
+                    handleSubmit={ handleSubmit } 
+                />
+            )
         }
     }
 }

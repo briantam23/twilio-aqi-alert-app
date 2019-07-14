@@ -45,7 +45,7 @@ class Map extends Component {
                 }
               })
           }
-        }, 1000 * 10)//60 * 30) // every half an hour
+        }, 1000 * 60 * 30) // every half an hour
       })
   }
 

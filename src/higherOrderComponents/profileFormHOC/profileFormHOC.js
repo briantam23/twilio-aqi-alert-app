@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { login, logout } from '../../store/actions/auth';
 import { createUser } from '../../store/actions/users';
 
 
@@ -29,14 +30,25 @@ const profileFormHOC = FormComponent => {
     
         handleSubmit = e => {
             e.preventDefault();
-            const { history, createUser } = this.props;
+            const { auth, login, logout, createUser, pathname, history } = this.props;
             const { username, password, phoneNumber } = this.state
             
             createUser({ username, password, phoneNumber }, history)
                 .catch(() => this.setState({ error: 'Error! Username, password and/or phone number taken. Please try again.'}))
+
+        
+                !auth.id ? (
+                    login(this.state, history)
+                        .catch(() => this.setState({ 
+                            username: '', 
+                            password: '',
+                            error: 'Incorrect Username and/or Password. Please try again. (X)' 
+                        })) 
+                ) : logout(history)
         }
 
         render () {
+            console.log(this.props.pathname)
             const { handleChange, handleSubmit } = this;
             return <FormComponent {...this.state} handleChange={handleChange} handleSubmit={handleSubmit} />
         }
@@ -44,9 +56,9 @@ const profileFormHOC = FormComponent => {
 }
 
 
-const mapStateToProps = ({ auth, users }, { id, history }) => ({ auth, users, id, history });
+const mapStateToProps = ({ auth, users }, { id, pathname, history }) => ({ auth, users, id, pathname, history });
 
-const mapDispatchToProps = { createUser };
+const mapDispatchToProps = { login, logout, createUser };
 
 
 const composedHOC = compose(

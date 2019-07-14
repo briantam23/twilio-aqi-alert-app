@@ -8,10 +8,10 @@ const jwt = require('jwt-simple');
 const chalk = require('chalk');
 
 
-//Heroku ordinarily terminates idle dynos, so this will run the app indefinitely
+//Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
 setInterval(() => {
     http.get('http://btam-aqi-twilio-alert-app.herokuapp.com');
-}, 1000 * 60 * 45); // every 45 minutes 
+}, 1000 * 60 * 29); // every 29 minutes 
 
 // For ENV Variables
 if (process.env.NODE_ENV !== 'production') {

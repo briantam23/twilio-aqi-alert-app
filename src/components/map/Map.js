@@ -49,7 +49,7 @@ class Map extends Component {
           }
         })
         .then(() => https.get('https://btam-aqi-twilio-alert-app.herokuapp.com')) //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
-      }, 1000 * 10)//60 * 25) // every 25 minutes)
+      }, 1000 * 60 * 20) // every 20 minutes
   }
 
   render() {

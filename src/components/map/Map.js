@@ -18,10 +18,10 @@ class Map extends Component {
     window.initMap = initMap;
     loadScript();
 
-    this.props.loadInitialUsers()
-      .then(() => console.log(this.props.users))
+    /* this.props.loadInitialUsers()
+      .then(() => console.log(this.props.users)) */
     
-    /* return axios.get('/api/users')
+    return axios.get('/api/users')
       .then(res => res.data)
       .then(users => this.setState({ user: users[0] }))
       .then(() => {
@@ -33,12 +33,12 @@ class Map extends Component {
 
           console.log(currentHour);
 
-          if (currentHour === 18 || currentHour === 8) {
-            console.log('if')
+          if(currentHour >= 11 && currentHour <= 16) {
+            console.log('text')
             return axios.get(`https://api.waqi.info/feed/${this.state.user.cities[0].name}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
               .then(res => res.data.data.aqi)
               .then(aqi => {
-                if (aqi >= this.state.user.cities[0].aqiThreshold) {
+                if(aqi >= this.state.user.cities[0].aqiThreshold) {
                   axios.post('/api/messages', {
                     "to": "5166109915",
                     "body": "Air Quality Index > 0"
@@ -46,13 +46,13 @@ class Map extends Component {
                 }
               })
           }
-        }, 3600000)
-      }) */
+        }, 1000 * 60 * 60) // every hour
+      })
   }
 
   render() {
     console.log(this.state)
-    return (
+    return(
       <Fragment>
         <div ref="map" className={style.mapContainer} />
         <input

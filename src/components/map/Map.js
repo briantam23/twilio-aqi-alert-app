@@ -16,7 +16,7 @@ class Map extends Component {
     
     const initMap = () => _initMap(this);
     window.initMap = initMap;
-    loadScript();
+    loadScript(`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places&callback=initMap`);
 
     /* this.props.loadInitialUsers()
       .then(() => console.log(this.props.users)) */

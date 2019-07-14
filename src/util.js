@@ -6,11 +6,11 @@ catch(ex) {
 }
 
 
-export const loadScript = () => {
+export const loadScript = src => {
   const ref = window.document.getElementsByTagName("script")[0];
   const script = window.document.createElement("script");
   
-  script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places&callback=initMap`;
+  script.src = src;
   script.async = true;
   ref.parentNode.insertBefore(script, ref);
 }

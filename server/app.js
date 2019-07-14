@@ -1,16 +1,23 @@
 const express = require('express');
 const app = express();
+const https = require('https');
 const path = require('path');
 const bodyParser = require('body-parser');
 const jwt = require('jwt-simple');
 const chalk = require('chalk');
 
 
+//Heroku ordinarily terminates idle dynos, so this will run the app indefinitely
+setInterval(() => {
+    https.get('https://btam-aqi-twilio-alert-app.herokuapp.com');
+}, 300000); 
+
+// For ENV Variables
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-
+// Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

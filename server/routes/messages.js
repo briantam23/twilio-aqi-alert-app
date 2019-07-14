@@ -2,11 +2,6 @@ const router = require('express').Router();
 const client = require('twilio')(process.env.TWILIO_ACCOUT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 
-//Heroku ordinarily terminates idle dynos, so this will run the app indefinitely
-/* setInterval(() => {
-    router.get('https://btam-aqi-twilio-alert-app.herokuapp.com');
-}, 300000);  */
-
 //Send SMS of Twilio error message to developer
 /* process.on('uncaughtException', err => {
     console.log(err);

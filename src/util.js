@@ -9,7 +9,7 @@ catch(ex) {
 export const loadScript = () => {
   const ref = window.document.getElementsByTagName("script")[0];
   const script = window.document.createElement("script");
-  console.log(ref, script)
+  
   script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places&callback=initMap`;
   script.async = true;
   ref.parentNode.insertBefore(script, ref);

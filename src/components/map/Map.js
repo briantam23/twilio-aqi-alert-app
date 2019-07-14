@@ -1,5 +1,7 @@
 import React, { Component, Fragment, createRef } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
+import { loadInitialUsers } from '../../store/actions/users';
 import { loadScript, _initMap } from '../../util';
 import style from './map.less';
 
@@ -11,17 +13,17 @@ class Map extends Component {
   }
 
   componentDidMount = () => {
-
+    
     const initMap = () => _initMap(this);
     window.initMap = initMap;
     loadScript();
 
-    return axios.get('/api/users')
+    this.props.loadInitialUsers()
+      .then(() => console.log(this.props.users))
+    
+    /* return axios.get('/api/users')
       .then(res => res.data)
-      .then(users => {
-        console.log(users)
-        this.setState({ user: users[0] })
-      })
+      .then(users => this.setState({ user: users[0] }))
       .then(() => {
         //Testing alert by city or Lat/Long!
 
@@ -45,7 +47,7 @@ class Map extends Component {
               })
           }
         }, 3600000)
-      })
+      }) */
   }
 
   render() {
@@ -71,5 +73,7 @@ class Map extends Component {
   }
 }
 
+const mapStateToProps = ({ users }) => ({ users });
+const mapDispatchToProps = { loadInitialUsers };
 
-export default Map;
+export default connect(mapStateToProps, mapDispatchToProps)(Map);

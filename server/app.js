@@ -46,6 +46,7 @@ app.use((req, res, next) => {
 // Routes that will be accessed via AJAX that are prepended 
 // with /api so that they are isolated from our GET /* wildcard.
 app.use('/api/messages', require('./routes/messages'));
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/cities', require('./routes/cities'));
 

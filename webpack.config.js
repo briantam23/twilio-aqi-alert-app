@@ -1,3 +1,6 @@
+const Dotenv = require('dotenv-webpack');
+
+
 module.exports = {
   devtool: 'source-map',
   output: {
@@ -28,5 +31,6 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  plugins: [new Dotenv({ systemvars: true })]
 };

@@ -6,11 +6,8 @@ const jwt = require('jwt-simple');
 const chalk = require('chalk');
 
 
-try {
-    Object.assign(process.env, require('../.env.js'));
-}
-catch(ex) {
-    console.log(ex);
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
 }
 
 

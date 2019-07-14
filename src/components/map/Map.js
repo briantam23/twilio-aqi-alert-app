@@ -18,8 +18,7 @@ class Map extends Component {
     window.initMap = initMap;
     loadScript();
 
-    /* this.props.loadInitialUsers()
-      .then(() => console.log(this.props.users)) */
+    this.props.loadInitialUsers()
     
     return axios.get('/api/users')
       .then(res => res.data)
@@ -51,7 +50,6 @@ class Map extends Component {
   }
 
   render() {
-    console.log(this.state)
     return(
       <Fragment>
         <div ref="map" className={style.mapContainer} />

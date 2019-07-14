@@ -9,8 +9,8 @@ const Nav = () => (
         <input className={ style.menuBtn} type="checkbox" id="menu-btn" />
         <label className={ style.menuIcon} htmlFor="menu-btn"><span className={ style.navicon }></span></label>
         <ul className={ style.menu }>
-            <li><Link to='/'>Sign up for Air Quality alerts!</Link></li>
-            <li><Link to='/my-profile'>Sign in</Link></li>
+            <li><Link to='/profile/create'>Sign up for Air Quality alerts!</Link></li>
+            <li><Link to='/profile'>Sign in</Link></li>
         </ul>
     </div>
 )

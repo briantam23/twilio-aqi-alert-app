@@ -3,7 +3,7 @@ import style from './createProfile.less';
 import profileForm from '../../../higherOrderComponents/profileForm/profileForm';
 
 
-const CreateProfile = ({ username, password, handleChange, handleSubmit }) => {
+const CreateProfile = ({ username, password, phoneNumber, handleChange, handleSubmit }) => {
     return (
         <div /* className={ style.profileFormContainer } */>
             <h1>Create Profile</h1>
@@ -16,7 +16,7 @@ const CreateProfile = ({ username, password, handleChange, handleSubmit }) => {
                     size='20'
                     required
                     autoFocus 
-                    />
+                />
                 <input 
                     onChange={ handleChange }
                     value={ password } 
@@ -25,8 +25,17 @@ const CreateProfile = ({ username, password, handleChange, handleSubmit }) => {
                     size='20'
                     required
                     type='password'
-                    />
-                <button disabled={ !username && !password } className={ style.authSubmit }>
+                />
+                <input 
+                    onChange={ handleChange }
+                    value={ phoneNumber } 
+                    name='phoneNumber' 
+                    placeholder='Phone Number'
+                    size='20'
+                    required
+                    type='tel'
+                />
+                <button disabled={ !username && !password && !phoneNumber } className={ style.authSubmit }>
                     Create
                 </button>
             </form>

@@ -12,7 +12,7 @@ const App = () => {
             <div className={style.mainContainer}>
                 <Nav/>
                 <Map/>
-                <Route path='/my-profile' render={ () => <Profile/> }/>
+                <Route path='/profile' render={ () => <Profile/> }/>
             </div>
         </Router>
     )

@@ -12,7 +12,7 @@ const syncAndSeed = () => {
 
     conn.sync({ force: true })
         .then(() => Promise.all([
-            User.create({ username: 'Brian', password: 'Briantam23@' }),
+            User.create({ username: 'Brian', password: 'Briantam23@', phoneNumber: '5166109915' }),
             //User.create({ username: 'Mike', password: 'Mike12#' }),
             //User.create({ username: 'Johnny', password: 'Johnny34&' })
         ]))

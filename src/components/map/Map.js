@@ -12,9 +12,9 @@ class Map extends Component {
 
   componentDidMount = () => {
 
-    const initMap = () => _initMap(this, document);
+    const initMap = () => _initMap(this);
     window.initMap = initMap;
-    loadScript(`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places&callback=initMap`);
+    loadScript();
 
     return axios.get('/api/users')
       .then(res => res.data)
@@ -54,17 +54,17 @@ class Map extends Component {
       <Fragment>
         <div ref="map" className={style.mapContainer} />
         <input
-          id='autocomplete'
-          className={style.autocomplete}
-          placeholder='Check a location'
-          spellCheck='false'
-          autoFocus
+            id='autocomplete'
+            className={style.autocomplete}
+            placeholder='Check a location'
+            spellCheck='false'
+            autoFocus
         />
         <div id='legend-computer' className={style.legendComputer}>
-          <img src='/public/img/aqi_legend_computer.png' alt='AQI Legend Computer' />
+            <img src='/public/img/aqi_legend_computer.png' alt='AQI Legend Computer' />
         </div>
         <div id='legend-mobile' className={style.legendMobile}>
-          <img src='/public/img/aqi_legend_mobile.png' alt='AQI Legend Mobile' />
+            <img src='/public/img/aqi_legend_mobile.png' alt='AQI Legend Mobile' />
         </div>
       </Fragment>
     )

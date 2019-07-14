@@ -3,9 +3,9 @@ import style from './profile.less';
 
 
 const Profile = () => (
-    <Fragment>
-        <h1 className={ style.profileHeader }>My Profile</h1>
-    </Fragment>
+    <div className={style.profileContainer}>
+        <h1 className={style.profileHeader}>My Profile</h1>
+    </div>
 )
 
 

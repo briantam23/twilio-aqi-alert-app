@@ -11,7 +11,7 @@ const App = () => {
         <Router>
             <div className={style.mainContainer}>
                 <Nav/>
-                <Route exact path='/' render={ () => <Map/> }/>
+                <Map/>
                 <Route path='/my-profile' render={ () => <Profile/> }/>
             </div>
         </Router>

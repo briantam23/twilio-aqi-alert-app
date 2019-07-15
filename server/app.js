@@ -7,8 +7,18 @@ const jwt = require('jwt-simple');
 const chalk = require('chalk');
 
 
+// For ENV Variables
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
+console.log(process.env.TWILIO_AUTH_TOKEN, process.env.TWILIO_ACCOUNT_SID)
+
 const rp = require('request-promise');
+//const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN); 
 //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
+
+// Fix SID
 
 setInterval(() => {
     const users = {
@@ -24,7 +34,7 @@ setInterval(() => {
 
             console.log(currentHour, users[0]);
 
-            if(currentHour >= 14 && currentHour <= 20) {
+            if(currentHour >= 21 && currentHour <= 24) {
             console.log('text')
             const waqi = {
                 uri: `https://api.waqi.info/feed/${users[0].cities[0].name}/`,
@@ -47,22 +57,27 @@ setInterval(() => {
                         };
                         rp(message)
                             .then(() => console.log('message success'))
-                            .catch(err => console.log(error))
+                            .catch(err => console.log('err1'))
+                        /* client.messages
+                            .create({
+                              from: process.env.TWILIO_PHONE_NUMBER,
+                              to: '+15166109915',
+                              body: 'Air Quality Index > 0'
+                            })
+                            .then(() => {
+                              res.send(JSON.stringify({ success: true }));
+                            })
+                            .catch(err => {
+                              console.log(err);
+                              res.send(JSON.stringify({ success: false }));
+                            }); */
                     }
                 })
             }
-        }).catch(err => {
-            console.log(err);
-            res.sendStatus(501);
-        });
+        })
+        .catch(err => console.log('err2'));
 }, 1000 * 60 * 1); // Every Minute
 
-
-
-// For ENV Variables
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
-}
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));

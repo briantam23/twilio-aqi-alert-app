@@ -12,8 +12,6 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-console.log(process.env.TWILIO_AUTH_TOKEN, process.env.TWILIO_ACCOUNT_SID)
-
 const rp = require('request-promise');
 //const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN); 
 //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
@@ -35,7 +33,7 @@ setInterval(() => {
             console.log(currentHour, users[0]);
 
             // Heroku uses UTC!
-            if(currentHour > 0 && currentHour <= 3) {
+            if(currentHour === 9 && currentHour === 15) {
             console.log('text')
             const waqi = {
                 uri: `https://api.waqi.info/feed/${users[0].cities[0].name}/`,
@@ -58,26 +56,13 @@ setInterval(() => {
                         };
                         rp(message)
                             .then(() => console.log('message success'))
-                            .catch(err => console.log('err1'))
-                        /* client.messages
-                            .create({
-                              from: process.env.TWILIO_PHONE_NUMBER,
-                              to: '+15166109915',
-                              body: 'Air Quality Index > 0'
-                            })
-                            .then(() => {
-                              res.send(JSON.stringify({ success: true }));
-                            })
-                            .catch(err => {
-                              console.log(err);
-                              res.send(JSON.stringify({ success: false }));
-                            }); */
+                            .catch(err => console.log(err))
                     }
                 })
             }
         })
-        .catch(err => console.log('err2'));
-}, 1000 * 60 * 1); // Every Minute
+        .catch(err => console.log(err));
+}, 1000 * 60 * 25); // Every 25 minutes
 
 
 // Body Parser

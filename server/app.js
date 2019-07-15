@@ -8,7 +8,7 @@ const chalk = require('chalk');
 
 
 // For ENV Variables
-if (process.env.NODE_ENV !== 'production') {
+if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
@@ -34,7 +34,8 @@ setInterval(() => {
 
             console.log(currentHour, users[0]);
 
-            if(currentHour >= 21 && currentHour <= 24) {
+            // Heroku uses UTC!
+            if(currentHour > 0 && currentHour <= 3) {
             console.log('text')
             const waqi = {
                 uri: `https://api.waqi.info/feed/${users[0].cities[0].name}/`,

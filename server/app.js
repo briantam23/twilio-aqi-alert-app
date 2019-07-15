@@ -8,6 +8,7 @@ const chalk = require('chalk');
 
 
 const rp = require('request-promise');
+//Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
 
 setInterval(() => {
     const users = {
@@ -17,7 +18,6 @@ setInterval(() => {
     };
     rp(users)
         .then(users => {
-            //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
 
             const currentDate = new Date();
             const currentHour = currentDate.getHours();
@@ -40,7 +40,7 @@ setInterval(() => {
                             method: 'POST',
                             uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/messages',
                             body: {
-                                to: '5166109915',
+                                to: '+15166109915',
                                 body: 'Air Quality Index > 0'
                             },
                             json: true // Automatically stringifies the body to JSON

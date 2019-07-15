@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const client = require('twilio')(process.env.TWILIO_ACCOUT_SID, process.env.TWILIO_AUTH_TOKEN);
+const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 
 //Send SMS of Twilio error message to developer

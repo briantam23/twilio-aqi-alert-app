@@ -59,12 +59,16 @@ setInterval(() => {
             }
             else {
                 console.log('do not text');
-                rp(_users)
+                const _call = {
+                    uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/',
+                    headers: { 'User-Agent': 'Request-Promise' }
+                };
+                rp(_call)
                     .catch(err => console.log(err))
             }
         })
         .catch(err => console.log(err));
-}, 1000 * 10)//60 * 25); // Every 25 minutes
+}, 1000 * 60 * 25); // Every 25 minutes
 
 
 // Body Parser

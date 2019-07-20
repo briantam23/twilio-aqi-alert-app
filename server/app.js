@@ -16,12 +16,12 @@ if(process.env.NODE_ENV !== 'production') {
 //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
 
 setInterval(() => {
-    const users = {
+    const _users = {
         uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/users',
         headers: { 'User-Agent': 'Request-Promise' },
         json: true
     };
-    rp(users)
+    rp(_users)
         .then(users => {
 
             const currentDate = new Date();
@@ -30,19 +30,19 @@ setInterval(() => {
             console.log(currentHour, users[0]);
             
             // Heroku uses UTC!
-            if(currentHour === 9 || currentHour === 17 || currentHour === 21 || currentHour === 22) {
+            if(currentHour === 9 || currentHour === 16 || currentHour === 22 || currentHour === 23) {
                 console.log('text')
-                const waqi = {
+                const _waqi = {
                     uri: `https://api.waqi.info/feed/${users[0].cities[0].name}/`,
                     qs: { token: `${process.env.AIR_QUALITY_INDEX_KEY}` },
                     headers: { 'User-Agent': 'Request-Promise' },
                     json: true // Automatically parses the JSON string in the response
                 };
-                rp(waqi)
+                rp(_waqi)
                     .then(res => res.data.aqi)
                     .then(aqi => {
                         if(aqi >= users[0].cities[0].aqiThreshold) {
-                            const message = {
+                            const _message = {
                                 method: 'POST',
                                 uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/messages',
                                 body: {
@@ -51,7 +51,7 @@ setInterval(() => {
                                 },
                                 json: true // Automatically stringifies the body to JSON
                             };
-                            rp(message)
+                            rp(_message)
                                 .then(() => console.log('message success'))
                                 .catch(err => console.log(err))
                         }
@@ -59,12 +59,12 @@ setInterval(() => {
             }
             else {
                 console.log('do not text');
-                rp(users)
+                rp(_users)
                     .catch(err => console.log(err))
             }
         })
         .catch(err => console.log(err));
-}, 1000 * 60 * 25); // Every 25 minutes
+}, 1000 * 10)//60 * 25); // Every 25 minutes
 
 
 // Body Parser

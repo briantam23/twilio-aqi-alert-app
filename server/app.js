@@ -59,10 +59,7 @@ setInterval(() => {
             }
             else {
                 console.log('do not text');
-                const call = {
-                    uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/'
-                };
-                rp(call)
+                rp(users)
                     .catch(err => console.log(err))
             }
         })

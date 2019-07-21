@@ -10,7 +10,7 @@ const Nav = () => (
         <label className={ style.menuIcon} htmlFor="menu-btn"><span className={ style.navicon }></span></label>
         <ul className={ style.menu }>
             <li><Link to='/profile/create'>Sign up for Air Quality alerts!</Link></li>
-            <li><Link to='/profile'>Sign in</Link></li>
+            <li><Link to='/profile/auth'>Profile</Link></li>
         </ul>
     </div>
 )

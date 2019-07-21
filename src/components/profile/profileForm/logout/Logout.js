@@ -1,15 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import style from './logout.less';
 
 
-const Logout = ({ auth }) => {
+const Logout = ({ auth, handleSubmit }) => {
     return(
-        <Fragment>
+        <form onSubmit={ handleSubmit } className={ style.logoutForm }>
             <div className={ style.authWelcome }>
                 Welcome { auth.username }!
             </div>
             <button className={ style.authLogout }>Logout</button>
-        </Fragment>
+        </form>
     )
 }
 

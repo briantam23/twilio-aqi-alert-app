@@ -1,20 +1,26 @@
 @import '../profileForm';
 
 
-.authWelcome {
-    display: inline-block;
-    padding: @padding;
-    font-size: 30px;
-    font-weight: bold;
-    position: relative;
-    top: 18px;
+.logoutForm {
 
-    @media @desktop-down {
-        padding: 5px 10px 5px 5px;
-        top: 28px;
-        font-size: 25px;
+    float: right;
+    margin-top: 30px;
+
+    .authWelcome {
+        display: inline-block;
+        padding: @padding;
+        font-size: 30px;
+        font-weight: bold;
+        position: relative;
+        top: 18px;
+    
+        @media @desktop-down {
+            padding: 5px 10px 5px 5px;
+            top: 28px;
+            font-size: 25px;
+        }
     }
-
+    
     .authLogout {
         padding: 11px 22px;
         background-color: #DC3545;
@@ -26,7 +32,7 @@
         margin: 0px 15px 0px 5px;
         cursor: pointer;
         outline-style: none;
-
+    
         @media @desktop-down {
             padding: 5px 10px;
             top: 26px;

@@ -8,9 +8,9 @@
 
 h1 { 
     text-align: center;
-    font-size: 60px; 
+    font-size: 50px; 
     margin-top: 90px;
-    margin-bottom: 90px;
+    margin-bottom: 60px;
 }
 .authForm {
     display: flex;
@@ -23,7 +23,8 @@ h1 {
         font-size: @fontSize;
         position: relative;
         top: 21px;
-        margin: 10px 5px 7px 5px;
+        width: 300px;
+        margin: auto;
     }
 
     .authLogin {
@@ -34,7 +35,8 @@ h1 {
         transition: all 1s ease;
         position: relative;
         top: 21px;
-        margin: 0px 15px 0px 5px;
+        width: 341px;
+        margin: auto;
         cursor: pointer;
         outline-style: none;
 
@@ -49,4 +51,7 @@ h1 {
         cursor: default;
     }
 
+    .authSubmit {
+        .authLogin;
+    }
 }

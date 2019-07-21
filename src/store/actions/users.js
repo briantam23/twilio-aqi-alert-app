@@ -18,11 +18,12 @@ export const _createUser = user => ({
     type: CREATE_USER,
     user
 })
-export const createUser = user => (
+export const createUser = (user, history) => (
     dispatch => (
         axios.post('/api/users', user)
             .then(res => res.data)
             .then(_user => dispatch(_createUser(_user)))
+            .then(() => history.push('/profile/auth'))
     )
 )
 

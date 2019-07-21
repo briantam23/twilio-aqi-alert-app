@@ -23,7 +23,7 @@ export const createUser = (user, history) => (
         axios.post('/api/users', user)
             .then(res => res.data)
             .then(_user => dispatch(_createUser(_user)))
-            .then(() => history.push('/profile/auth'))
+            .then(() => history.push('/profile'))
     )
 )
 

@@ -12,7 +12,7 @@ const exchangeTokenForAuth = history => (
             .then(res => res.data)
             .then(auth => {
                 dispatch(_setAuth(auth));
-                //history.push('/');
+                history.push(`/profile/${auth.id}`);
             })
             .catch(ex => window.localStorage.removeItem('token'))
     }
@@ -25,7 +25,7 @@ const _setAuth = auth => ({
 
 export const logout = history => {
     window.localStorage.removeItem('token');
-    /* history.push('/profile/auth'); */
+    history.push('/profile');
     return _setAuth({});
 }
 

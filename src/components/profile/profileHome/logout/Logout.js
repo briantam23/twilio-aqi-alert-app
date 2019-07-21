@@ -1,8 +1,9 @@
 import React from 'react';
 import style from './logout.less';
+import profileFormHOC from '../../../../higherOrderComponents/profileFormHOC/profileFormHOC';
 
 
-const Logout = ({ auth, handleSubmit }) => {
+const Logout = ({ auth, handleSubmit, pathname, history }) => {
     return(
         <form onSubmit={ handleSubmit } className={ style.logoutForm }>
             <div className={ style.authWelcome }>
@@ -14,4 +15,4 @@ const Logout = ({ auth, handleSubmit }) => {
 }
 
 
-export default Logout;
+export default profileFormHOC(Logout);

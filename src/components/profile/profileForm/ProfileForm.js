@@ -1,20 +1,13 @@
 import React, { Fragment } from 'react';
 import style from './profileForm.less';
 import profileFormHOC from '../../../higherOrderComponents/profileFormHOC/profileFormHOC';
-import Logout from './logout/Logout';
 
 
 const ProfileForm = ({ username, password, phoneNumber, handleChange, handleSubmit, auth, pathname }) => {
-
-    if(auth.id && pathname.slice(9) === 'auth') return <Logout auth={ auth } handleSubmit={ handleSubmit } />;
-    
     return(
-        <div /* className={ style.profileFormContainer } */>
+        <div>
         {
-            pathname.slice(9) === 'create' ? <h1>Create Profile</h1> : null
-        }
-        {
-            pathname.slice(9) === 'auth' ? <h1>Login</h1> : null
+            pathname.slice(9) === 'create' ? <h1>Create Profile</h1> : <h1>Login</h1>
         }
             <form onSubmit={ handleSubmit } className={ style.authForm }>
                 <input 
@@ -36,7 +29,7 @@ const ProfileForm = ({ username, password, phoneNumber, handleChange, handleSubm
                     type='password'
                 />
             {
-                pathname.slice(9) !== 'auth' ? (
+                pathname.slice(9) !== '' ? (
                     <Fragment>
                         <input 
                             onChange={ handleChange }
@@ -48,7 +41,7 @@ const ProfileForm = ({ username, password, phoneNumber, handleChange, handleSubm
                             type='tel'
                         />
                         <button disabled={ !username && !password && !phoneNumber } className={ style.authSubmit }>
-                            Submit
+                            Create
                         </button>
                     </Fragment>
                 ) : (

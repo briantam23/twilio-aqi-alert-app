@@ -38,16 +38,16 @@ const profileFormHOC = FormComponent => {
                     .catch(() => this.setState({ error: 'Error! Username, password and/or phone number taken. Please try again.'}))
             }
         
-            else if(pathname.slice(9) === 'auth') {
-                !auth.id ? (
-                    login(this.state, history)
-                        .catch(() => this.setState({ 
-                            username: '', 
-                            password: '',
-                            error: 'Incorrect Username and/or Password. Please try again. (X)' 
-                        })) 
-                ) : logout(history)
+            else if(pathname.slice(9) === '') {
+                login(this.state, history)
+                    .catch(() => this.setState({ 
+                        username: '', 
+                        password: '',
+                        error: 'Incorrect Username and/or Password. Please try again. (X)' 
+                    })) 
             }
+
+            else logout(history);
         }
 
         render () {

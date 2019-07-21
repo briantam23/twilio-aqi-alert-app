@@ -27,7 +27,7 @@ const syncAndSeed = () => {
         .then(cities => {
             [NewYork, Chicago, Boston] = cities;
             NewYork.setUser(Brian);
-            //Chicago.setUser(Mike);
+            Chicago.setUser(Brian);
             //Boston.setUser(Johnny);
         })
 }

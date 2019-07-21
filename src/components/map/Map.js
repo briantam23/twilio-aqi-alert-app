@@ -2,7 +2,7 @@ import React, { Component, Fragment, createRef } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { loadInitialUsers } from '../../store/actions/users';
-import { loadScript, _initMap } from '../../util';
+import { loadScript, _initMap } from '../../util/mapUtil';
 import style from './map.less';
 
 

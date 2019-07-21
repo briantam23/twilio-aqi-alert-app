@@ -13,6 +13,8 @@ const profileFormHOC = FormComponent => {
             username: '',
             password: '',
             phoneNumber: '',
+            cityName: '',
+            aqiThreshold: 0,
             error: ''
         }
 
@@ -31,9 +33,13 @@ const profileFormHOC = FormComponent => {
         handleSubmit = e => {
             e.preventDefault();
             const { auth, login, logout, createUser, pathname, history } = this.props;
-            const { username, password, phoneNumber } = this.state
+            const { username, password, phoneNumber, cityName, aqiThreshold } = this.state
             
-            if(pathname.slice(9) === 'create') {
+            if(cityName) {
+                console.log('create alert')
+            }
+
+            else if(pathname.slice(9) === 'create') {
                 createUser({ username, password, phoneNumber }, history)
                     .catch(() => this.setState({ error: 'Error! Username, password and/or phone number taken. Please try again.'}))
             }

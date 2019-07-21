@@ -5,7 +5,7 @@ import profileFormHOC from '../../../../higherOrderComponents/profileFormHOC/pro
 
 const Logout = ({ auth, handleSubmit, pathname, history }) => {
     return(
-        <form onSubmit={ handleSubmit } className={ style.logoutForm }>
+        <form onSubmit={ handleSubmit }>
             <div className={ style.authWelcome }>
                 Welcome { auth.username }!
             </div>

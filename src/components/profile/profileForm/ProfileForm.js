@@ -40,12 +40,12 @@ const ProfileForm = ({ username, password, phoneNumber, handleChange, handleSubm
                             required
                             type='tel'
                         />
-                        <button disabled={ !username && !password && !phoneNumber } className={ style.authSubmit }>
+                        <button disabled={ !username || !password || !phoneNumber } className={ style.authSubmit }>
                             Create
                         </button>
                     </Fragment>
                 ) : (
-                    <button disabled={ !username && !password } className={ style.authLogin }>
+                    <button disabled={ !username || !password } className={ style.authLogin }>
                         Login
                     </button>
                 )

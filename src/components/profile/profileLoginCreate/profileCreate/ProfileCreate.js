@@ -4,6 +4,7 @@ import style from './profileCreate.less';
 
 const ProfileCreate = ({ username, password, phoneNumber, handleChange }) => (
     <Fragment>
+
         <input 
             onChange={ handleChange }
             value={ phoneNumber } 
@@ -13,9 +14,11 @@ const ProfileCreate = ({ username, password, phoneNumber, handleChange }) => (
             required
             type='tel'
         />
+
         <button disabled={ !username || !password || !phoneNumber } className={ style.authSubmit }>
             Create
         </button>
+        
     </Fragment>
 )
 

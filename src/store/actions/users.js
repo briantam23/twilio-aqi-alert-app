@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_INITIAL_USERS, CREATE_USER, UPDATE_USER, DESTROY_USER, DESTROY_ALERT } from '../constants';
+import { LOAD_INITIAL_USERS, CREATE_USER, UPDATE_USER, DESTROY_USER, CREATE_ALERT, DESTROY_ALERT } from '../constants';
 
 
 const _loadInitialUsers = users => ({
@@ -37,6 +37,18 @@ export const updateUser = (user, history) => (
             .then(res => res.data)
             .then(_user => dispatch(_updateUser(_user)))
             //.then(() => history.push('/'))
+    )
+)
+
+const _createAlert = alert => ({
+    type: CREATE_ALERT,
+    alert
+})
+export const createAlert = alert => (
+    dispatch => (
+        axios.post(`/api/users/${alert.userId}/alerts`, alert)
+            .then(res => res.data)
+            .then(_alert => dispatch(_createAlert(_alert)))
     )
 )
 

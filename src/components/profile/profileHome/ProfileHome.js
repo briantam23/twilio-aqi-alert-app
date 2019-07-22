@@ -5,26 +5,36 @@ import style from './profileHome.less'
 import Logout from './logout/Logout';
 import CreateAlert from './createAlert/CreateAlert';
 import AlertList from './alertList/AlertList';
+import { findUserAlerts } from '../../../util/profileUtil';
 
 
-const ProfileHome = ({ auth }) => {
+const ProfileHome = ({ auth, alerts }) => {
+
     if(!auth.id) return null;
+
     return(
         <div className={ style.profileHomeContainer }>
+
             <div className={ style.profileHomeLogout }>
                 <Route render={ ({ location, history }) => 
                     <Logout pathname={ location.pathname } history={ history }/> } />
             </div>
+
             <div className={ style.profileHomeAlerts }>
-                <CreateAlert/>
-                <AlertList/>
+                <CreateAlert alerts={ alerts }/>
+                <AlertList alerts={ alerts }/>
             </div>
+
         </div>
     )
+    
 }
 
 
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({ auth, users }) => {
+    const alerts = findUserAlerts(auth, users);
+    return { auth, alerts };
+}
 
 
 export default connect(mapStateToProps)(ProfileHome);

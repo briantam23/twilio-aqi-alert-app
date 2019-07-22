@@ -6,17 +6,15 @@ import Map from '../map/Map';
 import Profile from '../profile/Profile';
 
 
-const App = () => {
-    return(
-        <Router>
-            <div className={ style.mainContainer }>
-                <Nav/>
-                <Map/>
-                <Route path='/profile' render={ () => <Profile/> }/>
-            </div>
-        </Router>
-    )
-}
+const App = () => (
+    <Router>
+        <div className={ style.mainContainer }>
+            <Nav/>
+            <Map/>
+            <Route path='/profile' render={ () => <Profile/> }/>
+        </div>
+    </Router>
+)
 
 
 export default App;

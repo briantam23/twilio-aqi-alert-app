@@ -19,9 +19,9 @@ const syncAndSeed = () => {
         .then(users => {
             [Brian, Mike, Johnny] = users;
             return Promise.all([
-                Alert.create({ cityName: 'New York', urlParamCityName: 'NewYork', aqiThreshold: 0 }),
-                Alert.create({ cityName: 'Chicago', urlParamCityName: 'Chicago', aqiThreshold: 0 }),
-                Alert.create({ cityName: 'Boston', urlParamCityName: 'Boston', aqiThreshold: 0 })
+                Alert.create({ cityName: 'New York', urlParamCityName: 'newyork', aqiThreshold: 0 }),
+                Alert.create({ cityName: 'Chicago', urlParamCityName: 'chicago', aqiThreshold: 0 }),
+                Alert.create({ cityName: 'Boston', urlParamCityName: 'boston', aqiThreshold: 0 })
             ])
         })
         .then(alerts => {

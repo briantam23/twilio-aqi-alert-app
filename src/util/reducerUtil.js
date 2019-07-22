@@ -1,7 +1,16 @@
-export const destroyUserAlert = (state, action) => {
-    
-    const authUser = state.find(user => user.id === action.alert.userId);
-    const authUserAlerts = authUser.alerts.filter(alert => alert.id !== action.alert.id);
+import { CREATE_ALERT } from '../store/constants';
 
-    return { ...authUser, alerts: authUserAlerts };
+
+export const updateUser = (state, action, type) => {
+    
+    let authUser = state.find(user => user.id === action.alert.userId);
+    let authUserAlerts;
+
+    type === CREATE_ALERT 
+        ? authUserAlerts = [...authUser.alerts, action.alert] 
+        : authUserAlerts = authUser.alerts.filter(alert => alert.id !== action.alert.id)
+
+    authUser = { ...authUser, alerts: authUserAlerts };
+
+    return state.map(user => user.id !== action.alert.userId ? user : authUser)
 }

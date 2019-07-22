@@ -1,4 +1,4 @@
 export const findUserAlerts = (auth, users) => {
     const user = users.find(user => user.id === auth.id);
-    return user.alerts;
+    return user ? user.alerts : [];
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import style from './alertList.less';
 import SingleAlert from './singleAlert/SingleAlert';
 import { findUserAlerts } from '../../../../util/profileUtil';
@@ -12,10 +11,4 @@ const AlertList = ({ alerts }) => (
 )
 
 
-const mapStateToProps = ({ auth, users }) => {
-    const alerts = findUserAlerts(auth, users);
-    return { alerts };
-}
-
-
-export default connect(mapStateToProps)(AlertList);
+export default AlertList;

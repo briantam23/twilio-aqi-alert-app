@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { login, logout } from '../../store/actions/auth';
-import { createUser } from '../../store/actions/users';
+import { createUser, createAlert } from '../../store/actions/users';
 import axios from 'axios';
+import { create } from 'domain';
 
 
 const profileFormHOC = FormComponent => {
@@ -41,7 +42,7 @@ const profileFormHOC = FormComponent => {
     
         handleSubmit = e => {
             e.preventDefault();
-            const { auth, login, logout, createUser, pathname, history } = this.props;
+            const { auth, login, logout, createUser, createAlert, pathname, history } = this.props;
             const { username, password, phoneNumber, cityName, aqiThreshold } = this.state;
             
             //Create Alert
@@ -53,7 +54,16 @@ const profileFormHOC = FormComponent => {
                     .then(data => {
                         console.log(data)
                         if(data === 'Unknown station') {
-                            return this.setState({ error: 'Unknown station' });
+                            this.setState({ error: 'Unknown station' });
+                        }
+                        else {
+                            const alert = {
+                                cityName: data.city.name,
+                                urlParamCityName: cityName,
+                                aqiThreshold,
+                                userId: auth.id
+                            }
+                            createAlert(alert);
                         }
                     })
             }
@@ -86,6 +96,7 @@ const profileFormHOC = FormComponent => {
 
         render () {
             const { handleChange, handleSubmit } = this;
+            
             return(
                 <FormComponent 
                     { ...this.state } 
@@ -101,7 +112,7 @@ const profileFormHOC = FormComponent => {
 
 const mapStateToProps = ({ auth, users }, { id, pathname, history }) => ({ auth, users, id, pathname, history });
 
-const mapDispatchToProps = { login, logout, createUser };
+const mapDispatchToProps = { login, logout, createUser, createAlert };
 
 
 const composedHOC = compose(

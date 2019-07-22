@@ -54,7 +54,9 @@ class Map extends Component {
   render() {
     return(
       <Fragment>
+
         <div ref="map" className={ style.mapContainer } />
+
         <input
             id='autocomplete'
             className={ style.autocomplete }
@@ -62,18 +64,24 @@ class Map extends Component {
             spellCheck='false'
             autoFocus
         />
+
         <div id='legend-computer' className={ style.legendComputer }>
             <img src='/public/img/aqi_legend_computer.png' alt='AQI Legend Computer' />
         </div>
+        
         <div id='legend-mobile' className={ style.legendMobile }>
             <img src='/public/img/aqi_legend_mobile.png' alt='AQI Legend Mobile' />
         </div>
+
       </Fragment>
     )
   }
 }
 
+
 const mapStateToProps = ({ users }) => ({ users });
+
 const mapDispatchToProps = { loadInitialUsers };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

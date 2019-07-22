@@ -20,6 +20,7 @@ const profileFormHOC = FormComponent => {
 
         componentDidUpdate = prevProps => {
             const { auth } = this.props;
+            
             if(prevProps !== this.props) {
                 if(auth.id) this.setState({ username: '', password: '', phoneNumber: '', error: '' });
             }
@@ -33,7 +34,7 @@ const profileFormHOC = FormComponent => {
         handleSubmit = e => {
             e.preventDefault();
             const { auth, login, logout, createUser, pathname, history } = this.props;
-            const { username, password, phoneNumber, cityName, aqiThreshold } = this.state
+            const { username, password, phoneNumber, cityName, aqiThreshold } = this.state;
             
             if(cityName) {
                 console.log('create alert')

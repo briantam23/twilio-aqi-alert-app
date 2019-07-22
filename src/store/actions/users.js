@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_INITIAL_USERS, CREATE_USER, UPDATE_USER, DESTROY_USER } from '../constants';
+import { LOAD_INITIAL_USERS, CREATE_USER, UPDATE_USER, DESTROY_USER, DESTROY_CITY } from '../constants';
 
 
 const _loadInitialUsers = users => ({
@@ -27,7 +27,6 @@ export const createUser = (user, history) => (
     )
 )
 
-
 const _updateUser = user => ({
     type: UPDATE_USER,
     user
@@ -38,5 +37,16 @@ export const updateUser = (user, history) => (
             .then(res => res.data)
             .then(_user => dispatch(_updateUser(_user)))
             //.then(() => history.push('/'))
+    )
+)
+
+const _destroyCity = city => ({
+    type: DESTROY_CITY,
+    city
+})
+export const destroyCity = city => (
+    dispatch => (
+        axios.delete(`/api/users/${city.userId}/cities/${city.id}`)
+            .then(() => dispatch(_destroyCity(city)))
     )
 )

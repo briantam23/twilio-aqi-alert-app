@@ -3,11 +3,6 @@ const _ = require('lodash');
 
 
 const City = conn.define('cities', {
-    id: {
-        type: conn.Sequelize.UUID,
-        defaultValue: conn.Sequelize.UUIDV4,
-        primaryKey: true
-    },
     name: {
         type: conn.Sequelize.STRING,
         allowNull: false,

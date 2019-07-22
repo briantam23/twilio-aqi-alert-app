@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
-import style from './profileForm.less';
+import style from './profileLoginCreate.less';
 import profileFormHOC from '../../../higherOrderComponents/profileFormHOC/profileFormHOC';
+import ProfileCreate from './profileCreate/ProfileCreate';
+import Login from './login/Login';
 
 
-const ProfileForm = ({ username, password, phoneNumber, handleChange, handleSubmit, auth, pathname }) => {
+const ProfileLoginCreate = ({ username, password, phoneNumber, handleChange, handleSubmit, auth, pathname }) => {
     return(
         <div>
         {
@@ -29,25 +31,10 @@ const ProfileForm = ({ username, password, phoneNumber, handleChange, handleSubm
                     type='password'
                 />
             {
-                pathname.slice(9) !== '' ? (
-                    <Fragment>
-                        <input 
-                            onChange={ handleChange }
-                            value={ phoneNumber } 
-                            name='phoneNumber' 
-                            placeholder='Phone Number'
-                            size='20'
-                            required
-                            type='tel'
-                        />
-                        <button disabled={ !username || !password || !phoneNumber } className={ style.authSubmit }>
-                            Create
-                        </button>
-                    </Fragment>
+                pathname.slice(9) === 'create' ? (
+                    <ProfileCreate username={ username } password={ password } phoneNumber={ phoneNumber } handleChange={ handleChange }/>
                 ) : (
-                    <button disabled={ !username || !password } className={ style.authLogin }>
-                        Login
-                    </button>
+                    <Login username={ username } password={ password }/>
                 )
             }                
             </form>
@@ -56,4 +43,4 @@ const ProfileForm = ({ username, password, phoneNumber, handleChange, handleSubm
 }
 
 
-export default profileFormHOC(ProfileForm);
+export default profileFormHOC(ProfileLoginCreate);

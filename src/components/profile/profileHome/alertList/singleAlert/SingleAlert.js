@@ -1,17 +1,17 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import style from './singleAlert.less';
-import { destroyCity } from '../../../../../store/actions/users';
+import { destroyAlert } from '../../../../../store/actions/users';
 
 
-const SingleAlert = ({ city, destroyCity }) => (
+const SingleAlert = ({ alert, destroyAlert }) => (
     <div className={ style.alertRow }>
         <div className={ style.alertColumn }>
-            <h3>{ city.name }</h3>
-            <h4>{ 'Air Quality Index Threshold: ' + city.aqiThreshold }</h4>
+            <h3>{ alert.cityName }</h3>
+            <h4>{ 'Air Quality Index Threshold: ' + alert.aqiThreshold }</h4>
         </div>
         <div className={ style.alertColumn }>
-            <button onClick={ () => destroyCity(city) } className={ style.alertDeleteButton }>
+            <button onClick={ () => destroyAlert(alert) } className={ style.alertDeleteButton }>
                 Delete
             </button>
         </div>
@@ -19,7 +19,7 @@ const SingleAlert = ({ city, destroyCity }) => (
 )
 
 
-const mapDispatchToProps = { destroyCity }
+const mapDispatchToProps = { destroyAlert }
 
 
 export default connect(null, mapDispatchToProps)(SingleAlert);

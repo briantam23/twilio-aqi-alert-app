@@ -106,7 +106,7 @@ app.use((req, res, next) => {
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
-app.use('/api/cities', require('./routes/cities'));
+app.use('/api/alerts', require('./routes/alerts'));
 
 // Error catching endware
 app.use((err, req, res, next) => {

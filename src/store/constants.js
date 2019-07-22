@@ -5,4 +5,5 @@ export const CREATE_USER = 'CREATE_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const DESTROY_USER = 'DESTROY_USER';
 
-export const DESTROY_CITY = 'DESTROY_CITY';
+export const CREATE_ALERT = 'CREATE_ALERT';
+export const DESTROY_ALERT = 'DESTROY_ALERT';

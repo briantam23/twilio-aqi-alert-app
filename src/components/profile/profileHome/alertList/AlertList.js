@@ -2,19 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import style from './alertList.less';
 import SingleAlert from './singleAlert/SingleAlert';
-import { findUserCityAlerts } from '../../../../util/profileUtil';
+import { findUserAlerts } from '../../../../util/profileUtil';
 
 
-const AlertList = ({ cities }) => (
+const AlertList = ({ alerts }) => (
     <div className={ style.alertListContainer }>
-        { cities.map(city => <SingleAlert city={ city } key={ city.id }/>) }
+        { alerts.map(alert => <SingleAlert alert={ alert } key={ alert.id }/>) }
     </div>
 )
 
 
 const mapStateToProps = ({ auth, users }) => {
-    const cities = findUserCityAlerts(auth, users);
-    return { cities };
+    const alerts = findUserAlerts(auth, users);
+    return { alerts };
 }
 
 

@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { login, logout } from '../../store/actions/auth';
 import { createUser } from '../../store/actions/users';
+import axios from 'axios';
 
 
 const profileFormHOC = FormComponent => {
@@ -14,7 +15,7 @@ const profileFormHOC = FormComponent => {
             password: '',
             phoneNumber: '',
             cityName: '',
-            aqiThreshold: 0,
+            aqiThreshold: '',
             error: ''
         }
 
@@ -22,7 +23,14 @@ const profileFormHOC = FormComponent => {
             const { auth } = this.props;
             
             if(prevProps !== this.props) {
-                if(auth.id) this.setState({ username: '', password: '', phoneNumber: '', error: '' });
+                if(auth.id) {
+                    this.setState({ 
+                        username: '', 
+                        password: '', 
+                        phoneNumber: '', 
+                        error: '' 
+                    });
+                }
             }
         }
     
@@ -36,24 +44,43 @@ const profileFormHOC = FormComponent => {
             const { auth, login, logout, createUser, pathname, history } = this.props;
             const { username, password, phoneNumber, cityName, aqiThreshold } = this.state;
             
+            //Create Alert
             if(cityName) {
-                console.log('create alert')
+                console.log('create alert');
+
+                return axios.get(`https://api.waqi.info/feed/${cityName}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
+                    .then(res => res.data.data)
+                    .then(data => {
+                        console.log(data)
+                        if(data === 'Unknown station') {
+                            return this.setState({ error: 'Unknown station' });
+                        }
+                    })
             }
 
+            //Create User
             else if(pathname.slice(9) === 'create') {
                 createUser({ username, password, phoneNumber }, history)
-                    .catch(() => this.setState({ error: 'Error! Username, password and/or phone number taken. Please try again.'}))
+                    .catch(() => {
+                        this.setState({ 
+                            error: 'Error! Username, password and/or phone number taken. Please try again.'
+                        });
+                    })
             }
-        
+            
+            //Login
             else if(pathname.slice(9) === '') {
                 login(this.state, history)
-                    .catch(() => this.setState({ 
-                        username: '', 
-                        password: '',
-                        error: 'Incorrect Username and/or Password. Please try again. (X)' 
-                    })) 
+                    .catch(() => {
+                        this.setState({ 
+                            username: '', 
+                            password: '',
+                            error: 'Incorrect Username and/or Password. Please try again. (X)' 
+                        })
+                    }) 
             }
 
+            //Logout
             else logout(history);
         }
 

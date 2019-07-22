@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_INITIAL_USERS, CREATE_USER, UPDATE_USER, DESTROY_USER, DESTROY_CITY } from '../constants';
+import { LOAD_INITIAL_USERS, CREATE_USER, UPDATE_USER, DESTROY_USER, DESTROY_ALERT } from '../constants';
 
 
 const _loadInitialUsers = users => ({
@@ -40,13 +40,13 @@ export const updateUser = (user, history) => (
     )
 )
 
-const _destroyCity = city => ({
-    type: DESTROY_CITY,
-    city
+const _destroyAlert = alert => ({
+    type: DESTROY_ALERT,
+    alert
 })
-export const destroyCity = city => (
+export const destroyAlert = alert => (
     dispatch => (
-        axios.delete(`/api/users/${city.userId}/cities/${city.id}`)
-            .then(() => dispatch(_destroyCity(city)))
+        axios.delete(`/api/users/${alert.userId}/alerts/${alert.id}`)
+            .then(() => dispatch(_destroyAlert(alert)))
     )
 )

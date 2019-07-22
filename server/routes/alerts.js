@@ -3,16 +3,16 @@ const { City } = require('../db').models;
 
 
 router.get('/', (req, res, next) => {
-    City.findAll()
+    Alert.findAll()
       .then(cities => res.send(cities))
       .catch(next)
 })
 
-router.get('/:cityId', (req, res, next) => {
-    City.findByPk(req.params.cityId)
-      .then(city => {
-        if(!city) return res.sendStatus(404);
-        res.send(city)
+router.get('/:alertId', (req, res, next) => {
+    Alert.findByPk(req.params.alertId)
+      .then(alert => {
+        if(!alert) return res.sendStatus(404);
+        res.send(alert)
       })
       .catch(next)
 })

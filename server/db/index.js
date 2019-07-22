@@ -1,10 +1,10 @@
 const conn = require('./conn');
 const User = require('./models/User');
-const City = require('./models/City');
+const Alert = require('./models/Alert');
 
 
-City.belongsTo(User);
-User.hasMany(City);
+Alert.belongsTo(User);
+User.hasMany(Alert);
 
 
 const syncAndSeed = () => {
@@ -19,13 +19,13 @@ const syncAndSeed = () => {
         .then(users => {
             [Brian, Mike, Johnny] = users;
             return Promise.all([
-                City.create({ name: 'NewYork', aqiThreshold: 0 }),
-                City.create({ name: 'Chicago', aqiThreshold: 0 }),
-                City.create({ name: 'Boston', aqiThreshold: 0 })
+                Alert.create({ cityName: 'New York', urlParamCityName: 'NewYork', aqiThreshold: 0 }),
+                Alert.create({ cityName: 'Chicago', urlParamCityName: 'Chicago', aqiThreshold: 0 }),
+                Alert.create({ cityName: 'Boston', urlParamCityName: 'Boston', aqiThreshold: 0 })
             ])
         })
-        .then(cities => {
-            [NewYork, Chicago, Boston] = cities;
+        .then(alerts => {
+            [NewYork, Chicago, Boston] = alerts;
             NewYork.setUser(Brian);
             Chicago.setUser(Brian);
             //Boston.setUser(Johnny);
@@ -37,7 +37,7 @@ module.exports = {
     syncAndSeed,
     models: {
         User,
-        City
+        Alert
     },
     conn
 }

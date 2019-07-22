@@ -1,11 +1,13 @@
 const router = require('express').Router();
-const { User, City } = require('../db').models;
+const { User, Alert } = require('../db').models;
 
 
 //get users
 router.get('/', (req, res, next) => {
     User.findAll({
-        include: [{ model: City }]
+        include: [{ 
+            model: Alert 
+        }]
     })
         .then(users => res.send(users))
         .catch(next)
@@ -15,7 +17,7 @@ router.get('/', (req, res, next) => {
 router.get('/:userId', (req, res, next) => {
     User.findByPk(
         req.params.userId, 
-        { include: [{ model: City }] }
+        { include: [{ model: Alert }] }
     )
         .then(user => {
             if(!user) return res.sendStatus(404);
@@ -37,10 +39,16 @@ router.put('/:userId', (req, res, next) => {
         .catch(next)
 })
 
-router.delete('/:userId/cities/:cityId', (req, res, next) => {
-    City.destroy({ 
+router.post('/:userId/alerts', (req, res, next) => {
+    Alert.create(req.body)
+        .then(alert => res.send(alert))
+        .catch(next)
+})
+
+router.delete('/:userId/alerts/:alertId', (req, res, next) => {
+    Alert.destroy({ 
         where: { 
-            id: req.params.cityId 
+            id: req.params.alertId 
         }
     })
         .then(() => res.sendStatus(204))

@@ -3,7 +3,7 @@ import style from './createAlert.less';
 import profileFormHOC from '../../../../higherOrderComponents/profileFormHOC/profileFormHOC';
 
 
-const CreateAlert = ({ cityName, aqiThreshold, handleChange, handleSubmit, alerts }) => (
+export const CreateAlert = ({ cityName, aqiThreshold, handleChange, handleSubmit, alerts }) => (
     <div className={ style.createAlertContainer }>
 
         <h1>Create Air Quality Alert!</h1>

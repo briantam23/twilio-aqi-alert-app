@@ -4,7 +4,7 @@ import style from './singleAlert.less';
 import { destroyAlert } from '../../../../../store/actions/users';
 
 
-const SingleAlert = ({ alert, destroyAlert }) => (
+export const SingleAlert = ({ alert, destroyAlert }) => (
     <div className={ style.alertRow }>
 
         <div className={ style.alertColumn }>

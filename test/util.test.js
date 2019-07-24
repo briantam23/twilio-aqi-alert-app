@@ -6,9 +6,8 @@ import { findUserAlerts } from '../src/util/profileUtil';
 describe('The Utility Functions', () => {
     
     describe('findUserAlerts function', () => {
-        const auth = {
-            id: "f3adf49e-01f7-45fd-b96c-eea2deea35ed"
-        }
+
+        const auth = { id: "f3adf49e-01f7-45fd-b96c-eea2deea35ed" };
         const users = [
             {
                 id: "58599dc9-0ed3-4620-8b86-15e2ffc9059d",

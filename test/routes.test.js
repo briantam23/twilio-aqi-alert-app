@@ -41,4 +41,50 @@ describe('The Express Server', () => {
                 .expect(200);
         })
     })
+
+    describe('The `Users` Route:', () => {
+
+        // First we clear the database before beginning each run
+        before(() => {
+            return conn.sync({ force: true });
+        })
+    
+        // Also, we empty the tables after each spec
+        afterEach(() => {
+            return Promise.all([
+                Alert.truncate({ cascade: true }),
+                User.truncate({ cascade: true })
+            ])
+        })
+
+        describe('GET /api/users', () => {
+            it('responds with a array via JSON', async () => {
+    
+                const res = await agent
+                    .get('/api/users')
+                    .expect('Content-Type', /json/)
+                    .expect(200);
+    
+                expect(res.body).to.be.an.instanceOf(Array);
+                expect(res.body).to.have.length(0);
+            })
+
+            // Save a user in the database using our model and then retrieve it
+            it('returns a User if there is one in the DB', async () => {
+
+                await User.create({ 
+                    username: 'Brian', 
+                    password: 'Briantam23@', 
+                    phoneNumber: '5166109915' 
+                })
+
+                const res = await agent 
+                    .get('/api/users')
+                    .expect(200)
+
+                expect(res.body).to.be.an.instanceOf(Array);
+                expect(res.body[0].password).to.equal('Briantam23@');
+            })
+        })
+    })
 })

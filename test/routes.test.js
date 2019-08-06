@@ -143,10 +143,74 @@ describe('The Express Server', () => {
             })
 
             it('returns a 404 error if the ID is not correct', () => {
-                
+
                 return agent
                     .get('/api/users/a91bb9d6-53dc-49f3-8358-1334e3941bd7')
                     .expect(404);
+            })
+        })
+
+        describe('POST /api/users', () => {
+            it('creates a new User', async () => {
+    
+                const res = await agent
+                    .post('/api/users')
+                    .send({
+                        username: 'Brian', 
+                        password: 'Briantam23@', 
+                        phoneNumber: '5166109915'
+                    })
+                    .expect(200);
+                
+                expect(res.body.id).to.not.be.an('undefined');
+                expect(res.body.username).to.equal('Brian');
+            })
+
+            it('does not create a new User without a password', () => {
+    
+                return agent    
+                    .post('/api/users')
+                    .send({
+                        username: 'This User should not be allowed.'
+                    })
+                    .expect(500);
+            })
+
+            // Check if the Users were actually saved to the DB
+            it('saves the Todo to the DB', async () => {
+                
+                await agent
+                    .post('/api/users')
+                    .send({
+                        username: 'Brian', 
+                        password: 'Briantam23@', 
+                        phoneNumber: '5166109915'
+                    })
+                    .expect(200);
+
+                const foundUser = await User.findOne({
+                    where: { username: 'Brian' }
+                })
+
+                expect(foundUser).to.exist;
+                expect(foundUser.phoneNumber).to.equal('5166109915');
+            })
+
+            // Do not assume async operations (like db writes) will work; always check
+            it('sends back JSON of the actual created User, not just the POSTed data', async () => {
+
+                const res = await agent
+                    .post('/api/users')
+                    .send({
+                        username: 'Brian', 
+                        password: 'Briantam23@', 
+                        phoneNumber: '5166109915',
+                        extraneous: 'Sequelize will quietly ignore this non-schema property'
+                    })
+                    .expect(200);
+
+                expect(res.body.extraneous).to.be.an('undefined');
+                expect(res.body.createdAt).to.exist;
             })
         })
     })

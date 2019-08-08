@@ -213,5 +213,54 @@ describe('The Express Server', () => {
                 expect(res.body.createdAt).to.exist;
             })
         })
+
+        describe('PUT /api/users/:userId', () => {
+
+            let user;
+    
+            beforeEach(async() => {
+                user = await User.create({
+                    username: 'Brian', 
+                    password: 'Briantam23@', 
+                    phoneNumber: '5166109915'
+                })
+            })
+
+            it('updates a User', async() => {
+
+                const res = await agent 
+                    .put('/api/users/' + user.id)
+                    .send({
+                        phoneNumber: '6464428889'
+                    })
+                    .expect(200);
+    
+                expect(res.body.id).to.not.be.an('undefined');
+                expect(res.body.username).to.equal('Brian');
+                expect(res.body.phoneNumber).to.equal('6464428889');
+            })
+
+            it('saves updates to the DB', async() => {
+
+                await agent 
+                    .put('/api/users/' + user.id)
+                    .send({
+                        password: 'Briantam44#'
+                    })
+    
+                const foundUser = await User.findByPk(user.id);
+    
+                expect(foundUser).to.exist;
+                expect(foundUser.password).to.equal('Briantam44#');
+            })
+
+            it('gets 500 for invalid update', () => {
+    
+                return agent
+                    .put('/api/users/' + user.id)
+                    .send({ password: null })
+                    .expect(500);
+            })
+        })
     })
 })

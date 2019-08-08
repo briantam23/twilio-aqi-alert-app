@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { login, logout } from '../../store/actions/auth';
 import { createUser, createAlert } from '../../store/actions/users';
 import axios from 'axios';
-import { create } from 'domain';
 
 
 const profileFormHOC = FormComponent => {
@@ -36,7 +35,6 @@ const profileFormHOC = FormComponent => {
         }
     
         handleChange = e => {
-            //e.preventDefault();
             this.setState({ [e.target.name]: e.target.value });
         }
     

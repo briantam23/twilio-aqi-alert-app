@@ -38,7 +38,8 @@ if(process.env.NODE_ENV !== 'production') {
             console.log(currentHour, users[0]);
             
             // Heroku uses UTC!
-            if(currentHour === 9 || currentHour === 16 || currentHour === 22 || currentHour === 23) {
+            // if(currentHour === 9 || currentHour === 16 || currentHour === 22 || currentHour === 23) {
+            if(currentHour === 13) {  // 9AM (EDT)
                 console.log('text')
                 const _waqi = {
                     uri: `https://api.waqi.info/feed/${users[0].cities[0].name}/`,

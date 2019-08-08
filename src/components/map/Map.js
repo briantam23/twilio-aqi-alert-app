@@ -18,37 +18,7 @@ class Map extends Component {
     window.initMap = initMap;
     loadScript();
 
-    this.props.loadInitialUsers()
-    
-    /* setInterval(() => {
-
-      return axios.get('/api/users')
-        .then(res => res.data)
-        .then(users => this.setState({ user: users[0] }))
-        .then(() => {
-          //Testing alert by city or Lat/Long!
-
-          const currentDate = new Date();
-          const currentHour = currentDate.getHours();
-
-          console.log(currentHour);
-
-          if(currentHour >= 14 && currentHour <= 20) {
-            console.log('text')
-            return axios.get(`https://api.waqi.info/feed/${this.state.user.cities[0].name}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
-              .then(res => res.data.data.aqi)
-              .then(aqi => {
-                if(aqi >= this.state.user.cities[0].aqiThreshold) {
-                  axios.post('/api/messages', {
-                    "to": "5166109915",
-                    "body": "Air Quality Index > 0"
-                  })
-                }
-              })
-          }
-        })
-        .then(() => https.get('https://btam-aqi-twilio-alert-app.herokuapp.com')) //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
-      }, 1000 * 60 * 20) // every 20 minutes */
+    this.props.loadInitialUsers();
   }
 
   render() {

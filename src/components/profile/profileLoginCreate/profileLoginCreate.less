@@ -3,7 +3,6 @@
 @padding: 9px 18px;
 @fontSize: 20px;
 @submitButtonColor: #28a745;
-@width: 50%;
 
 
 h1 { 
@@ -11,11 +10,15 @@ h1 {
     font-size: 50px; 
     margin-top: 90px;
     margin-bottom: 60px;
+
+    /* @media (max-width: 1205px) {
+        font-size: 45px;
+        margin-bottom: 30px;
+    } */
 }
 .authForm {
     display: flex;
     flex-direction: column;
-    width: @width;
     margin: auto;
 
     .errorMessage {

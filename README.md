@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/briantam23/aqi-twilio-alert-app.svg?branch=master)](https://travis-ci.org/briantam23/aqi-twilio-alert-app)
+
 # 🌤 Air Quality Index App w/ Twilio Notifications
 
 A Single Page App created with React, Redux, LESS, and Media Queries, along with multiple Testing libraries (Enzyme, Mocha, Chai, Sinon, SuperTest), and Continuous Integration using TravisCI.

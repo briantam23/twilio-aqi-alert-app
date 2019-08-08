@@ -85,7 +85,7 @@ const profileFormHOC = FormComponent => {
                         this.setState({ 
                             username: '', 
                             password: '',
-                            error: 'Incorrect Username and/or Password. Please try again. (X)' 
+                            error: 'Invalid credentials! Please try again. (X)' 
                         })
                     }) 
             }
@@ -94,15 +94,20 @@ const profileFormHOC = FormComponent => {
             else logout(history);
         }
 
+        handleClearError = () => {
+            this.setState({ error: '' });
+        }
+
         render () {
-            const { handleChange, handleSubmit } = this;
+            const { handleChange, handleSubmit, handleClearError } = this;
             
             return(
                 <FormComponent 
                     { ...this.state } 
                     { ...this.props } 
                     handleChange={ handleChange } 
-                    handleSubmit={ handleSubmit } 
+                    handleSubmit={ handleSubmit }
+                    handleClearError={ handleClearError } 
                 />
             )
         }

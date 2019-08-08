@@ -5,12 +5,19 @@ import ProfileCreate from './profileCreate/ProfileCreate';
 import Login from './login/Login';
 
 
-const ProfileLoginCreate = ({ username, password, phoneNumber, handleChange, handleSubmit, auth, pathname }) => (
+const ProfileLoginCreate = ({ username, password, error, phoneNumber, handleChange, handleSubmit, handleClearError, auth, pathname }) => (
     <div>
     {
         pathname.slice(9) === 'create' ? <h1>Create Profile</h1> : <h1>Login</h1>
     }
         <form onSubmit={ handleSubmit } className={ style.authForm }>
+            {
+                error ? (
+                    <div onClick={ () => handleClearError() } className={ style.errorMessage }>
+                        <strong>{ error }</strong>
+                    </div> 
+                ): null
+            }
             <input 
                 onChange={ handleChange } 
                 value={ username } 

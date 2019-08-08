@@ -262,5 +262,45 @@ describe('The Express Server', () => {
                     .expect(500);
             })
         })
+
+        describe('DELETE, /api/users/:userId', () => {
+
+            let user;
+    
+            beforeEach(async() => {
+                user = await User.create({
+                    username: 'Brian', 
+                    password: 'Briantam23@', 
+                    phoneNumber: '5166109915'
+                })
+            })
+
+            it('deletes a User', async() => {
+    
+                const res = await agent
+                    .delete('/api/users/' + user.id)
+                    .expect(204)
+    
+                expect(res.body.id).to.be.an('undefined');
+            })
+
+            it('saves changes in database', async() => {
+    
+                const res = await agent
+                    .delete('/api/users/' + user.id)
+                    .expect(204)
+    
+                const foundUser = await User.findByPk(user.id);
+    
+                expect(foundUser).to.not.exist;
+            })
+
+            it('responds with a 500 if a User does not exist', () => {
+                
+                return agent
+                    .delete('/api/users/123')
+                    .expect(500)
+            })
+        })
     })
 })

@@ -39,6 +39,17 @@ router.put('/:userId', (req, res, next) => {
         .catch(next)
 })
 
+router.delete('/:userId', (req, res, next) => {
+    User.destroy({
+        where: { id: req.params.userId }
+    })
+        .then(err => {
+            if(err === 0) return res.sendStatus(500);
+            res.sendStatus(204);
+        })
+        .catch(next)
+})
+
 router.post('/:userId/alerts', (req, res, next) => {
     Alert.create(req.body)
         .then(alert => res.send(alert))

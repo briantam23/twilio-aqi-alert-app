@@ -85,28 +85,6 @@ describe('The Express Server', () => {
                 expect(res.body).to.be.an.instanceOf(Array);
                 expect(res.body[0].password).to.equal('Briantam23@');
             })
-
-            it('returns another User if there is one in the DB', async() => {
-
-                await User.create({ 
-                    username: 'Brian', 
-                    password: 'Briantam23@', 
-                    phoneNumber: '5166109915' 
-                })
-                await User.create({ 
-                    username: 'Mike',
-                    password: 'Mike12#', 
-                    phoneNumber: '5164337766' 
-                })
-    
-                const res = await agent
-                    .get('/api/users')
-                    .expect(200)
-    
-                expect(res.body).to.be.an.instanceOf(Array);
-                expect(res.body[0].username).to.equal('Brian');
-                expect(res.body[1].username).to.equal('Mike');
-            })
         })
 
         describe('GET /api/users/:userId', () => {

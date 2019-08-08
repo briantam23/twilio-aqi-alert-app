@@ -177,7 +177,7 @@ describe('The Express Server', () => {
             })
 
             // Check if the Users were actually saved to the DB
-            it('saves the Todo to the DB', async () => {
+            it('saves the User to the DB', async () => {
                 
                 await agent
                     .post('/api/users')

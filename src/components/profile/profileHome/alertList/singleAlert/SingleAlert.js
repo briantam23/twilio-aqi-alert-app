@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import style from './singleAlert.less';
 import { destroyAlert } from '../../../../../store/actions/users';
 

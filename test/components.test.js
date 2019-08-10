@@ -9,31 +9,10 @@ import thunk from 'redux-thunk';
 import App from '../src/components/app/App';
 import SingleAlert from '../src/components/profile/profileHome/alertList/singleAlert/SingleAlert';
 import { CreateAlert } from '../src/components/profile/profileHome/createAlert/CreateAlert';
+import { setUpDomEnvironment } from '../src/util/testUtil';
 
-import jsdom from 'jsdom'
-
-function setUpDomEnvironment() {
-    const { JSDOM } = jsdom;
-    const dom = new JSDOM('<!doctype html><html><body></body></html>', {url: 'http://localhost/'});
-    const { window } = dom;
-
-    global.window = window;
-    global.document = window.document;
-    global.navigator = {
-        userAgent: 'node.js',
-    };
-    copyProps(window, global);
-}
-
-function copyProps(src, target) {
-    const props = Object.getOwnPropertyNames(src)
-        .filter(prop => typeof target[prop] === 'undefined')
-        .map(prop => Object.getOwnPropertyDescriptor(src, prop));
-    Object.defineProperties(target, props);
-}
 
 setUpDomEnvironment();
-
 
 const mockStore = configureMockStore([thunk]);
 
@@ -54,7 +33,6 @@ describe('The React Components', () => {
     describe('<SingleAlert/> component', () => {
         let singleAlertWrapper, destroyAlertSpy, store;
         const alert = { cityName: 'New York', aqiThreshold: 51 };
-        
 
         before('Create component', () => {
             destroyAlertSpy = spy();

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'; 
 import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import style from './profileHome.less'
 import Logout from './logout/Logout';
 import CreateAlert from './createAlert/CreateAlert';
@@ -8,7 +8,9 @@ import AlertList from './alertList/AlertList';
 import { findUserAlerts } from '../../../util/profileUtil';
 
 
-const ProfileHome = ({ auth, alerts }) => {
+const ProfileHome = () => {
+    const { auth, users } = useSelector(store => store);
+    const alerts = findUserAlerts(auth, users);
 
     if(!auth.id) return null;
 
@@ -27,14 +29,7 @@ const ProfileHome = ({ auth, alerts }) => {
 
         </div>
     )
-    
 }
 
 
-const mapStateToProps = ({ auth, users }) => {
-    const alerts = findUserAlerts(auth, users);
-    return { auth, alerts };
-}
-
-
-export default connect(mapStateToProps)(ProfileHome);
+export default ProfileHome;

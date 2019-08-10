@@ -1,4 +1,4 @@
-import React, { Component, Fragment, createRef } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { loadInitialUsers } from '../../store/actions/users';
@@ -7,10 +7,6 @@ import style from './map.less';
 
 
 class Map extends Component {
-
-  state = {
-    user: {}
-  }
 
   componentDidMount = () => {
     
@@ -49,9 +45,7 @@ class Map extends Component {
 }
 
 
-const mapStateToProps = ({ users }) => ({ users });
-
 const mapDispatchToProps = { loadInitialUsers };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(null, mapDispatchToProps)(Map);

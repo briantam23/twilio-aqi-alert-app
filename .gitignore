@@ -13,3 +13,6 @@ public/js/bundle.js.map
 
 # OSX folder metadata
 .DS_Store
+
+# Linting
+.eslintrc.json

@@ -1,28 +1,29 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import style from './singleAlert.less';
 import { destroyAlert } from '../../../../../store/actions/users';
 
 
-export const SingleAlert = ({ alert, destroyAlert }) => (
-    <div className={ style.alertRow }>
+const SingleAlert = ({ alert }) => {
+    const dispatch = useDispatch();
 
-        <div className={ style.alertColumn }>
-            <h3>{ alert.cityName }</h3>
-            <h4>{ 'Air Quality Index Threshold: ' + alert.aqiThreshold }</h4>
+    return(
+        <div className={ style.alertRow }>
+
+            <div className={ style.alertColumn }>
+                <h3>{ alert.cityName }</h3>
+                <h4>{ 'Air Quality Index Threshold: ' + alert.aqiThreshold }</h4>
+            </div>
+            
+            <div className={ style.alertColumn }>
+                <button onClick={ () => dispatch(destroyAlert(alert)) } className={ style.alertDeleteButton }>
+                    Delete
+                </button>
+            </div>
+            
         </div>
-        
-        <div className={ style.alertColumn }>
-            <button onClick={ () => destroyAlert(alert) } className={ style.alertDeleteButton }>
-                Delete
-            </button>
-        </div>
-        
-    </div>
-)
+    )
+}
 
 
-const mapDispatchToProps = { destroyAlert };
-
-
-export default connect(null, mapDispatchToProps)(SingleAlert);
+export default SingleAlert;

@@ -19,13 +19,21 @@
     width: 400px;
     height: 35px;
 
-    @media @tablet-down { width: 50%; }
+    @media @tablet-down { 
+        width: 50%; 
+    }
     @media @phone-down { 
         width: 40%; 
         font-size: 20px;
     }
+    @media (max-width: 400px) { 
+        width: 34%; 
+        font-size: 16px;
+    }
 }
-.autocomplete:focus { border-color: #4d90fe; }
+.autocomplete:focus { 
+    border-color: #4d90fe; 
+}
 
 .legendComputer { 
     display: none; 
@@ -41,7 +49,7 @@
 .legendMobile { 
     display: none; 
 
-    @media (max-width: 823px) { 
+    @media (max-width: 823px) and (orientation: portrait) { 
         display: block;
         margin-left: 9px;
         position: fixed;

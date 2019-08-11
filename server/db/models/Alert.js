@@ -35,10 +35,7 @@ const alertHook = alert => {
     
     const { cityName } = alert;
 
-    let cityWordsArr = cityName.split(' ');
-    cityWordsArr = cityWordsArr.map(cityWord => _.capitalize(cityWord));
-
-    alert.cityName = cityWordsArr.join(' ');
+    alert.cityName = cityName.split(' ').map(cityWord => _.capitalize(cityWord)).join(' ');
 }
 
 

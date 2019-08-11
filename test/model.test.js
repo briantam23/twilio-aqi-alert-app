@@ -105,3 +105,34 @@ describe('The `User` model:', () => {
         })
     })
 })
+
+describe('The `Alert` model:', () => {
+
+    // First we claer the database and recreate the tables before beginning a run
+    before(() => {
+        return conn.sync({ force: true });
+    });
+
+    describe('capitalization hooks', () => {
+
+        let createdAlert;
+        beforeEach(async () => {
+            createdAlert = await Alert.create({ 
+                cityName: 'new york', 
+                urlParamCityName: 'newyork',
+                aqiThreshold: 0 
+            })
+        })
+
+        it('capitalizes before creating', async () => {
+
+            expect(createdAlert.cityName).to.equal('New York');
+        })
+
+        it('capitalizes before updating', async () => {
+
+            const updatedAlert = await createdAlert.update({ cityName: 'san Francisco' });
+            expect(updatedAlert.cityName).to.equal('San Francisco');
+        })
+    })
+})

@@ -76,4 +76,32 @@ describe('The `User` model:', () => {
             expect(error.message).to.contain('Validation error');
         })
     })
+
+    describe('associations', () => {
+        it('has many Alerts', async () => {
+
+            const creatingUser = await User.create({ 
+                username: 'Brian', 
+                password: 'Briantam23@', 
+                phoneNumber: '5166109915'
+            })
+            const creatingAlert = await Alert.create({ 
+                cityName: 'New York', 
+                urlParamCityName: 'newyork', 
+                aqiThreshold: 0
+            })
+
+            const [createdUser, createdAlert] = await Promise.all([creatingUser, creatingAlert]);
+
+            await createdUser.setAlerts(createdAlert);
+
+            const foundUser = await User.findOne({
+                where: { username: 'Brian' },
+                include: { model: Alert }
+            })
+
+            expect(foundUser.alerts).to.exist;
+            expect(foundUser.alerts[0].cityName).to.equal('New York');
+        })
+    })
 })

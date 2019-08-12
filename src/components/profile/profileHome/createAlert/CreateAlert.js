@@ -27,7 +27,7 @@ export const CreateAlert = ({ cityName, aqiThreshold, handleChange, handleSubmit
                 size='20'
                 required
             />
-            <button disabled={ !cityName || !aqiThreshold || alerts.length >= 5 } className={ style.createAlertButton }>
+            <button disabled={ !cityName || !aqiThreshold /* || alerts.length >= 5 */ } className={ style.createAlertButton }>
                     Create Alert
             </button>   
 

@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { login, logout } from '../../store/actions/auth';
 import { createUser, createAlert } from '../../store/actions/users';
+import { findUserAlerts } from '../../util/profileUtil';
 import axios from 'axios';
 
 
@@ -40,11 +41,18 @@ const profileFormHOC = FormComponent => {
     
         handleSubmit = e => {
             e.preventDefault();
-            const { auth, login, logout, createUser, createAlert, pathname, history } = this.props;
+            const { auth, users, login, logout, createUser, createAlert, pathname, history } = this.props;
             const { username, password, phoneNumber, cityName, aqiThreshold } = this.state;
             
             //Create Alert
             if(cityName) {
+
+                if(findUserAlerts(auth, users).length >= 5) {
+                    this.setState({ error: 'Limit 5 Alerts' });
+                    console.log('Limit 5 Alerts');
+                    return;
+                }
+
                 console.log('create alert');
 
                 return axios.get(`https://api.waqi.info/feed/${cityName}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)

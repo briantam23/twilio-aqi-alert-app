@@ -4,11 +4,16 @@ import SingleAlert from './singleAlert/SingleAlert';
 import { findUserAlerts } from '../../../../util/profileUtil';
 
 
-const AlertList = ({ alerts }) => (
-    <div className={ style.alertListContainer }>
-        { alerts.map(alert => <SingleAlert alert={ alert } key={ alert.id }/>) }
-    </div>
-)
+const AlertList = ({ alerts }) => {
+    
+    if(!alerts) return null;
+
+    return (
+        <div className={ style.alertListContainer }>
+            { alerts.map(alert => <SingleAlert alert={ alert } key={ alert.id }/>) }
+        </div>
+    )
+}
 
 
 export default AlertList;

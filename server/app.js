@@ -15,18 +15,20 @@ if(process.env.NODE_ENV !== 'production') {
 
 //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
 
-/* setInterval(() => {
+setInterval(() => {
+    const headers = { 'User-Agent': 'Request-Promise' }; 
     const _call = {
         uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/',
-        headers: { 'User-Agent': 'Request-Promise' }
+        headers
     };
     rp(_call)
         .then(() => console.log('call'))
         .catch(err => console.log(err))
         
     const _users = {
-        uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/users',
-        headers: { 'User-Agent': 'Request-Promise' },
+        //uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/users',
+        uri: 'http://localhost:3000/api/users',
+        headers,
         json: true
     };
     rp(_users)
@@ -35,41 +37,49 @@ if(process.env.NODE_ENV !== 'production') {
             const currentDate = new Date();
             const currentHour = currentDate.getHours();
 
-            console.log(currentHour, users[0]);
-            
-            // Heroku uses UTC!
-            // if(currentHour === 9 || currentHour === 16 || currentHour === 22 || currentHour === 23) {
-            if(currentHour === 13) {  // 9AM (EDT)
-                console.log('text')
-                const _waqi = {
-                    uri: `https://api.waqi.info/feed/${users[0].cities[0].name}/`,
-                    qs: { token: `${process.env.AIR_QUALITY_INDEX_KEY}` },
-                    headers: { 'User-Agent': 'Request-Promise' },
-                    json: true // Automatically parses the JSON string in the response
-                };
-                rp(_waqi)
-                    .then(res => res.data.aqi)
-                    .then(aqi => {
-                        if(aqi >= users[0].cities[0].aqiThreshold) {
-                            const _message = {
-                                method: 'POST',
-                                uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/messages',
-                                body: {
-                                    to: '+15166109915',
-                                    body: 'Air Quality Index > 0'
-                                },
-                                json: true // Automatically stringifies the body to JSON
-                            };
-                            rp(_message)
-                                .then(() => console.log('message success'))
-                                .catch(err => console.log(err))
-                        }
+            console.log(currentHour);
+            //console.log(users);
+            users.forEach(user => {
+                // Heroku uses UTC!
+                //if(currentHour === 12 || currentHour === 13) {  // 8AM / 9AM (EDT)
+                if(currentHour === 8 || currentHour === 9 || currentHour === 22 || currentHour === 23) {
+                    console.log('text')
+                    console.log(user.alerts)
+                    user.alerts.forEach(city => {
+                        console.log(city)
+                        const _waqi = {
+                            uri: `https://api.waqi.info/feed/${city.cityName}/`,
+                            qs: { token: `${process.env.AIR_QUALITY_INDEX_KEY}` },
+                            headers,
+                            json: true // Automatically parses the JSON string in the response
+                        };
+                        rp(_waqi)
+                            .then(res => res.data.aqi)
+                            .then(aqi => {
+                                    if(aqi >= city.aqiThreshold) {
+                                        const _message = {
+                                            method: 'POST',
+                                            //uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/messages',
+                                            uri: 'http://localhost:3000/api/messages',
+                                            body: {
+                                                to: '+15166109915',
+                                                body: 'Air Quality Index > 0'
+                                            },
+                                            json: true
+                                        };
+                                        rp(_message)
+                                            .then(() => console.log('message success'))
+                                            .catch(err => console.log(err))
+                                    }
+                                    else console.log('do not text');
+                                })
                     })
-            }
-            else console.log('do not text');
-        })
-        .catch(err => console.log(err));
-}, 1000 * 60 * 25); // Every 25 minutes */
+                }
+                else console.log('do not text (wrong time)');
+            })
+        }).catch(err => console.log(err));
+}, 1000 * 15); // Every 15 seconds
+//1000 * 60 * 25); // Every 25 minutes
 
 
 // Body Parser

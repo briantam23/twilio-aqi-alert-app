@@ -21,7 +21,7 @@
     padding: 0;
     list-style: none;
     overflow: hidden;
-    background-color: green;
+    background-color: rgb(87, 135, 87); 
   }
 
   li a {
@@ -34,7 +34,9 @@
   }
 
   li a:hover,
-  .menuBtn:hover { background-color: rgb(48, 135, 48); }
+  .menuBtn:hover { 
+    background-color: rgb(68, 135, 68);
+  }
 
   .logo {
     display: block;
@@ -123,8 +125,15 @@
   @media (min-width: 767px) {
     li {
       float: left;
+      background-color: green;
       
-      a { padding: 20px 30px; }
+      a { 
+        padding: 20px 30px; 
+      }
+      .menuBtn:hover, 
+      a:hover { 
+        background-color: rgb(48, 135, 48);  
+      }
     }
     
     .menu {

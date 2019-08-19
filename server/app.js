@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const { User } = require('./db').models;
+const { twilioCall, twilioDevErrMsg } = require('./twilio');
 const path = require('path');
 const bodyParser = require('body-parser');
 const jwt = require('jwt-simple');
-const rp = require('request-promise');
 const chalk = require('chalk');
 
 
@@ -13,74 +13,8 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-//Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
-
-setInterval(() => {
-    const headers = { 'User-Agent': 'Request-Promise' }; 
-    const _call = {
-        uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/',
-        headers
-    };
-    rp(_call)
-        .then(() => console.log('call'))
-        .catch(err => console.log(err))
-        
-    const _users = {
-        //uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/users',
-        uri: 'http://localhost:3000/api/users',
-        headers,
-        json: true
-    };
-    rp(_users)
-        .then(users => {
-
-            const currentDate = new Date();
-            const currentHour = currentDate.getHours();
-
-            console.log(currentHour);
-            //console.log(users);
-            users.forEach(user => {
-                // Heroku uses UTC!
-                //if(currentHour === 12 || currentHour === 13) {  // 8AM / 9AM (EDT)
-                if(currentHour === 8 || currentHour === 9 || currentHour === 22 || currentHour === 23) {
-                    console.log('text')
-                    console.log(user.alerts)
-                    user.alerts.forEach(city => {
-                        console.log(city)
-                        const _waqi = {
-                            uri: `https://api.waqi.info/feed/${city.cityName}/`,
-                            qs: { token: `${process.env.AIR_QUALITY_INDEX_KEY}` },
-                            headers,
-                            json: true // Automatically parses the JSON string in the response
-                        };
-                        rp(_waqi)
-                            .then(res => res.data.aqi)
-                            .then(aqi => {
-                                    if(aqi >= city.aqiThreshold) {
-                                        const _message = {
-                                            method: 'POST',
-                                            //uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/messages',
-                                            uri: 'http://localhost:3000/api/messages',
-                                            body: {
-                                                to: '+15166109915',
-                                                body: 'Air Quality Index > 0'
-                                            },
-                                            json: true
-                                        };
-                                        rp(_message)
-                                            .then(() => console.log('message success'))
-                                            .catch(err => console.log(err))
-                                    }
-                                    else console.log('do not text');
-                                })
-                    })
-                }
-                else console.log('do not text (wrong time)');
-            })
-        }).catch(err => console.log(err));
-}, 1000 * 15); // Every 15 seconds
-//1000 * 60 * 25); // Every 25 minutes
-
+twilioCall();
+//twilioDevErrMsg();
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));

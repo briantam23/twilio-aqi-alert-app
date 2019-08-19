@@ -80,7 +80,7 @@ const profileFormHOC = FormComponent => {
                 createUser({ username, password, phoneNumber }, history)
                     .catch(() => {
                         this.setState({ 
-                            error: 'Error! Username, password and/or phone number taken. Please try again.'
+                            error: 'Error! Username, password and/or phone number taken. Please try again. (X)'
                         });
                     })
             }

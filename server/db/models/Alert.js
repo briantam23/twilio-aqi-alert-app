@@ -19,7 +19,7 @@ const Alert = conn.define('alerts',
             allowNull: false,
             validate: {
             min: 0,
-            max: 100
+            max: 500
             }
         }
     },

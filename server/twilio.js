@@ -5,10 +5,12 @@ const headers = { 'User-Agent': 'Request-Promise' };
 
 //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
 const keepAppRunning = () => {
+
     const _call = {
         uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/',
         headers
     };
+
     rp(_call)
         .then(() => console.log('call'))
         .catch(err => console.log(err))
@@ -76,17 +78,14 @@ const twilioCall = () => {
             //if(currentHour === 12 || currentHour === 13) {  // 8AM / 9AM (EDT)
             if(currentHour === 12 || currentHour === 13 || currentHour === 22 || currentHour === 23) {
                 
-                users.forEach(user => {
-
-                    user.alerts.forEach(alert => alertUser(user, alert));
-                })
+                users.forEach(user => user.alerts.forEach(alert => alertUser(user, alert)));
             }
             else console.log('do not text (wrong time)');
 
         }).catch(err => console.log(err));
 
-    }, 1000 * 10); // Every 10 seconds
     //1000 * 60 * 25); // Every 25 minutes
+    }, 1000 * 10); // Every 10 seconds
 }
 
 

@@ -47,11 +47,12 @@ const profileFormHOC = FormComponent => {
             //Create Alert
             if(cityName) {
 
-                if(findUserAlerts(auth, users).length >= 5) {
+                if(findUserAlerts(auth, users).length >= 3) return;
+                /* if(findUserAlerts(auth, users).length >= 5) {
                     this.setState({ error: 'Limit 5 Alerts' });
                     console.log('Limit 5 Alerts');
                     return;
-                }
+                } */
 
                 console.log('create alert');
 

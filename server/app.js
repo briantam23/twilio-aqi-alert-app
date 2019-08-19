@@ -13,7 +13,7 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-twilioCall();
+//twilioCall();
 //twilioDevErrMsg();
 
 // Body Parser

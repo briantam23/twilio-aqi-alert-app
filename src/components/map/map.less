@@ -49,10 +49,22 @@
 .legendMobile { 
     display: none; 
 
-    @media (max-width: 823px) and (orientation: portrait) { 
+    @media (max-width: 823px) { 
         display: block;
         margin-left: 9px;
         position: fixed;
         bottom: 25px;
     }
+
+    @media (min-height: 400px) and (max-height: 749px) { 
+        display: block;
+        margin-left: 9px;
+        position: fixed;
+        bottom: 25px;
+    }
+
+    @media (max-height: 401px) and (max-width: 900px) and (orientation: landscape) { 
+        display: none;
+    }
+    
 }

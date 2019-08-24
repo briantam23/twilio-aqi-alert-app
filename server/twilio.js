@@ -76,7 +76,7 @@ const twilioCall = () => {
             // Heroku uses UTC!
             console.log(currentHour);
             //if(currentHour === 12 || currentHour === 13) {  // 8AM / 9AM (EDT)
-            if(currentHour === 12 || currentHour === 13 || currentHour === 22 || currentHour === 23) {
+            if(currentHour === 15 || currentHour === 13 || currentHour === 22 || currentHour === 23) {
                 
                 users.forEach(user => user.alerts.forEach(alert => alertUser(user, alert)));
             }

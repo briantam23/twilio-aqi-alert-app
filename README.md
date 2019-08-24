@@ -16,7 +16,7 @@ Currently deployed to [Heroku](https://btam-aqi-twilio-alert-app.herokuapp.com/)
 
 ## Setting up
 
-This app requires a Google API Key, Air Quality Index API Key (from https://aqicn.org), Twilio Account SID, Twilio Auth Token, Twilio Phone Number & Own Phone Number (if you want to test out the Twilio API on a phone), which must be set in `.env` or set as an environment variable on `GOOGLE_API_KEY`, `AIR_QUALITY_INDEX_KEY`, `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_PHONE_NUMBER` & `OWN_PHONE_NUMBER`.
+This app requires a Google API Key, Air Quality Index API Key (from https://aqicn.org), Twilio Account SID, Twilio Auth Token, Twilio Phone Number & Own Phone Number (if you want to be sent Twilio error messages regarding the app), which must be set in `.env` or set as an environment variable on `GOOGLE_API_KEY`, `AIR_QUALITY_INDEX_KEY`, `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_PHONE_NUMBER` & `OWN_PHONE_NUMBER`.
 
 ### Dependencies
 

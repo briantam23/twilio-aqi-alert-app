@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { login, logout } from '../../store/actions/auth';
 import { createUser, createAlert } from '../../store/actions/users';
-import { findUserAlerts } from '../../util/profileUtil';
+import { findUserAlerts, specialCharRegex } from '../../util/profileUtil';
 import axios from 'axios';
 
 
@@ -54,6 +54,8 @@ const profileFormHOC = FormComponent => {
             }
 
             else if(pathname === 'create') {   //User creates account
+                if(!specialCharRegex(password)) return this.setState({ error: 'Error! Password must have at least 1 special character. (X)' });
+                
                 createUser({ username, password, phoneNumber }, history)
                     .catch(() => this.setState({ error: 'Error! Username taken. Please try again. (X)' }))
             }

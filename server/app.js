@@ -13,8 +13,8 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-//twilioCall();
-//twilioDevErrMsg();
+/* twilioCall();
+twilioDevErrMsg(); */
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));

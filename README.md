@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/briantam23/aqi-twilio-alert-app.svg?branch=master)](https://travis-ci.org/briantam23/aqi-twilio-alert-app)
+[![Build Status](https://travis-ci.org/briantam23/twilio-aqi-alert-app.svg?branch=master)](https://travis-ci.org/briantam23/twilio-aqi-alert-app)
 
 # 🌤 Air Quality Index App w/ Twilio Notifications
 

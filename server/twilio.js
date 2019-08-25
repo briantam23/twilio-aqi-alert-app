@@ -7,7 +7,7 @@ const headers = { 'User-Agent': 'Request-Promise' };
 const keepAppRunning = () => {
 
     const _call = {
-        uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/',
+        uri: 'https://btam-twilio-aqi-alert.herokuapp.com/',
         headers
     };
 
@@ -51,7 +51,7 @@ const alertUser = (user, alert) => {
                         uri: 'http://localhost:3000/api/messages',
                         body: {
                             to: user.phoneNumber,
-                            body: 'Air Quality Index > ' + alert.aqiThreshold
+                            body: `${user.username} - ${alert.cityName}'s Air Quality Index > ${alert.aqiThreshold}!`
                         },
                         json: true
                     };
@@ -66,23 +66,18 @@ const alertUser = (user, alert) => {
 
 
 const twilioCall = () => {
-    
+
     setInterval(() => {
-        
         keepAppRunning();
-            
-        rp(_users).then(users => {
-
-            // Heroku uses UTC!
-            console.log(currentHour);
-            //if(currentHour === 12 || currentHour === 13) {  // 8AM / 9AM (EDT)
-            if(currentHour === 15 || currentHour === 13 || currentHour === 22 || currentHour === 23) {
-                
-                users.forEach(user => user.alerts.forEach(alert => alertUser(user, alert)));
-            }
-            else console.log('do not text (wrong time)');
-
-        }).catch(err => console.log(err));
+    
+        console.log(currentHour); // Heroku uses UTC!
+        //if(currentHour === 12 || currentHour === 13) {  // 8AM / 9AM (EDT)
+        if(currentHour === 15 || currentHour === 13 || currentHour === 22 || currentHour === 23) {
+            rp(_users)
+                .then(users => users.forEach(user => user.alerts.forEach(alert => alertUser(user, alert))))
+                .catch(err => console.log(err));
+        }
+        else console.log('do not text (wrong time)');
 
     //1000 * 60 * 25); // Every 25 minutes
     }, 1000 * 10); // Every 10 seconds

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { City } = require('../db').models;
+const { Alert } = require('../db').models;
 
 
 router.get('/', (req, res, next) => {

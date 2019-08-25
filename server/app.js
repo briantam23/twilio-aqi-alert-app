@@ -15,9 +15,9 @@ if(process.env.NODE_ENV !== 'production') {
 
 // To prevent test / CI from running indefinitely
 // If you want to test, set environment variable: TEST=TRUE
-if(process.env.TEST !== 'TRUE') twilioCall();  
+/* if(process.env.TEST !== 'TRUE') twilioCall();  
 
-twilioDevErrMsg();
+twilioDevErrMsg(); */
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));

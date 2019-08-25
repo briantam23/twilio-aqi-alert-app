@@ -17,7 +17,7 @@ const keepAppRunning = () => {
 }
 
 const _users = {
-    uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/users',
+    uri: 'https://btam-twilio-aqi-alert.herokuapp.com/api/users',
     //uri: 'http://localhost:3000/api/users',
     headers,
     json: true
@@ -46,7 +46,7 @@ const alertUser = (user, alert) => {
 
                     const _message = {
                         method: 'POST',
-                        uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/messages',
+                        uri: 'https://btam-twilio-aqi-alert.herokuapp.com/api/messages',
                         //uri: 'http://localhost:3000/api/messages',
                         body: {
                             to: user.phoneNumber,

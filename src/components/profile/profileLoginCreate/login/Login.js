@@ -3,7 +3,7 @@ import style from './login.less';
 
 
 const Login = ({ username, password }) => (
-    <button disabled={ !username || !password } className={ style.authLogin }>
+    <button className={ style.authLogin }>
         Login
     </button>   
 )

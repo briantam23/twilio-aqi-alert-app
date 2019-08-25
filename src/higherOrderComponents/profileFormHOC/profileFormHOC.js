@@ -41,7 +41,7 @@ const profileFormHOC = FormComponent => {
                 return axios.get(`https://api.waqi.info/feed/${cityName}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
                     .then(res => res.data.data)
                     .then(data => {
-                        if(data === 'Unknown station') this.setState({ error: 'Unknown station' });
+                        if(data === 'Unknown station') this.setState({ error: 'Unknown Station! (X)' });
                         else {
                             const alert = {
                                 cityName: data.city.name,
@@ -49,14 +49,15 @@ const profileFormHOC = FormComponent => {
                                 aqiThreshold,
                                 userId: auth.id
                             }
-                            createAlert(alert);
+                            createAlert(alert)
+                                .catch(() => this.setState({ error: 'Invalid AQI Threshold! (X)' }))
                         }
                     })
             }
 
             else if(pathname.slice(9) === 'create') {   //User creates account
                 createUser({ username, password, phoneNumber }, history)
-                    .catch(() => this.setState({ error: 'Error! Username, password and/or phone number taken. Please try again. (X)' }))
+                    .catch(() => this.setState({ error: 'Error! Username taken. Please try again. (X)' }))
             }
             
             else if(pathname.slice(9) === '') {  //User logins

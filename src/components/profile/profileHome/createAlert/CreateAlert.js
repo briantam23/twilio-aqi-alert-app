@@ -10,7 +10,7 @@ export const CreateAlert = ({ cityName, aqiThreshold, error, handleChange, handl
 
         <form onSubmit={ handleSubmit } className={ style.createAlertForm }>
             {
-                error === 'Limit 5 Alerts! (X)' 
+                error === 'Limit 5 Alerts! (X)' || error === 'Unknown Station! (X)' || error === 'Invalid AQI Threshold! (X)'
                 ? ( <div onClick={ () => handleClearError() } className={ style.errorMessage }>
                         <strong>{ error }</strong>
                     </div> )
@@ -33,7 +33,7 @@ export const CreateAlert = ({ cityName, aqiThreshold, error, handleChange, handl
                 size='20'
                 required
             />
-            <button disabled={ !cityName || !aqiThreshold /* || alerts.length >= 5 */ } className={ style.createAlertButton }>
+            <button className={ style.createAlertButton }>
                     Create Alert
             </button>   
 

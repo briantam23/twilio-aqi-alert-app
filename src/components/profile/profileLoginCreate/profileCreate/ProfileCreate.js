@@ -15,7 +15,7 @@ const ProfileCreate = ({ username, password, phoneNumber, handleChange }) => (
             type='tel'
         />
 
-        <button disabled={ !username || !password || !phoneNumber } className={ style.authSubmit }>
+        <button className={ style.authSubmit }>
             Create
         </button>
         

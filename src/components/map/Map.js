@@ -31,12 +31,16 @@ class Map extends Component {
             autoFocus
         />
 
-        <div id='legend-computer' className={ style.legendComputer }>
-            <img src='/public/img/aqi_legend_computer.png' alt='AQI Legend Computer' />
+        <div className={ style.legendLargeComputer }>
+            <img src='/public/img/legend_lg_computer.png' alt='Legend (Large Computer)' />
+        </div>
+
+        <div className={ style.legendSmallComputer }>
+            <img src='/public/img/legend_sm_computer.png' alt='Legend (Small Computer)' />
         </div>
         
-        <div id='legend-mobile' className={ style.legendMobile }>
-            <img src='/public/img/aqi_legend_mobile.png' alt='AQI Legend Mobile' />
+        <div className={ style.legendMobile }>
+            <img src='/public/img/legend_mobile.png' alt='Legend (Mobile)' />
         </div>
 
       </Fragment>

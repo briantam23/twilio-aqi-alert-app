@@ -1,5 +1,5 @@
 {
-  "name": "btam-aqi-twilio-alert-app",
+  "name": "btam-twilio-aqi-alert-app",
   "author": {
     "name": "Brian Tam",
     "email": "briantam23@gmail.com",
@@ -12,12 +12,12 @@
       "url": "https://briantam23.github.io"
     }
   ],
-  "homepage": "https://btam-aqi-twilio-alert-app.herokuapp.com",
+  "homepage": "https://btam-twilio-aqi-alert.herokuapp.com",
   "version": "1.0.0",
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/briantam23/aqi-twilio-alert-app.git"
+    "url": "https://github.com/briantam23/twilio-aqi-alert-app.git"
   },
   "main": "server/index.js",
   "scripts": {

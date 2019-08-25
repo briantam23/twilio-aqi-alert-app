@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import style from './createAlert.less';
 import profileFormHOC from '../../../../higherOrderComponents/profileFormHOC/profileFormHOC';
+import Error from '../../../shared/Error';
 
 
 export const CreateAlert = ({ cityName, aqiThreshold, error, handleChange, handleSubmit, handleClearError, alerts }) => (
@@ -9,13 +10,7 @@ export const CreateAlert = ({ cityName, aqiThreshold, error, handleChange, handl
         <h1>Create Air Quality Alert!</h1>
 
         <form onSubmit={ handleSubmit } className={ style.createAlertForm }>
-            {
-                error ? ( 
-                    <div onClick={ () => handleClearError() } className={ style.errorMessage }>
-                        <strong>{ error }</strong>
-                    </div> 
-                ) : null
-            }
+            <Error error={ error } handleClearError={ handleClearError }/>
             <input 
                 onChange={ handleChange } 
                 value={ cityName } 

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import style from './profileLoginCreate.less';
 import profileFormHOC from '../../../higherOrderComponents/profileFormHOC/profileFormHOC';
+import Error from '../../shared/Error';
 import ProfileCreate from './profileCreate/ProfileCreate';
 import Login from './login/Login';
 
@@ -11,13 +12,7 @@ const ProfileLoginCreate = ({ username, password, error, phoneNumber, handleChan
         pathname.slice(9) === 'create' ? <h1>Create Profile</h1> : <h1>Login</h1>
     }
         <form onSubmit={ handleSubmit } className={ style.authForm }>
-            {
-                error ? (
-                    <div onClick={ () => handleClearError() } className={ style.errorMessage }>
-                        <strong>{ error }</strong>
-                    </div> 
-                ) : null
-            }
+            <Error error={ error } handleClearError={ handleClearError }/>
             <input 
                 onChange={ handleChange } 
                 value={ username } 

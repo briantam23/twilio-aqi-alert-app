@@ -13,7 +13,10 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-twilioCall();
+// To prevent test / CI from running indefinitely
+// If you want to test, set environment variable: TEST=TRUE
+if(process.env.TEST !== 'TRUE') twilioCall();  
+
 twilioDevErrMsg();
 
 // Body Parser

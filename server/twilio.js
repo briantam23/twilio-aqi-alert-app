@@ -17,8 +17,8 @@ const keepAppRunning = () => {
 }
 
 const _users = {
-    //uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/users',
-    uri: 'http://localhost:3000/api/users',
+    uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/users',
+    //uri: 'http://localhost:3000/api/users',
     headers,
     json: true
 };
@@ -40,15 +40,14 @@ const alertUser = (user, alert) => {
         .then(aqi => {
                 
                 console.log(aqi, alert.aqiThreshold);
-                console.log(alert);
                 
                 if(aqi >= alert.aqiThreshold) {
                     console.log('text')
 
                     const _message = {
                         method: 'POST',
-                        //uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/messages',
-                        uri: 'http://localhost:3000/api/messages',
+                        uri: 'https://btam-aqi-twilio-alert-app.herokuapp.com/api/messages',
+                        //uri: 'http://localhost:3000/api/messages',
                         body: {
                             to: user.phoneNumber,
                             body: `${user.username} - ${alert.cityName}'s Air Quality Index > ${alert.aqiThreshold}!`
@@ -71,16 +70,16 @@ const twilioCall = () => {
         keepAppRunning();
     
         console.log(currentHour); // Heroku uses UTC!
-        //if(currentHour === 12 || currentHour === 13) {  // 8AM / 9AM (EDT)
-        if(currentHour === 15 || currentHour === 13 || currentHour === 22 || currentHour === 23) {
+        if(currentHour === 14 || currentHour === 15) {  // UTC (10AM / 11AM EDT)
+        //if(currentHour === 9 || currentHour === 13 || currentHour === 22 || currentHour === 23) {   // EDT
             rp(_users)
                 .then(users => users.forEach(user => user.alerts.forEach(alert => alertUser(user, alert))))
                 .catch(err => console.log(err));
         }
         else console.log('do not text (wrong time)');
 
-    //1000 * 60 * 25); // Every 25 minutes
-    }, 1000 * 10); // Every 10 seconds
+    1000 * 60 * 25); // Every 25 minutes
+    //}, 1000 * 10); // Every 10 seconds
 }
 
 

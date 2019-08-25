@@ -8,7 +8,7 @@ User.hasMany(Alert);
 
 
 const syncAndSeed = () => {
-    let Brian, Mike, Johnny, NewYork, Chicago, Boston, Albany;
+    let Brian, Mike, Johnny, NewYork, LosAngeles, Boston, Albany;
 
     conn.sync({ force: true })
         .then(() => Promise.all([
@@ -20,15 +20,15 @@ const syncAndSeed = () => {
             [Brian, Mike/* , Johnny */] = users;
             return Promise.all([
                 Alert.create({ cityName: 'New York', urlParamCityName: 'newyork', aqiThreshold: 0 }),
-                Alert.create({ cityName: 'Chicago', urlParamCityName: 'chicago', aqiThreshold: 0 }),
+                Alert.create({ cityName: 'Los Angeles', urlParamCityName: 'losangeles', aqiThreshold: 0 }),
                 Alert.create({ cityName: 'Boston', urlParamCityName: 'boston', aqiThreshold: 0 }),
                 Alert.create({ cityName: 'Albany', urlParamCityName: 'albany', aqiThreshold: 500 })
             ])
         })
         .then(alerts => {
-            [NewYork, Chicago, Boston, Albany] = alerts;
+            [NewYork, LosAngeles, Boston, Albany] = alerts;
             NewYork.setUser(Brian);
-            Chicago.setUser(Brian);
+            LosAngeles.setUser(Brian);
             Boston.setUser(Mike);
             Albany.setUser(Mike);
         })

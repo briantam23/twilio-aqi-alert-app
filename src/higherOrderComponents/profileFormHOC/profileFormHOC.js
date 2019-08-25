@@ -14,29 +14,27 @@ const profileFormHOC = FormComponent => {
         state = { username: '', password: '', phoneNumber: '', cityName: '', aqiThreshold: '', error: '' };
 
         componentDidUpdate = prevProps => {
-            const { auth } = this.props;
-            
             if(prevProps !== this.props) {
-                if(auth.id) this.setState({ username: '', password: '', phoneNumber: '', error: '' });
+                if(this.props.auth.id) this.setState({ username: '', password: '', phoneNumber: '', error: '' });
                 else this.setState({ error: '' });
             }
         }
     
-        handleChange = e => {
-            this.setState({ [e.target.name]: e.target.value });
-        }
+        handleChange = e => this.setState({ [e.target.name]: e.target.value });
     
         handleSubmit = e => {
             e.preventDefault();
-            const { auth, users, login, logout, createUser, createAlert, pathname, history } = this.props;
-            const { username, password, phoneNumber, cityName, aqiThreshold } = this.state;
+            const { auth, users, login, logout, createUser, createAlert, history } = this.props;
+            let { pathname } = this.props;
+            const { username, password, phoneNumber, aqiThreshold } = this.state;
+            const cityName = this.state.cityName.trim();
+            const numAlerts = findUserAlerts(auth, users).length;
+            if(pathname) pathname = this.props.pathname.slice(9);
             
+
             if(cityName) {  //User creates alert 
 
-                if(findUserAlerts(auth, users).length >= 5) {
-                    this.setState({ error: 'Limit 5 Alerts! (X)' });
-                    return;
-                }
+                if(numAlerts >= 5) return this.setState({ error: 'Limit 5 Alerts! (X)' });
 
                 return axios.get(`https://api.waqi.info/feed/${cityName}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
                     .then(res => res.data.data)
@@ -55,12 +53,12 @@ const profileFormHOC = FormComponent => {
                     })
             }
 
-            else if(pathname.slice(9) === 'create') {   //User creates account
+            else if(pathname === 'create') {   //User creates account
                 createUser({ username, password, phoneNumber }, history)
                     .catch(() => this.setState({ error: 'Error! Username taken. Please try again. (X)' }))
             }
             
-            else if(pathname.slice(9) === '') {  //User logins
+            else if(pathname === '') {  //User logins
                 login(this.state, history)
                     .catch(() => this.setState({ username: '', password: '', error: 'Invalid credentials! Please try again. (X)' })) 
             }
@@ -68,9 +66,7 @@ const profileFormHOC = FormComponent => {
             else logout(history);  //User logouts
         }
 
-        handleClearError = () => {
-            this.setState({ error: '' });
-        }
+        handleClearError = () => this.setState({ error: '' });
 
         render () {
             const { handleChange, handleSubmit, handleClearError } = this;

@@ -12,11 +12,11 @@ const ProfileLoginCreate = ({ username, password, error, phoneNumber, handleChan
     }
         <form onSubmit={ handleSubmit } className={ style.authForm }>
             {
-                error ? (
-                    <div onClick={ () => handleClearError() } className={ style.errorMessage }>
+                error && error !== 'Limit 5 Alerts! (X)' 
+                ? ( <div onClick={ () => handleClearError() } className={ style.errorMessage }>
                         <strong>{ error }</strong>
-                    </div> 
-                ): null
+                    </div> )
+                : null
             }
             <input 
                 onChange={ handleChange } 

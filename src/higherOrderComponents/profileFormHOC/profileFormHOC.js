@@ -11,27 +11,14 @@ const profileFormHOC = FormComponent => {
 
     return class StatefulForm extends Component {
         
-        state = {
-            username: '',
-            password: '',
-            phoneNumber: '',
-            cityName: '',
-            aqiThreshold: '',
-            error: ''
-        }
+        state = { username: '', password: '', phoneNumber: '', cityName: '', aqiThreshold: '', error: '' };
 
         componentDidUpdate = prevProps => {
             const { auth } = this.props;
             
             if(prevProps !== this.props) {
-                if(auth.id) {
-                    this.setState({ 
-                        username: '', 
-                        password: '', 
-                        phoneNumber: '', 
-                        error: '' 
-                    });
-                }
+                if(auth.id) this.setState({ username: '', password: '', phoneNumber: '', error: '' });
+                else this.setState({ error: '' });
             }
         }
     
@@ -44,25 +31,17 @@ const profileFormHOC = FormComponent => {
             const { auth, users, login, logout, createUser, createAlert, pathname, history } = this.props;
             const { username, password, phoneNumber, cityName, aqiThreshold } = this.state;
             
-            //Create Alert
-            if(cityName) {
+            if(cityName) {  //User creates alert 
 
-                if(findUserAlerts(auth, users).length >= 3) return;
-                /* if(findUserAlerts(auth, users).length >= 5) {
-                    this.setState({ error: 'Limit 5 Alerts' });
-                    console.log('Limit 5 Alerts');
+                if(findUserAlerts(auth, users).length >= 5) {
+                    this.setState({ error: 'Limit 5 Alerts! (X)' });
                     return;
-                } */
-
-                console.log('create alert');
+                }
 
                 return axios.get(`https://api.waqi.info/feed/${cityName}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
                     .then(res => res.data.data)
                     .then(data => {
-                        console.log(data)
-                        if(data === 'Unknown station') {
-                            this.setState({ error: 'Unknown station' });
-                        }
+                        if(data === 'Unknown station') this.setState({ error: 'Unknown station' });
                         else {
                             const alert = {
                                 cityName: data.city.name,
@@ -75,30 +54,17 @@ const profileFormHOC = FormComponent => {
                     })
             }
 
-            //Create User
-            else if(pathname.slice(9) === 'create') {
+            else if(pathname.slice(9) === 'create') {   //User creates account
                 createUser({ username, password, phoneNumber }, history)
-                    .catch(() => {
-                        this.setState({ 
-                            error: 'Error! Username, password and/or phone number taken. Please try again. (X)'
-                        });
-                    })
+                    .catch(() => this.setState({ error: 'Error! Username, password and/or phone number taken. Please try again. (X)' }))
             }
             
-            //Login
-            else if(pathname.slice(9) === '') {
+            else if(pathname.slice(9) === '') {  //User logins
                 login(this.state, history)
-                    .catch(() => {
-                        this.setState({ 
-                            username: '', 
-                            password: '',
-                            error: 'Invalid credentials! Please try again. (X)' 
-                        })
-                    }) 
+                    .catch(() => this.setState({ username: '', password: '', error: 'Invalid credentials! Please try again. (X)' })) 
             }
 
-            //Logout
-            else logout(history);
+            else logout(history);  //User logouts
         }
 
         handleClearError = () => {
@@ -127,9 +93,6 @@ const mapStateToProps = ({ auth, users }, { id, pathname, history }) => ({ auth,
 const mapDispatchToProps = { login, logout, createUser, createAlert };
 
 
-const composedHOC = compose(
-    connect(mapStateToProps, mapDispatchToProps),
-    profileFormHOC
-)
+const composedHOC = compose(connect(mapStateToProps, mapDispatchToProps), profileFormHOC);
 
 export default composedHOC;

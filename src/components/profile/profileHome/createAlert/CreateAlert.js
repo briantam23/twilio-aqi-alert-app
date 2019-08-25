@@ -3,13 +3,19 @@ import style from './createAlert.less';
 import profileFormHOC from '../../../../higherOrderComponents/profileFormHOC/profileFormHOC';
 
 
-export const CreateAlert = ({ cityName, aqiThreshold, handleChange, handleSubmit, alerts }) => (
+export const CreateAlert = ({ cityName, aqiThreshold, error, handleChange, handleSubmit, handleClearError, alerts }) => (
     <div className={ style.createAlertContainer }>
 
         <h1>Create Air Quality Alert!</h1>
 
         <form onSubmit={ handleSubmit } className={ style.createAlertForm }>
-
+            {
+                error === 'Limit 5 Alerts! (X)' 
+                ? ( <div onClick={ () => handleClearError() } className={ style.errorMessage }>
+                        <strong>{ error }</strong>
+                    </div> )
+                : null
+            }
             <input 
                 onChange={ handleChange } 
                 value={ cityName } 

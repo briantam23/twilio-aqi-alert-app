@@ -78,7 +78,7 @@ const twilioCall = () => {
         }
         else console.log('do not text (wrong time)');
 
-    1000 * 60 * 25); // Every 25 minutes
+    }, 1000 * 60 * 25); // Every 25 minutes
     //}, 1000 * 10); // Every 10 seconds
 }
 

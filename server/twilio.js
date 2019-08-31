@@ -23,9 +23,6 @@ const _users = {
     json: true
 };
 
-const currentDate = new Date();
-const currentHour = currentDate.getHours();
-
 const alertUser = (user, alert) => {
 
     const _waqi = {
@@ -68,10 +65,12 @@ const twilioCall = () => {
 
     setInterval(() => {
         keepAppRunning();
-    
+        
+        const currentDate = new Date();
+        const currentHour = currentDate.getHours();
         console.log(currentHour); // Heroku uses UTC!
         //if(currentHour === 14 || currentHour === 15) {  // UTC (10AM / 11AM EDT)
-        if(currentHour === 9 || currentHour === 12 || currentHour === 13 || currentHour === 23) {   // EDT
+        if(currentHour === 19) {   // EDT
             rp(_users)
                 .then(users => users.forEach(user => user.alerts.forEach(alert => alertUser(user, alert))))
                 .catch(err => console.log(err));

@@ -2,17 +2,15 @@ import { SET_AUTH } from '../constants';
 import axios from 'axios';
 
 
-const exchangeTokenForAuth = history => (
+export const exchangeTokenForAuth = history => (
     dispatch => {
         const token = window.localStorage.getItem('token');
         if(!token) return;
-        return axios.get('/api/auth', {
-            headers: { authorization: token }
-        })
+        return axios.get('/api/auth', { headers: { authorization: token } })
             .then(res => res.data)
             .then(auth => {
                 dispatch(_setAuth(auth));
-                history.push(`/profile/${auth.id}`);
+                if(history) history.push(`/profile/${auth.id}`);
             })
             .catch(ex => window.localStorage.removeItem('token'))
     }

@@ -1,58 +1,19 @@
 const rp = require('request-promise');
+const { headers, json, keepAppRunning, _waqi, _message, _users, alertUsers, _devError } = require('./util');
 
-
-const headers = { 'User-Agent': 'Request-Promise' }; 
-
-//Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
-const keepAppRunning = () => {
-
-    const _call = {
-        uri: 'https://btam-twilio-aqi-alert.herokuapp.com/',
-        headers
-    };
-
-    rp(_call)
-        .then(() => console.log('call'))
-        .catch(err => console.log(err))
-}
-
-const _users = {
-    //uri: 'https://btam-twilio-aqi-alert.herokuapp.com/api/users',
-    uri: 'http://localhost:3000/api/users',
-    headers,
-    json: true
-};
 
 const alertUser = (user, alert) => {
+    const token = `${process.env.AIR_QUALITY_INDEX_KEY}`;
 
-    const _waqi = {
-        uri: `https://api.waqi.info/feed/${alert.cityName}/`,
-        qs: { token: `${process.env.AIR_QUALITY_INDEX_KEY}` },
-        headers,
-        json: true // Automatically parses the JSON string in the response
-    };
-
-    rp(_waqi)
+    rp(_waqi(alert, token))
         .then(res => res.data.aqi)
         .then(aqi => {
-                
                 console.log(aqi, alert.aqiThreshold);
                 
                 if(aqi >= alert.aqiThreshold) {
                     console.log('text')
 
-                    const _message = {
-                        method: 'POST',
-                        //uri: 'https://btam-twilio-aqi-alert.herokuapp.com/api/messages',
-                        uri: 'http://localhost:3000/api/messages',
-                        body: {
-                            to: user.phoneNumber,
-                            body: `${user.username} - ${alert.cityName}'s Air Quality Index > ${alert.aqiThreshold}!`
-                        },
-                        json: true
-                    };
-                    
-                    rp(_message)
+                    rp(_message(user, alert))
                         .then(() => console.log('message success'))
                         .catch(err => console.log(err))
                 }
@@ -60,25 +21,25 @@ const alertUser = (user, alert) => {
         })
 }
 
-
 const twilioCall = () => {
-
     setInterval(() => {
-        keepAppRunning();
+        //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
+        keepAppRunning(); 
         
         const currentDate = new Date();
         const currentHour = currentDate.getHours();
         console.log(currentHour); // Heroku uses UTC!
+
         //if(currentHour === 14 || currentHour === 15) {  // UTC (10AM / 11AM EDT)
-        if(currentHour === 19) {   // EDT
+        if(currentHour === 13 || currentHour === 14) {   // EDT
             rp(_users)
-                .then(users => users.forEach(user => user.alerts.forEach(alert => alertUser(user, alert))))
+                .then(users => alertUsers(users, alertUser))
                 .catch(err => console.log(err));
         }
         else console.log('do not text (wrong time)');
 
-    //}, 1000 * 60 * 25); // Every 25 minutes
-    }, 1000 * 10); // Every 10 seconds
+    }, 1000 * 60 * 25); // Every 25 minutes
+    //}, 1000 * 10); // Every 10 seconds
 }
 
 
@@ -86,18 +47,13 @@ const twilioCall = () => {
 const twilioDevErrMsg = () => {
 
     process.on('uncaughtException', err => {
-        
         console.log(err);
-        
+        const { TWILIO_PHONE_NUMBER, OWN_PHONE_NUMBER } = process.env;
+
         client.messages
-            .create({
-                from: process.env.TWILIO_PHONE_NUMBER,
-                to: process.env.OWN_PHONE_NUMBER,
-                body: 'Twilio error: ' + err
-            }), 
-            (twilioErr, message) => {
-                if(twilioErr) console.log('Twilio error: ' + twilioErr)
-            }
+            .create(_devError(TWILIO_PHONE_NUMBER, OWN_PHONE_NUMBER, err))
+            .catch(e => console.error('Got an error:', e.code, e.message))
+            //(twilioErr, message) => if(twilioErr) console.log('Twilio error: ' + twilioErr);
     }) 
 }
 

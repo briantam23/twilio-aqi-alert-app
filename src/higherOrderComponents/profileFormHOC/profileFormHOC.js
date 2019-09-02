@@ -56,12 +56,13 @@ const profileFormHOC = FormComponent => {
             else if(pathname === 'create') {   //User creates account
                 if(!specialCharRegex(password)) return this.setState({ error: 'Error! Password must have at least 1 special character. (X)' });
                 
-                createUser({ username, password, phoneNumber }, history)
+                createUser({ username, password, phoneNumber })
+                    .then(() => login({ username, password }, history))
                     .catch(() => this.setState({ error: 'Error! Username taken. Please try again. (X)' }))
             }
             
             else if(pathname === '') {  //User logins
-                login(this.state, history)
+                login({ username, password }, history)
                     .catch(() => this.setState({ username: '', password: '', error: 'Invalid credentials! Please try again. (X)' })) 
             }
 

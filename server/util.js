@@ -21,8 +21,8 @@ const _waqi = (alert, token) => ({
 
 const _message = (user, alert) => ({
     method: 'POST',
-    //uri: 'https://btam-twilio-aqi-alert.herokuapp.com/api/messages',
-    uri: 'http://localhost:3000/api/messages',
+    uri: 'https://btam-twilio-aqi-alert.herokuapp.com/api/messages',
+    //uri: 'http://localhost:3000/api/messages',
     body: {
         to: user.phoneNumber,
         body: `${user.username} - ${alert.cityName}'s Air Quality Index > ${alert.aqiThreshold}!`
@@ -31,8 +31,8 @@ const _message = (user, alert) => ({
 })
 
 const _users = {
-    //uri: 'https://btam-twilio-aqi-alert.herokuapp.com/api/users',
-    uri: 'http://localhost:3000/api/users',
+    uri: 'https://btam-twilio-aqi-alert.herokuapp.com/api/users',
+    //uri: 'http://localhost:3000/api/users',
     headers,
     json
 }

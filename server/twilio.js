@@ -3,13 +3,13 @@ const { headers, json, keepAppRunning, _waqi, _message, _users, alertUsers, _dev
 
 
 const alertUser = (user, alert) => {
-    const token = `${process.env.AIR_QUALITY_INDEX_KEY}`;
+    const token = process.env.AIR_QUALITY_INDEX_KEY;
 
     rp(_waqi(alert, token))
         .then(res => res.data.aqi)
         .then(aqi => {
                 console.log(aqi, alert.aqiThreshold);
-                
+
                 if(aqi >= alert.aqiThreshold) {
                     console.log('text')
 
@@ -31,7 +31,7 @@ const twilioCall = () => {
         console.log(currentHour); // Heroku uses UTC!
 
         //if(currentHour === 14 || currentHour === 15) {  // UTC (10AM / 11AM EDT)
-        if(currentHour === 13 || currentHour === 14) {   // EDT
+        if(currentHour === 13 || currentHour === 14 || currentHour === 15) {   // EDT
             rp(_users)
                 .then(users => alertUsers(users, alertUser))
                 .catch(err => console.log(err));
@@ -45,7 +45,6 @@ const twilioCall = () => {
 
 //Send SMS of Twilio error message to developer
 const twilioDevErrMsg = () => {
-
     process.on('uncaughtException', err => {
         console.log(err);
         const { TWILIO_PHONE_NUMBER, OWN_PHONE_NUMBER } = process.env;

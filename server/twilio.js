@@ -3,9 +3,9 @@ const { headers, json, keepAppRunning, _waqi, _message, _users, alertUsers, _dev
 
 
 const alertUser = (user, alert) => {
-    const token = process.env.AIR_QUALITY_INDEX_KEY;
+    const { AIR_QUALITY_INDEX_KEY } = process.env;
 
-    rp(_waqi(alert, token))
+    rp(_waqi(alert, AIR_QUALITY_INDEX_KEY))
         .then(res => res.data.aqi)
         .then(aqi => {
                 console.log(aqi, alert.aqiThreshold);
@@ -22,24 +22,23 @@ const alertUser = (user, alert) => {
 }
 
 const twilioCall = () => {
+    //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
+    setInterval(() => keepAppRunning(), 1000 * 60 * 25) // Every 25 minutes
+
     setInterval(() => {
-        //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
-        keepAppRunning(); 
-        
         const currentDate = new Date();
         const currentHour = currentDate.getHours();
-        console.log(currentHour); // Heroku uses UTC!
+        console.log(currentHour); 
 
-        //if(currentHour === 14 || currentHour === 15) {  // UTC (10AM / 11AM EDT)
-        if(currentHour === 13 || currentHour === 14 || currentHour === 15) {   // EDT
+        if(currentHour === 17 || currentHour === 18) {   
             rp(_users)
                 .then(users => alertUsers(users, alertUser))
                 .catch(err => console.log(err));
         }
         else console.log('do not text (wrong time)');
 
-    }, 1000 * 60 * 25); // Every 25 minutes
-    //}, 1000 * 10); // Every 10 seconds
+    }, 1000 * 60 * 60); // Every hour
+    //}, 1000 * 5); // Every 5 seconds
 }
 
 

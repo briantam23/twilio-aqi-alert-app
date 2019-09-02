@@ -8,7 +8,7 @@ const _call = { uri: 'https://btam-twilio-aqi-alert.herokuapp.com/', headers };
 //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
 const keepAppRunning = () => {
     rp(_call)
-        .then(() => console.log('call'))
+        .then(() => console.log('call (to keep app running)'))
         .catch(err => console.log(err))
 }
 

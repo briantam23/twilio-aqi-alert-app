@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import style from './profileCreate.less';
+import { Link } from 'react-router-dom';
 
 
 const ProfileCreate = ({ username, password, phoneNumber, handleChange }) => (
@@ -18,6 +19,8 @@ const ProfileCreate = ({ username, password, phoneNumber, handleChange }) => (
         <button className={ style.authSubmit }>
             Create
         </button>
+
+        <Link to={'/profile'} className={ style.loginLink }>Have an account? Sign in here.</Link>
         
     </Fragment>
 )

@@ -30,7 +30,7 @@ const twilioCall = () => {
         const currentHour = currentDate.getHours();
         console.log(currentHour); 
 
-        if(currentHour === 17 || currentHour === 18) {   
+        if(currentHour === 20) {   
             rp(_users)
                 .then(users => alertUsers(users, alertUser))
                 .catch(err => console.log(err));

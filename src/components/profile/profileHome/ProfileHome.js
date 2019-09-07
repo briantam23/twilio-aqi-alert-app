@@ -12,14 +12,11 @@ const ProfileHome = () => {
     const { auth, users } = useSelector(store => store);
     const alerts = findUserAlerts(auth, users);
 
-    if(!auth.id) return null;
-
-    return(
+    return auth.id ? (
         <div className={ style.profileHomeContainer }>
 
             <div className={ style.profileHomeLogout }>
-                <Route render={ ({ location, history }) => 
-                    <Logout pathname={ location.pathname } history={ history }/> } />
+                <Route render={ ({ location, history }) => <Logout pathname={ location.pathname } history={ history }/> } />
             </div>
 
             <div className={ style.profileHomeAlerts }>
@@ -28,7 +25,7 @@ const ProfileHome = () => {
             </div>
 
         </div>
-    )
+    ) : null
 }
 
 

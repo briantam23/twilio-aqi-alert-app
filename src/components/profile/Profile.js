@@ -10,14 +10,11 @@ const Profile = () => (
 
         <Switch>
 
-            <Route path='/profile/create' render={ ({ location, history }) => 
+            <Route path='(/profile/create|/profile/login)' render={ ({ location, history }) => 
                 <ProfileLoginCreate pathname={ location.pathname } history={ history } /> } />
             
             <Route path='/profile/:id' render={ ({ location, history }) => 
                 <ProfileHome pathname={ location.pathname } history={ history } /> } />
-            
-            <Route render={ ({ location, history }) => 
-                <ProfileLoginCreate pathname={ location.pathname } history={ history } /> } />
                 
         </Switch>
         

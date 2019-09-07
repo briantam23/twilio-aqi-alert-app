@@ -23,7 +23,7 @@ const _setAuth = auth => ({
 
 export const logout = history => {
     window.localStorage.removeItem('token');
-    history.push('/profile');
+    history.push('/profile/login');
     return _setAuth({});
 }
 

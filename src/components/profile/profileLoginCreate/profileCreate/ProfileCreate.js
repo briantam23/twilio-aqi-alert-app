@@ -20,7 +20,7 @@ const ProfileCreate = ({ username, password, phoneNumber, handleChange }) => (
             Create
         </button>
 
-        <Link to={'/profile'} className={ style.loginLink }>Have an account? Sign in here.</Link>
+        <Link to={'/profile/login'} className={ style.loginLink }>Have an account? Sign in here.</Link>
         
     </Fragment>
 )

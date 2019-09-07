@@ -7,9 +7,9 @@ import { findUserAlerts, specialCharRegex } from '../../util/profileUtil';
 import axios from 'axios';
 
 
-const profileFormHOC = FormComponent => {
+const profileFormHOC = FormComponent => (
 
-    return class StatefulForm extends Component {
+    class StatefulForm extends Component {
         
         state = { username: '', password: '', phoneNumber: '', cityName: '', aqiThreshold: '', error: '' };
 
@@ -61,7 +61,7 @@ const profileFormHOC = FormComponent => {
                     .catch(() => this.setState({ error: 'Error! Username taken. Please try again. (X)' }))
             }
             
-            else if(pathname === '') {  //User logins
+            else if(pathname === 'login') {  //User logins
                 login({ username, password }, history)
                     .catch(() => this.setState({ username: '', password: '', error: 'Invalid credentials! Please try again. (X)' })) 
             }
@@ -85,7 +85,7 @@ const profileFormHOC = FormComponent => {
             )
         }
     }
-}
+)
 
 
 const mapStateToProps = ({ auth, users }, { id, pathname, history }) => ({ auth, users, id, pathname, history });

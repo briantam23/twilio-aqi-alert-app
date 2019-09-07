@@ -17,7 +17,7 @@ const Nav = () => {
             
             <ul className={ style.menu }>
                 { !auth.id ? <li><Link to='/profile/create'>Sign up for alerts!</Link></li> : null }
-                <li><Link to={ auth.id ? `/profile/${auth.id}` : '/profile' }>Profile</Link></li>
+                <li><Link to={ auth.id ? `/profile/${auth.id}` : '/profile/login' }>Profile</Link></li>
             </ul>
             
         </div>

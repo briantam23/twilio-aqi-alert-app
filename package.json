@@ -25,7 +25,7 @@
     "heroku-postbuild": "webpack -p",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "build": "npm run webpack -- --watch --mode=development",
-    "start:dev": "npm run build & DATABASE_URL=postgres://localhost/aqi-twilio-alert-app & JWT_SECRET='foo' nodemon server/index.js --ignore public/ --ignore src",
+    "start:dev": "npm run build & DATABASE_URL=postgres://localhost/aqi-twilio-alert-app & JWT_SECRET='foo' nodemon server/index.js --ignore public --ignore src",
     "test": "mocha ./test/*.test.js --require babel-polyfill --require ignore-styles --compilers js:babel-register",
     "test:dev": "npm test -- --watch"
   },
@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.2",
     "dotenv": "^7.0.0",

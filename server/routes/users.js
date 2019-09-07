@@ -1,13 +1,12 @@
 const router = require('express').Router();
 const { User, Alert } = require('../db').models;
+const bcrypt = require('bcrypt');
 
 
 //get users
 router.get('/', (req, res, next) => {
     User.findAll({
-        include: [{ 
-            model: Alert 
-        }]
+        include: [{ model: Alert }]
     })
         .then(users => res.send(users))
         .catch(next)
@@ -27,11 +26,17 @@ router.get('/:userId', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    User.create(req.body)
-        .then(user => res.send(user))
-        .catch(next)
+    const saltRounds = 10;
+    bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+        if(err) console.log(err, 'hash error');
+
+        User.create({ ...req.body, password: hash })
+            .then(user => res.send(user))
+            .catch(next)
+    })
 })
 
+//Incorporate salt/hash for put
 router.put('/:userId', (req, res, next) => {
     User.findByPk(req.params.userId)
         .then(user => user.update(req.body))
@@ -58,9 +63,7 @@ router.post('/:userId/alerts', (req, res, next) => {
 
 router.delete('/:userId/alerts/:alertId', (req, res, next) => {
     Alert.destroy({ 
-        where: { 
-            id: req.params.alertId 
-        }
+        where: { id: req.params.alertId }
     })
         .then(() => res.sendStatus(204))
         .catch(next)

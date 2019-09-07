@@ -64,19 +64,22 @@ app.use((err, req, res, next) => {
     if (!err.stack || !err.message) next(err);
 
     // clean up the trace to just relevant info
-    const cleanTrace = err.stack
-        .split('\n')
-        .filter(line => {
-            // comment out the next two lines for full (verbose) stack traces
-            const projectFile = line.indexOf(__dirname) > -1; // omit built-in Node code
-            const nodeModule = line.indexOf('node_modules') > -1; // omit npm modules
-            return projectFile && !nodeModule;
-        })
-        .join('\n');
+    let cleanTrace = '';
+    if(err.stack) {
+        cleanTrace = err.stack
+            .split('\n')
+            .filter(line => {
+                // comment out the next two lines for full (verbose) stack traces
+                const projectFile = line.indexOf(__dirname) > -1; // omit built-in Node code
+                const nodeModule = line.indexOf('node_modules') > -1; // omit npm modules
+                return projectFile && !nodeModule;
+            })
+            .join('\n');
+    }
 
     // colorize and format the output
     console.log(chalk.magenta('      ' + err.message));
-    console.log('    ' + chalk.gray(cleanTrace));
+    if(err.stack) console.log('    ' + chalk.gray(cleanTrace));
     
     // send back error status
     res.status(err.status || 500).end();

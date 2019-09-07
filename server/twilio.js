@@ -1,5 +1,5 @@
 const rp = require('request-promise');
-const { headers, json, keepAppRunning, _waqi, _message, _users, alertUsers, _devError } = require('./util');
+const { headers, json, keepAppRunning, _waqi, _message, _users, alertUsers, currentHour, _devError } = require('./util');
 
 
 const alertUser = (user, alert) => {
@@ -26,11 +26,9 @@ const twilioCall = () => {
     setInterval(() => keepAppRunning(), 1000 * 60 * 25) // Every 25 minutes
 
     setInterval(() => {
-        const currentDate = new Date();
-        const currentHour = currentDate.getHours();
-        console.log(currentHour); 
+        console.log(currentHour()); 
 
-        if(currentHour === 20) {   
+        if(currentHour() === 20) {   
             rp(_users)
                 .then(users => alertUsers(users, alertUser))
                 .catch(err => console.log(err));

@@ -39,6 +39,11 @@ const _users = {
 
 const alertUsers = (users, alertUser) => users.forEach(user => user.alerts.forEach(alert => alertUser(user, alert)));
 
+const currentHour = () => {
+    const currentDate = new Date();
+    return currentDate.getHours();
+}
+
 const _devError = (from, to, err) => ({ from, to, body: 'Twilio error: ' + err });
 
 
@@ -51,5 +56,6 @@ module.exports = {
     _message,
     _users,
     alertUsers,
+    currentHour,
     _devError
 } 

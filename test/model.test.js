@@ -13,9 +13,7 @@ const { conn } = require('../server/db');
 describe('The `User` model:', () => {
 
     // First we claer the database and recreate the tables before beginning a run
-    before(() => {
-        return conn.sync({ force: true });
-    });
+    before(() => conn.sync({ force: true }));
 
     // Next, we create an (un-saved!) article instance before every spec
     let user;
@@ -28,12 +26,12 @@ describe('The `User` model:', () => {
     })
 
     // Also, we empty the tables after each spec
-    afterEach(() => {
-        return Promise.all([
+    afterEach(() => (
+        Promise.all([
             User.truncate({ cascade: true }),
             Alert.truncate({ cascade: true })
         ])
-    })
+    ))
 
     describe('attributes definition', () => {
         it('includes `username, password, and phoneNumber` fields', async () => {

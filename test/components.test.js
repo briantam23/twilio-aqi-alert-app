@@ -22,13 +22,13 @@ Enzyme.configure({ adapter });
 
 describe('The React Components', () => {
 
-    describe('<App/> component', () => {
+    /* describe('<App/> component', () => {
         let appWrapper;
     
         before('Create component', () => appWrapper = shallow(<App/>));
     
         it('renders a <div>', () => expect(appWrapper.find('div')).to.have.length(1));
-    })
+    }) */
 
     describe('<SingleAlert/> component', () => {
         let singleAlertWrapper, destroyAlertSpy, store;

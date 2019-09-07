@@ -13,13 +13,13 @@ describe('The Express Server', () => {
 
     describe('USE `public` Folder', () => {
 
-        it('serves public files', () => {
+        it('serves public files', () => (
 
-            return agent
+            agent
                 .get('/public/index.html')
                 .expect('Content-type', 'text/html; charset=UTF-8')
                 .expect(200)
-        })
+        ))
 
         it('does not serve private files', async () => {
              
@@ -33,29 +33,27 @@ describe('The Express Server', () => {
 
     describe('GET `/` Route', () => {
         
-        it('sends the index.html file', () => {
+        it('sends the index.html file', () => (
 
-            return agent
+            agent
                 .get('/')
                 .expect('Content-type', 'text/html; charset=UTF-8')
-                .expect(200);
-        })
+                .expect(200)
+        ))
     })
 
     describe('The `Users` Route:', () => {
 
         // First we clear the database before beginning each run
-        before(() => {
-            return conn.sync({ force: true });
-        })
+        before(() => conn.sync({ force: true }))
     
         // Also, we empty the tables after each spec
-        afterEach(() => {
-            return Promise.all([
+        afterEach(() => (
+            Promise.all([
                 Alert.truncate({ cascade: true }),
                 User.truncate({ cascade: true })
             ])
-        })
+        ))
 
         describe('GET /api/users', () => {
             it('responds with a array via JSON', async () => {
@@ -120,12 +118,12 @@ describe('The Express Server', () => {
                 expect(res.body.username).to.equal('Mike');
             })
 
-            it('returns a 404 error if the ID is not correct', () => {
+            it('returns a 404 error if the ID is not correct', () => (
 
-                return agent
+                agent
                     .get('/api/users/a91bb9d6-53dc-49f3-8358-1334e3941bd7')
-                    .expect(404);
-            })
+                    .expect(404)
+            ))
         })
 
         describe('POST /api/users', () => {
@@ -144,15 +142,16 @@ describe('The Express Server', () => {
                 expect(res.body.username).to.equal('Brian');
             })
 
-            it('does not create a new User without a password', () => {
+            it('does not create a new User without a phone number', () => (
     
-                return agent    
+                agent    
                     .post('/api/users')
                     .send({
-                        username: 'This User should not be allowed.'
+                        username: 'This User should not be allowed.',
+                        password: 'Briantam23@'
                     })
-                    .expect(500);
-            })
+                    .expect(500)
+            ))
 
             // Check if the Users were actually saved to the DB
             it('saves the User to the DB', async () => {
@@ -232,13 +231,13 @@ describe('The Express Server', () => {
                 expect(foundUser.password).to.equal('Briantam44#');
             })
 
-            it('gets 500 for invalid update', () => {
+            it('gets 500 for invalid update', () => (
     
-                return agent
+                agent
                     .put('/api/users/' + user.id)
                     .send({ password: null })
-                    .expect(500);
-            })
+                    .expect(500)
+            ))
         })
 
         describe('DELETE, /api/users/:userId', () => {
@@ -273,12 +272,12 @@ describe('The Express Server', () => {
                 expect(foundUser).to.not.exist;
             })
 
-            it('responds with a 500 if a User does not exist', () => {
+            it('responds with a 500 if a User does not exist', () => (
                 
-                return agent
+                agent
                     .delete('/api/users/123')
                     .expect(500)
-            })
+            ))
         })
     })
 })

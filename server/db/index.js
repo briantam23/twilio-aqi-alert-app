@@ -23,19 +23,23 @@ const syncAndSeed = () => {
         .then(alerts => {
             [NewYork, LosAngeles, Boston, Albany] = alerts;
             const saltRounds = 10;
-            bcrypt.hash('Briantam23@', saltRounds, (err, hash) => {
-                User.create({ username: 'Brian', password: hash, phoneNumber: '5166109915' })
-                    .then(Brian => {
-                        NewYork.setUser(Brian);
-                        LosAngeles.setUser(Brian);
-                    })
+            bcrypt.genSalt(saltRounds)
+                .then(salt => bcrypt.hash('Briantam23@', salt))
+                .then(hash => {
+                    User.create({ username: 'Brian', password: hash, phoneNumber: '5166109915' })
+                        .then(Brian => {
+                            NewYork.setUser(Brian);
+                            LosAngeles.setUser(Brian);
+                        })
             })
-            bcrypt.hash('Mike12#', saltRounds, (err, hash) => {
-                User.create({ username: 'Mike', password: hash, phoneNumber: '5166109915' })
-                    .then(Mike => {
-                        Boston.setUser(Mike);
-                        Albany.setUser(Mike);
-                    })
+            bcrypt.genSalt(saltRounds)
+                .then(salt => bcrypt.hash('Mike12#', salt))
+                .then(hash => {
+                    User.create({ username: 'Mike', password: hash, phoneNumber: '5166109915' })
+                        .then(Mike => {
+                            Boston.setUser(Mike);
+                            Albany.setUser(Mike);
+                        })
             })
             /* bcrypt.hash('Johnny34&', saltRounds, (err, hash) => {
                 User.create({ username: 'Johnny', password: 'Johnny34&', phoneNumber: '7183549898' })

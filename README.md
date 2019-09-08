@@ -4,11 +4,11 @@
 
 A Single Page App created with React, Redux, LESS, and Media Queries, along with multiple Testing libraries (Enzyme, Mocha, Chai, Sinon, SuperTest), and Continuous Integration using TravisCI.
 
-## Login Credentials
+## Login Credentials (Passwords are Salted & Hashed using [Bcrypt](https://www.npmjs.com/package/bcrypt))
 
 * Username: `Brian`  | Password: `Briantam23@`
 * Username: `Mike`   | Password: `Mike12#`
-* Username: `Johnny` | Password: `Johnny34&` 
+<!-- * Username: `Johnny` | Password: `Johnny34&`  -->
 
 ## Live Demo
 
@@ -28,6 +28,7 @@ This app requires a Google API Key, Air Quality Index API Key (from https://aqic
 * [Twilio](https://www.twilio.com)
 * [Mocha](https://mochajs.org)
 * [Express](https://expressjs.com)
+* [Bcrypt](https://www.npmjs.com/package/bcrypt)
 
 ### Installation
 

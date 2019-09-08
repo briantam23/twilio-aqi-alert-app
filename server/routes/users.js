@@ -27,13 +27,18 @@ router.get('/:userId', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     const saltRounds = 10;
-    bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
-        if(err) console.log(err, 'hash error');
-
-        User.create({ ...req.body, password: hash })
-            .then(user => res.send(user))
-            .catch(next)
-    })
+    bcrypt.genSalt(saltRounds)
+        .then(salt => {
+            console.log(`Salt: ${salt}`);
+            return bcrypt.hash(req.body.password, salt);
+        })
+        .then(hash => {
+            console.log(`Hash: ${hash}`);
+            User.create({ ...req.body, password: hash })
+                .then(user => res.send(user))
+                .catch(next)
+        })
+        .catch(err => console.error(err.message))
 })
 
 //Incorporate salt/hash for put

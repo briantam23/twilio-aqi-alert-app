@@ -34,6 +34,7 @@ This app requires a Google API Key, Air Quality Index API Key (from https://aqic
 
 ### Installation
 
+* `createdb aqi-twilio-alert-app`
 * `npm install` ( or `yarn install` )
 * `npm run start:dev`
 * open up [localhost:3000](http://localhost:3000) in a web browser

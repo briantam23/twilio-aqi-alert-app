@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import style from './profileLoginCreate.less';
 import profileFormHOC from '../../../higherOrderComponents/profileFormHOC/profileFormHOC';
-import Error from '../../shared/Error';
+import Error from '../../shared/error/Error';
 import ProfileCreate from './profileCreate/ProfileCreate';
 import Login from './login/Login';
 

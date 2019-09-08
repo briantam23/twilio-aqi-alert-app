@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import style from './createAlert.less';
 import profileFormHOC from '../../../../higherOrderComponents/profileFormHOC/profileFormHOC';
-import Error from '../../../shared/Error';
+import Error from '../../../shared/error/Error';
 
 
 export const CreateAlert = ({ cityName, aqiThreshold, error, handleChange, handleSubmit, handleClearError, alerts }) => (

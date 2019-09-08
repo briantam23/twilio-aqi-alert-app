@@ -9,7 +9,7 @@ const Profile = () => (
     <div className={ style.profileContainer }>
 
         <Switch>
-
+    
             <Route path='(/profile/create|/profile/login)' render={ ({ location, history }) => 
                 <ProfileLoginCreate pathname={ location.pathname } history={ history } /> } />
             

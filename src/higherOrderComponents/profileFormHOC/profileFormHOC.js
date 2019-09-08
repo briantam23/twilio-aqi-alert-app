@@ -48,6 +48,7 @@ const profileFormHOC = FormComponent => (
                                 userId: auth.id
                             }
                             createAlert(alert)
+                                .then(() => this.setState({ cityName: '', aqiThreshold: '' }))
                                 .catch(() => this.setState({ error: 'Invalid AQI Threshold! (X)' }))
                         }
                     })

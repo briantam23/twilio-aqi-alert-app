@@ -21,75 +21,83 @@ const profileFormHOC = FormComponent => (
         }
     
         handleChange = e => this.setState({ [e.target.name]: e.target.value });
-    
-        handleSubmit = e => {
+
+        handleCreateAlert = e => {
             e.preventDefault();
-            const { auth, users, login, logout, createUser, createAlert, history } = this.props;
-            let { pathname } = this.props;
-            const { username, password, phoneNumber, aqiThreshold } = this.state;
+            const { auth, numAlerts, createAlert, history } = this.props;
             const cityName = this.state.cityName.trim();
-            const numAlerts = findUserAlerts(auth, users).length;
-            if(pathname) pathname = this.props.pathname.slice(9);
-            
 
-            if(cityName) {  //User creates alert 
+            if(numAlerts >= 5) return this.setState({ error: 'Limit 5 Alerts! (X)' });
 
-                if(numAlerts >= 5) return this.setState({ error: 'Limit 5 Alerts! (X)' });
-
-                return axios.get(`https://api.waqi.info/feed/${cityName}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
-                    .then(res => res.data.data)
-                    .then(data => {
-                        if(data === 'Unknown station') this.setState({ error: 'Unknown Station! (X)' });
-                        else {
-                            const alert = {
-                                cityName: data.city.name,
-                                urlParamCityName: cityName,
-                                aqiThreshold,
-                                userId: auth.id
-                            }
-                            createAlert(alert)
-                                .then(() => this.setState({ cityName: '', aqiThreshold: '' }))
-                                .catch(() => this.setState({ error: 'Invalid AQI Threshold! (X)' }))
+            axios.get(`https://api.waqi.info/feed/${cityName}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
+                .then(res => res.data.data)
+                .then(data => {
+                    if(data === 'Unknown station') this.setState({ error: 'Unknown Station! (X)' });
+                    else {
+                        const alert = {
+                            cityName: data.city.name,
+                            urlParamCityName: cityName,
+                            aqiThreshold: this.state.aqiThreshold,
+                            userId: auth.id
                         }
-                    })
-            }
+                        createAlert(alert)
+                            .then(() => this.setState({ cityName: '', aqiThreshold: '' }))
+                            .catch(() => this.setState({ error: 'Invalid AQI Threshold! (X)' }))
+                    }
+                })
+        }
 
-            else if(pathname === 'create') {   //User creates account
-                if(!specialCharRegex(password)) return this.setState({ error: 'Error! Password must have at least 1 special character. (X)' });
+        handleCreateUser = e => {
+            e.preventDefault();
+            const { createUser, login, history } = this.props;
+            const { username, password, phoneNumber } = this.state;
+
+            if(!specialCharRegex(password)) {
+                return this.setState({ error: 'Error! Password must have at least 1 special character. (X)' });
+            }
                 
-                createUser({ username, password, phoneNumber })
-                    .then(() => login({ username, password }, history))
-                    .catch(() => this.setState({ error: 'Error! Username taken. Please try again. (X)' }))
-            }
-            
-            else if(pathname === 'login') {  //User logins
-                login({ username, password }, history)
-                    .catch(() => this.setState({ username: '', password: '', error: 'Invalid credentials! Please try again. (X)' })) 
-            }
+            createUser({ username, password, phoneNumber })
+                .then(() => login({ username, password }, history))
+                .catch(() => this.setState({ error: 'Error! Username taken. Please try again. (X)' }))
+        }
 
-            else logout(history);  //User logouts
+        handleLogin = e => {
+            e.preventDefault();
+            const { login, history } = this.props;
+            const { username, password } = this.state;
+
+            login({ username, password }, history)
+                .catch(() => {
+                    this.setState({ 
+                        username: '', 
+                        password: '', 
+                        error: 'Invalid credentials! Please try again. (X)' 
+                    })
+                }) 
+        }
+
+        handleLogout = e => {
+            e.preventDefault();
+            const { logout, history } = this.props;
+
+            logout(history);
         }
 
         handleClearError = () => this.setState({ error: '' });
 
         render () {
-            const { handleChange, handleSubmit, handleClearError } = this;
-            
             return(
-                <FormComponent 
-                    { ...this.state } 
-                    { ...this.props } 
-                    handleChange={ handleChange } 
-                    handleSubmit={ handleSubmit }
-                    handleClearError={ handleClearError } 
-                />
+                <FormComponent { ...this.state } { ...this.props } { ...this }/>
             )
         }
     }
 )
 
 
-const mapStateToProps = ({ auth, users }, { id, pathname, history }) => ({ auth, users, id, pathname, history });
+const mapStateToProps = ({ auth, users }, { history }) => { 
+    const numAlerts = findUserAlerts(auth, users).length;
+    return { auth, numAlerts, history };
+}
 
 const mapDispatchToProps = { login, logout, createUser, createAlert };
 

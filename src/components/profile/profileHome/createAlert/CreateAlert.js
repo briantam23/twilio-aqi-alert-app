@@ -4,12 +4,12 @@ import profileFormHOC from '../../../../higherOrderComponents/profileFormHOC/pro
 import Error from '../../../shared/error/Error';
 
 
-export const CreateAlert = ({ cityName, aqiThreshold, error, handleChange, handleSubmit, handleClearError, alerts }) => (
+export const CreateAlert = ({ cityName, aqiThreshold, error, handleChange, handleCreateAlert, handleClearError }) => (
     <div className={ style.createAlertContainer }>
 
         <h1>Create Air Quality Alert!</h1>
 
-        <form onSubmit={ handleSubmit } className={ style.createAlertForm }>
+        <form onSubmit={ handleCreateAlert } className={ style.createAlertForm }>
             <Error error={ error } handleClearError={ handleClearError }/>
             <input 
                 onChange={ handleChange } 

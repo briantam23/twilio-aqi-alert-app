@@ -3,8 +3,8 @@ import style from './logout.less';
 import profileFormHOC from '../../../../higherOrderComponents/profileFormHOC/profileFormHOC';
 
 
-const Logout = ({ auth, handleSubmit, pathname, history }) => (
-    <form onSubmit={ handleSubmit }>
+const Logout = ({ auth, handleLogout, history }) => (
+    <form onSubmit={ handleLogout }>
 
         <div className={ style.authWelcome }>
             Welcome { auth.username }!

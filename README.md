@@ -4,7 +4,9 @@
 
 A Single Page App created with React, Redux, LESS, and Media Queries, along with multiple Testing libraries (Enzyme, Mocha, Chai, Sinon, SuperTest), and Continuous Integration using TravisCI.
 
-## Login Credentials (Passwords are Salted & Hashed using [Bcrypt](https://www.npmjs.com/package/bcrypt))
+## Login Credentials
+
+Passwords are Salted & Hashed using [Bcrypt](https://www.npmjs.com/package/bcrypt)
 
 * Username: `Brian`  | Password: `Briantam23@`
 * Username: `Mike`   | Password: `Mike12#`

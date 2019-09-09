@@ -1,6 +1,13 @@
 [![Build Status](https://travis-ci.org/briantam23/twilio-aqi-alert-app.svg?branch=master)](https://travis-ci.org/briantam23/twilio-aqi-alert-app)
+[![Known Vulnerabilities](https://app.snyk.io/test/github/briantam23/twilio-aqi-alert-app/badge.svg?targetFile=package.json)](https://app.snyk.io/test/github/briantam23/twilio-aqi-alert-app?targetFile=package.json)
+[![Dependency Status](https://david-dm.org/briantam23/twilio-aqi-alert-app.svg)](https://david-dm.org/briantam23/twilio-aqi-alert-app)
+[![devDependencies Status](https://david-dm.org/briantam23/twilio-aqi-alert-app/dev-status.svg)](https://david-dm.org/briantam23/twilio-aqi-alert-app?type=dev)
+[![Code Climate](https://codeclimate.com/github/briantam23/twilio-aqi-alert-app/badges/gpa.svg)](https://codeclimate.com/github/briantam23/twilio-aqi-alert-app/)
+
 
 # 🌤 Air Quality Index App w/ Twilio Notifications
+
+![Maps component screenshot](./public/img/open_graph_img.png)
 
 A Single Page App that:
 
@@ -8,7 +15,10 @@ A Single Page App that:
 *  Integrates the Google Maps API with AutoComplete & Geolocation along with the World AQI Map Overlay API in order to display AQIs around the world
 *  Implements Responsive Web Design (RWD) using Media Queries / LESS
 
+![Profile page screenshot](./public/img/profile_page_screenshot.png)
+
 ## Table of contents
+* [Motivation](#motivation)
 * [What is Twilio?](#what-is-twilio?)
 * [Login Credentials](#login-credentials)
 * [Live Demo](#live-demo)
@@ -17,7 +27,11 @@ A Single Page App that:
 * [Installation](#installation)
 * [Running Locally](#running-locally)
 * [Deploying to Heroku](#deploying-to-heroku)
-* [Testing](#testing)
+* [Tests](#tests)
+* [Contact](#contact)
+
+## Motivation
+I wanted to create something useful everyone would use and wanted to utilize the popular Google Maps and AutoComplete API. I thought that, since I use my weather app every morning – why not create a small version of it.
 
 ## What is Twilio?
 The [Twilio Messaging API](https://www.twilio.com/docs/api) makes it easy to send and receive SMS and MMS messages as well as query meta-data about text messages such as delivery status, associated media, and leverage tools like Copilot to manage your messages globally at scale.
@@ -101,16 +115,23 @@ Alternatively, you can deploy your own copy of the app using the web-based flow:
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-## Testing
+## Tests
 
 Created Tests for React Components, the Redux Store, Routes, Models, and Functions:
 
-* To run without "watch mode": 
+> To run without "watch mode": 
 ```sh
 npm run test
 ``` 
 
-* To run with "watch mode":
+> To run with "watch mode":
 ```sh
 npm run test:dev
 ```
+
+## Contact
+Created by [Brian Tam](http://briantam23.github.io) - feel free to contact me at [briantam23@gmail.com](mailto:briantam23@gmail.com)!
+
+Personal Website - [briantam23.github.io](briantam23.github.io) <br/>
+LinkedIn - [@briantam23](linkedin.com/in/briantam23) <br/>
+Github - [@briantam23](github.com/briantam23)

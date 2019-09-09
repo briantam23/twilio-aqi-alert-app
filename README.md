@@ -132,6 +132,6 @@ npm run test:dev
 ## Contact
 Created by [Brian Tam](http://briantam23.github.io) - feel free to contact me at [briantam23@gmail.com](mailto:briantam23@gmail.com)!
 
-Personal Website - [briantam23.github.io](briantam23.github.io) <br/>
-LinkedIn - [@briantam23](linkedin.com/in/briantam23) <br/>
-Github - [@briantam23](github.com/briantam23)
+Personal Website - [briantam23.github.io](http://briantam23.github.io) <br/>
+LinkedIn - [@briantam23](https://linkedin.com/in/briantam23/) <br/>
+Github - [@briantam23](https://github.com/briantam23)

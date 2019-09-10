@@ -7,15 +7,14 @@
 
 # 🌤 Air Quality Index App w/ Twilio Notifications
 
-![Maps component screenshot](./public/img/open_graph_img.png)
-
 A Single Page App that:
 
 *  Incorporates the Twilio API with React / Redux to send users Air Quality Index (AQI) alerts whenever the AQIs exceed certain user-set thresholds
 *  Integrates the Google Maps API with AutoComplete & Geolocation along with the World AQI Map Overlay API in order to display AQIs around the world
 *  Implements Responsive Web Design (RWD) using Media Queries / LESS
 
-![Profile page screenshot](./public/img/profile_page_screenshot.png)
+![Maps component screenshot](./public/img/screenshots/map_page.png) <hr/>
+![Profile page screenshot](./public/img/screenshots/profile_page.png)
 
 ## Table of contents
 * [Motivation](#motivation)

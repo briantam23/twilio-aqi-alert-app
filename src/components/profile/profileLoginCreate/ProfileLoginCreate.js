@@ -4,12 +4,16 @@ import profileFormHOC from '../../../higherOrderComponents/profileFormHOC/profil
 import Error from '../../shared/error/Error';
 import ProfileCreate from './profileCreate/ProfileCreate';
 import Login from './login/Login';
+import Spinner from '../../shared/spinner/Spinner';
 
 
-const ProfileLoginCreate = ({ username, password, error, phoneNumber, handleChange, handleCreateUser, handleLogin, handleClearError, auth, pathname }) => {
+const ProfileLoginCreate = ({ username, password, error, isLoading, phoneNumber, handleChange, handleCreateUser, handleLogin, handleClearError, auth, pathname }) => {
     pathname = pathname.slice(9);
     return (
         <div>
+
+            { isLoading ? <Spinner/> : null }
+
             { pathname === 'create' ? <h1>Create Profile</h1> : <h1>Login</h1> }
 
             <form onSubmit={ pathname === 'create' ? handleCreateUser : handleLogin } className={ style.authForm }>

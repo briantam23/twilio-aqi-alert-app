@@ -11,7 +11,7 @@ const profileFormHOC = FormComponent => (
 
     class StatefulForm extends Component {
         
-        state = { username: '', password: '', phoneNumber: '', cityName: '', aqiThreshold: '', error: '' };
+        state = { username: '', password: '', phoneNumber: '', cityName: '', aqiThreshold: '', error: '', isLoading: false };
 
         componentDidUpdate = prevProps => {
             if(prevProps !== this.props) {
@@ -29,10 +29,11 @@ const profileFormHOC = FormComponent => (
 
             if(numAlerts >= 5) return this.setState({ error: 'Limit 5 Alerts! (X)' });
 
+            this.setState({ isLoading: true });
             axios.get(`https://api.waqi.info/feed/${cityName}/?token=${process.env.AIR_QUALITY_INDEX_KEY}`)
                 .then(res => res.data.data)
                 .then(data => {
-                    if(data === 'Unknown station') this.setState({ error: 'Unknown Station! (X)' });
+                    if(data === 'Unknown station') this.setState({ error: 'Unknown Station! (X)', isLoading: false });
                     else {
                         const alert = {
                             cityName: data.city.name,
@@ -41,8 +42,8 @@ const profileFormHOC = FormComponent => (
                             userId: auth.id
                         }
                         createAlert(alert)
-                            .then(() => this.setState({ cityName: '', aqiThreshold: '' }))
-                            .catch(() => this.setState({ error: 'Invalid AQI Threshold! (X)' }))
+                            .then(() => this.setState({ cityName: '', aqiThreshold: '', isLoading: false }))
+                            .catch(() => this.setState({ error: 'Invalid AQI Threshold! (X)', isLoading: false }))
                     }
                 })
         }
@@ -55,10 +56,12 @@ const profileFormHOC = FormComponent => (
             if(!specialCharRegex(password)) {
                 return this.setState({ error: 'Error! Password must have at least 1 special character. (X)' });
             }
-                
+             
+            this.setState({ isLoading: true });
             createUser({ username, password, phoneNumber })
                 .then(() => login({ username, password }, history))
-                .catch(() => this.setState({ error: 'Error! Username taken. Please try again. (X)' }))
+                .then(() => this.setState({ isLoading: false }))
+                .catch(() => this.setState({ error: 'Error! Username taken. Please try again. (X)', isLoading: false }))
         }
 
         handleLogin = e => {
@@ -66,12 +69,15 @@ const profileFormHOC = FormComponent => (
             const { login, history } = this.props;
             const { username, password } = this.state;
 
+            this.setState({ isLoading: true });
             login({ username, password }, history)
+                .then(() => this.setState({ isLoading: false }))
                 .catch(() => {
                     this.setState({ 
                         username: '', 
                         password: '', 
-                        error: 'Invalid credentials! Please try again. (X)' 
+                        error: 'Invalid credentials! Please try again. (X)',
+                        isLoading: false 
                     })
                 }) 
         }

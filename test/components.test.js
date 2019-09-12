@@ -61,11 +61,11 @@ describe('The React Components', () => {
     })
     
     describe('<CreateAlert/> component', () => {
-        let createAlertWrapper, handleSubmitSpy;
+        let createAlertWrapper, handleCreateAlertSpy;
     
         before('Create component', () => {
-            handleSubmitSpy = spy();
-            createAlertWrapper = shallow(<CreateAlert handleSubmit={ handleSubmitSpy }/>);
+            handleCreateAlertSpy = spy();
+            createAlertWrapper = shallow(<CreateAlert handleCreateAlert={ handleCreateAlertSpy }/>);
         })
 
         it('renders a 2 <input> fields', () => expect(createAlertWrapper.find('input')).to.have.length(2));
@@ -73,12 +73,12 @@ describe('The React Components', () => {
         it('when the `Create Alert` <button> is clicked, it invokes a function passed in', () => {
 
             // The function passed into button should not be called immediately.
-            expect(handleSubmitSpy.calledOnce).to.be.false;
+            expect(handleCreateAlertSpy.calledOnce).to.be.false;
 
             //This will trigger any onClick handlers registered to the component.
             createAlertWrapper.find('form').at(0).simulate('submit');
 
-            expect(handleSubmitSpy.calledOnce).to.be.true;
+            expect(handleCreateAlertSpy.calledOnce).to.be.true;
         })
     })
 })

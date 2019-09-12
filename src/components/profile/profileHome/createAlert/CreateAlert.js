@@ -2,11 +2,14 @@ import React, { Fragment } from 'react';
 import style from './createAlert.less';
 import profileFormHOC from '../../../../higherOrderComponents/profileFormHOC/profileFormHOC';
 import Error from '../../../shared/error/Error';
+import Spinner from '../../../shared/spinner/Spinner';
 
 
-export const CreateAlert = ({ cityName, aqiThreshold, error, handleChange, handleCreateAlert, handleClearError }) => (
+export const CreateAlert = ({ cityName, aqiThreshold, error, isLoading, handleChange, handleCreateAlert, handleClearError }) => (
     <div className={ style.createAlertContainer }>
-
+        
+        { isLoading ? <Spinner/> : null }
+        
         <h1>Create Air Quality Alert!</h1>
 
         <form onSubmit={ handleCreateAlert } className={ style.createAlertForm }>

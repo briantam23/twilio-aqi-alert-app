@@ -1,4 +1,4 @@
-import { SET_AUTH } from '../constants';
+import { SET_AUTH, REMOVE_AUTH } from '../constants';
 import axios from 'axios';
 
 
@@ -20,13 +20,6 @@ const _setAuth = auth => ({
     type: SET_AUTH,
     auth
 })
-
-export const logout = history => {
-    window.localStorage.removeItem('token');
-    history.push('/profile/login');
-    return _setAuth({});
-}
-
 export const login = (credentials, history) => (
     dispatch => (
         axios.post('/api/auth', credentials)
@@ -37,3 +30,14 @@ export const login = (credentials, history) => (
             })
     )
 )
+
+const _removeAuth = auth => ({
+    type: REMOVE_AUTH,
+    auth
+})
+
+export const logout = history => {
+    window.localStorage.removeItem('token');
+    history.push('/profile/login');
+    return _removeAuth({});
+}

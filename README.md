@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/briantam23/twilio-aqi-alert-app.svg?branch=master)](https://travis-ci.org/briantam23/twilio-aqi-alert-app)
-[![Known Vulnerabilities](https://app.snyk.io/test/github/briantam23/twilio-aqi-alert-app/badge.svg?targetFile=package.json)](https://app.snyk.io/test/github/briantam23/twilio-aqi-alert-app?targetFile=package.json)
+<!-- [![Known Vulnerabilities](https://app.snyk.io/test/github/briantam23/twilio-aqi-alert-app/badge.svg?targetFile=package.json)](https://app.snyk.io/test/github/briantam23/twilio-aqi-alert-app?targetFile=package.json) -->
 [![Dependency Status](https://david-dm.org/briantam23/twilio-aqi-alert-app.svg)](https://david-dm.org/briantam23/twilio-aqi-alert-app)
 [![devDependencies Status](https://david-dm.org/briantam23/twilio-aqi-alert-app/dev-status.svg)](https://david-dm.org/briantam23/twilio-aqi-alert-app?type=dev)
 [![Code Climate](https://codeclimate.com/github/briantam23/twilio-aqi-alert-app/badges/gpa.svg)](https://codeclimate.com/github/briantam23/twilio-aqi-alert-app/)

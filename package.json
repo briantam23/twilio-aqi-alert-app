@@ -14,7 +14,7 @@
   ],
   "homepage": "https://btam-twilio-aqi-alert.herokuapp.com",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Web App that incorporates the Twilio API with React / Redux to send users Air Quality Index (AQI) alerts whenever the AQIs exceed certain user-set thresholds. It also integrates the Google Maps API with AutoComplete & Geolocation along with the World AQI Map Overlay API in order to display AQIs around the world.",
   "repository": {
     "type": "git",
     "url": "https://github.com/briantam23/twilio-aqi-alert-app.git"
@@ -29,7 +29,19 @@
     "test": "mocha ./test/*.test.js --require babel-polyfill --require ignore-styles --compilers js:babel-register",
     "test:dev": "npm test -- --watch"
   },
-  "keywords": [],
+  "keywords": [
+    "google-maps-api",
+    "media-queries",
+    "reactjs",
+    "nodejs",
+    "twilio",
+    "travis-ci",
+    "less",
+    "react-higher-order-components",
+    "react-hooks",
+    "regex",
+    "bcrypt"
+  ],
   "license": "ISC",
   "babel": {
     "presets": [

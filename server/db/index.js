@@ -10,6 +10,7 @@ User.hasMany(Alert);
 
 const sync = () => conn.sync({ force: false });
 
+
 const syncAndSeed = () => {
     let NewYork, LosAngeles, Boston, Albany;
 

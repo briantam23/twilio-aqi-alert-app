@@ -8,11 +8,12 @@ Alert.belongsTo(User);
 User.hasMany(Alert);
 
 
+const sync = () => conn.sync({ force: false });
+
 const syncAndSeed = () => {
     let NewYork, LosAngeles, Boston, Albany;
 
-    //conn.sync({ force: true })
-    conn.sync({ force: false })
+    conn.sync({ force: true })
         .then(() => (
             Promise.all([
                 Alert.create({ cityName: 'New York', urlParamCityName: 'newyork', aqiThreshold: 0 }),
@@ -50,6 +51,7 @@ const syncAndSeed = () => {
 
 
 module.exports = {
+    sync,
     syncAndSeed,
     models: {
         User,

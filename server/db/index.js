@@ -11,7 +11,8 @@ User.hasMany(Alert);
 const syncAndSeed = () => {
     let NewYork, LosAngeles, Boston, Albany;
 
-    conn.sync({ force: true })
+    //conn.sync({ force: true })
+    conn.sync({ force: false })
         .then(() => (
             Promise.all([
                 Alert.create({ cityName: 'New York', urlParamCityName: 'newyork', aqiThreshold: 0 }),

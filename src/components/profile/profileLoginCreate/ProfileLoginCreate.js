@@ -15,7 +15,7 @@ const ProfileLoginCreate = ({ username, password, error, isLoading, phoneNumber,
             { isLoading ? <Spinner/> : null }
 
             { pathname === 'create' ? <h1>Create Profile</h1> : <h1>Login</h1> }
-
+            <a href='/api/auth/github' color='primary' >Login using GitHub</a>
             <form onSubmit={ pathname === 'create' ? handleCreateUser : handleLogin } className={ style.authForm }>
                 <Error error={ error } handleClearError={ handleClearError }/>
                 <input 

@@ -7,27 +7,34 @@ const User = conn.define('user', {
         defaultValue: conn.Sequelize.UUIDV4,
         primaryKey: true
     },
+    githubUserId: {
+        type: conn.Sequelize.INTEGER
+    },
+    githubUsername: {
+        type: conn.Sequelize.STRING,
+        unique: true
+    },
     username: {
         type: conn.Sequelize.STRING,
         unique: true,
-        allowNull: false,
+        /* allowNull: false,
         validate: {
             notEmpty: true
-        }
+        } */
     },
     password: {
         type: conn.Sequelize.STRING,
-        allowNull: false,
+        /* allowNull: false,
         validate: {
             notEmpty: true
-        }
+        } */
     },
     phoneNumber: {
         type: conn.Sequelize.STRING,
-        allowNull: false,
+        /* allowNull: false,
         validate: {
             notEmpty: true
-        }
+        } */
     }
 })
 

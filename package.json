@@ -27,7 +27,9 @@
     "build": "npm run webpack -- --watch --mode=development",
     "start:dev": "npm run build & DATABASE_URL=postgres://localhost/aqi-twilio-alert-app & JWT_SECRET='foo' nodemon server/index.js --ignore public --ignore src",
     "test": "mocha ./test/*.test.js --require babel-polyfill --require ignore-styles --compilers js:babel-register",
-    "test:dev": "npm test -- --watch"
+    "test:dev": "npm test -- --watch",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "google-maps-api",
@@ -73,7 +75,8 @@
     "request-promise": "^4.2.4",
     "sequelize": "^5.15.1",
     "twilio": "^3.33.0",
-    "volleyball": "^1.5.1"
+    "volleyball": "^1.5.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -104,5 +107,6 @@
   "engines": {
     "node": "10.16.0",
     "npm": "6.10.3"
-  }
+  },
+  "snyk": true
 }

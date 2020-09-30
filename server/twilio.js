@@ -23,7 +23,7 @@ const alertUser = (user, alert) => {
 
 const twilioCall = () => {
     //Heroku ordinarily terminates idle dynos after 30 minutes, so this will run the app indefinitely
-    setInterval(() => keepAppRunning(), 1000 * 60 * 25) // Every 25 minutes
+    //setInterval(() => keepAppRunning(), 1000 * 60 * 25) // Every 25 minutes
 
     setInterval(() => {
         console.log(currentHour()); 

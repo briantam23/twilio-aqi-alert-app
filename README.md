@@ -119,7 +119,7 @@ Created Tests for React Components, the Redux Store, Routes, Models, and Functio
 
 > To run without "watch mode": 
 ```sh
-npm run test
+npm test
 ``` 
 
 > To run with "watch mode":
